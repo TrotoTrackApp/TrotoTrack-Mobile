@@ -1,7 +1,8 @@
-package com.trototrackapp.trototrack
+package com.trototrackapp.trototrack.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.trototrackapp.trototrack.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
