@@ -40,7 +40,7 @@ class ToolsFragment : Fragment() {
         binding.cameraButton.setOnClickListener {
             startCamera()
         }
-    }   
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
