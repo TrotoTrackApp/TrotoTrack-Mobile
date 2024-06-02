@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.data.remote.request.LoginRequest
+import com.trototrackapp.trototrack.data.remote.request.RegisterRequest
 import com.trototrackapp.trototrack.data.remote.response.LoginResponse
+import com.trototrackapp.trototrack.data.remote.response.RegisterResponse
 import com.trototrackapp.trototrack.data.remote.retrofit.ApiService
 
 class AuthRepository(private val apiService: ApiService) {
@@ -15,6 +17,22 @@ class AuthRepository(private val apiService: ApiService) {
             try {
                 val request = LoginRequest(email, password)
                 val response = apiService.login(request)
+                if (response.isSuccessful) {
+                    emit(ResultState.Success(response.body()!!))
+                } else {
+                    emit(ResultState.Error(response.errorBody()?.string() ?: "An error occurred"))
+                }
+            } catch (e: Exception) {
+                emit(ResultState.Error(e.message ?: "An error occurred"))
+            }
+        }
+
+    fun register(name: String, username: String, email: String, password: String, confirm_password: String): LiveData<ResultState<RegisterResponse>> =
+        liveData {
+            emit(ResultState.Loading)
+            try {
+                val request = RegisterRequest(name, username, email, password, confirm_password)
+                val response = apiService.register(request)
                 if (response.isSuccessful) {
                     emit(ResultState.Success(response.body()!!))
                 } else {

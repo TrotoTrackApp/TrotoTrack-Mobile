@@ -3,11 +3,9 @@ package com.trototrackapp.trototrack.ui.welcome
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.trototrackapp.trototrack.R
 import com.trototrackapp.trototrack.databinding.ActivityWelcomeBinding
 import com.trototrackapp.trototrack.ui.auth.LoginActivity
 import com.trototrackapp.trototrack.ui.auth.SignInActivity
-import com.trototrackapp.trototrack.ui.home.MainActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
@@ -22,7 +20,7 @@ class WelcomeActivity : AppCompatActivity() {
         }
 
         binding.SignInButton.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, SignInActivity::class.java))
         }
     }
 }
