@@ -1,5 +1,6 @@
 package com.trototrackapp.trototrack.ui.home
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.trototrackapp.trototrack.R
 import com.trototrackapp.trototrack.databinding.FragmentToolsBinding
+import com.trototrackapp.trototrack.ui.add.MapsActivity
+import com.trototrackapp.trototrack.ui.detail.DetailAccountActivity
+import com.trototrackapp.trototrack.ui.result.ResultActivity
 import com.trototrackapp.trototrack.util.getImageUri
 
 class ToolsFragment : Fragment() {
@@ -39,6 +43,11 @@ class ToolsFragment : Fragment() {
         // Set up button click listener
         binding.cameraButton.setOnClickListener {
             startCamera()
+        }
+
+        binding.scanButton.setOnClickListener {
+            val intent = Intent(activity, ResultActivity::class.java)
+            startActivity(intent)
         }
     }
 
