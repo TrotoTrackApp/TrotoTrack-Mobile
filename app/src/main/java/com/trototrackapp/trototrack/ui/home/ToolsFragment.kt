@@ -10,11 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.fragment.app.viewModels
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.FragmentToolsBinding
-import com.trototrackapp.trototrack.ui.auth.LoginActivity
 import com.trototrackapp.trototrack.ui.result.ResultActivity
 import com.trototrackapp.trototrack.ui.viewmodel.ScanViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
@@ -56,10 +54,10 @@ class ToolsFragment : Fragment() {
 
         binding.scanButton.setOnClickListener {
 
-            val file = uriToFile(currentImageUri!!, this)
+            val file = uriToFile(currentImageUri!!, requireContext())  // Use requireContext() here
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                "photo", file.name, requestImageFile
+                "image", file.name, requestImageFile
             )
 
             binding.progressIndicator.visibility = View.VISIBLE
@@ -78,11 +76,13 @@ class ToolsFragment : Fragment() {
                         val intent = Intent(requireContext(), ResultActivity::class.java)
                         intent.putExtra("label", label)
                         intent.putExtra("description", description)
+                        intent.putExtra("imageUri", currentImageUri.toString())
                         startActivity(intent)
                     }
                     is ResultState.Error -> {
                         binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(requireContext(), "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Error: ${result.message}", Toast.LENGTH_LONG).show()
+                        Log.e("ScanViewModel", "Error: ${result.message}")
                     }
                 }
             }

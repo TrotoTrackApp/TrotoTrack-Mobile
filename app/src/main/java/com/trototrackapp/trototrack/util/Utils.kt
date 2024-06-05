@@ -46,7 +46,7 @@ private fun getImageUriForPreQ(context: Context): Uri {
     )
 }
 
-fun uriToFile(imageUri: Uri, context: ToolsFragment): File {
+fun uriToFile(imageUri: Uri, context: Context): File {
     val myFile = createCustomTempFile(context)
     val inputStream = context.contentResolver.openInputStream(imageUri) as InputStream
     val outputStream = FileOutputStream(myFile)
