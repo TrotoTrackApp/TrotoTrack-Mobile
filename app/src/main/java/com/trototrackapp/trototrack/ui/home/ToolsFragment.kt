@@ -8,20 +8,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import com.trototrackapp.trototrack.R
+import androidx.core.app.ActivityCompat.finishAffinity
+import androidx.fragment.app.viewModels
+import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.FragmentToolsBinding
-import com.trototrackapp.trototrack.ui.add.MapsActivity
-import com.trototrackapp.trototrack.ui.detail.DetailAccountActivity
+import com.trototrackapp.trototrack.ui.auth.LoginActivity
 import com.trototrackapp.trototrack.ui.result.ResultActivity
+import com.trototrackapp.trototrack.ui.viewmodel.ScanViewModel
+import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import com.trototrackapp.trototrack.util.getImageUri
+import com.trototrackapp.trototrack.util.uriToFile
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 class ToolsFragment : Fragment() {
 
     private var _binding: FragmentToolsBinding? = null
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
+    private val scanViewModel: ScanViewModel by viewModels {
+        ViewModelFactory.getInstance(requireActivity())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,14 +50,42 @@ class ToolsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up button click listener
         binding.cameraButton.setOnClickListener {
             startCamera()
         }
 
         binding.scanButton.setOnClickListener {
-            val intent = Intent(activity, ResultActivity::class.java)
-            startActivity(intent)
+
+            val file = uriToFile(currentImageUri!!, this)
+            val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                "photo", file.name, requestImageFile
+            )
+
+            binding.progressIndicator.visibility = View.VISIBLE
+            scanViewModel.scan(imageMultipart).observe(viewLifecycleOwner) { result ->
+                when (result) {
+                    is ResultState.Loading -> {
+                        binding.progressIndicator.visibility = View.VISIBLE
+                    }
+                    is ResultState.Success -> {
+                        binding.progressIndicator.visibility = View.GONE
+                        Toast.makeText(requireContext(), "Scan successfull", Toast.LENGTH_SHORT).show()
+
+                        val label = result.data.data?.label
+                        val description = result.data.data?.description
+
+                        val intent = Intent(requireContext(), ResultActivity::class.java)
+                        intent.putExtra("label", label)
+                        intent.putExtra("description", description)
+                        startActivity(intent)
+                    }
+                    is ResultState.Error -> {
+                        binding.progressIndicator.visibility = View.GONE
+                        Toast.makeText(requireContext(), "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
     }
 
