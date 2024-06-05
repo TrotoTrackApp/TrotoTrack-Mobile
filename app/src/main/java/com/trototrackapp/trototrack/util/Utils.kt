@@ -8,6 +8,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
 import com.trototrackapp.trototrack.BuildConfig
+import com.trototrackapp.trototrack.ui.home.ToolsFragment
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -45,7 +46,7 @@ private fun getImageUriForPreQ(context: Context): Uri {
     )
 }
 
-fun uriToFile(imageUri: Uri, context: Context): File {
+fun uriToFile(imageUri: Uri, context: ToolsFragment): File {
     val myFile = createCustomTempFile(context)
     val inputStream = context.contentResolver.openInputStream(imageUri) as InputStream
     val outputStream = FileOutputStream(myFile)
