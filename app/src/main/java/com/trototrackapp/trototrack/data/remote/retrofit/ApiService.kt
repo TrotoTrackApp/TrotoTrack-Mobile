@@ -38,7 +38,7 @@ interface ApiService {
     ): Response<AddReportResponse>
 
     @Multipart
-    @POST("reports")
+    @POST("scan")
     suspend fun scan(
         @Part image: MultipartBody.Part,
     ): Response<ScanResponse>
