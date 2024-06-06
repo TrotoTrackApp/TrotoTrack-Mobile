@@ -6,14 +6,15 @@ import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.data.remote.response.AddReportResponse
 import com.trototrackapp.trototrack.data.remote.retrofit.ApiService
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class ReportRepository(private val apiService: ApiService) {
 
-    fun addReport(locationName: String, referenceLocation: String, latitude: Double, longitude: Double, image: MultipartBody.Part, statusDamage: String, description: String): LiveData<ResultState<AddReportResponse>> =
+    fun addReport(locationName: RequestBody, referenceLocation: RequestBody, latitude: RequestBody, longitude: RequestBody, image: MultipartBody.Part, status_damage: RequestBody, description: RequestBody): LiveData<ResultState<AddReportResponse>> =
         liveData {
             emit(ResultState.Loading)
             try {
-                val response = apiService.addReport(locationName, referenceLocation, latitude, longitude, image, statusDamage, description)
+                val response = apiService.addReport(locationName, referenceLocation, latitude, longitude, image, status_damage, description)
                 if (response.isSuccessful) {
                     emit(ResultState.Success(response.body()!!))
                 } else {

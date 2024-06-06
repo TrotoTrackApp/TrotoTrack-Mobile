@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -107,6 +108,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun sendLocationData() {
         val locationName = locationAddressTextView.text.toString()
         val latLng = centerMarker.position
+
+        Log.d("LoginActivity", latLng.latitude.toString())
+        Log.d("LoginActivity", latLng.longitude.toString())
 
         val resultIntent = Intent().apply {
             putExtra("LOCATION_NAME", locationName)

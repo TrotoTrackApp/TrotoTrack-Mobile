@@ -3,4 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="welcomeText1">Care for Sidewalks, \nCare for Safety</string>
+    <string name="welcomeText2">Trusted Sidewalk \nSecurity Detection</string>
+    <string name="loginText">Login</string>
+    <string name="signinText">Sign in</string>
+    <string name="appLogo">App Logo</string>
 </resources>
