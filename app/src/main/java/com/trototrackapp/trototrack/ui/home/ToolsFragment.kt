@@ -54,7 +54,12 @@ class ToolsFragment : Fragment() {
 
         binding.scanButton.setOnClickListener {
 
-            val file = uriToFile(currentImageUri!!, requireContext())  // Use requireContext() here
+            if (currentImageUri == null) {
+                Toast.makeText(requireContext(), "Please capture an image first", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val file = uriToFile(currentImageUri!!, requireContext())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
                 "image", file.name, requestImageFile
@@ -68,7 +73,7 @@ class ToolsFragment : Fragment() {
                     }
                     is ResultState.Success -> {
                         binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(requireContext(), "Scan successfull", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Scan successful", Toast.LENGTH_SHORT).show()
 
                         val label = result.data.data?.label
                         val description = result.data.data?.description

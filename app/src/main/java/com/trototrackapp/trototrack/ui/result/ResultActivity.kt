@@ -1,6 +1,8 @@
 package com.trototrackapp.trototrack.ui.result
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,6 +31,15 @@ class ResultActivity : AppCompatActivity() {
 
         val imageUri = Uri.parse(imageUriString)
         binding.resultImage.setImageURI(imageUri)
+
+        val backgroundColor = when (label) {
+            "light damaged" -> Color.YELLOW
+            "heavy damaged" -> Color.RED
+            "good" -> Color.GREEN
+            else -> Color.TRANSPARENT
+        }
+
+        binding.resultLabel.backgroundTintList = ColorStateList.valueOf(backgroundColor)
 
         binding.addReportButton.setOnClickListener {
             startActivity(Intent(this, AddReportActivity::class.java))
