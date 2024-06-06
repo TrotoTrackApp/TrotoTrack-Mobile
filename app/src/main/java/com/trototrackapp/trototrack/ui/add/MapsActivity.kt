@@ -108,12 +108,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val locationName = locationAddressTextView.text.toString()
         val latLng = centerMarker.position
 
-        val intent = Intent(this, AddReportActivity::class.java).apply {
+        val resultIntent = Intent().apply {
             putExtra("LOCATION_NAME", locationName)
             putExtra("LATITUDE", latLng.latitude)
             putExtra("LONGITUDE", latLng.longitude)
-            putExtra("FROM_MAP_ACTIVITY", true) // Tambahkan flag untuk menandai bahwa intent ini berasal dari MapActivity
         }
-        startActivity(intent)
+
+        setResult(Activity.RESULT_OK, resultIntent)
+        finish()
     }
 }

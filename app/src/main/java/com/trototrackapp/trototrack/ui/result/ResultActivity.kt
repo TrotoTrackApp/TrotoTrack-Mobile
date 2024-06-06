@@ -42,7 +42,10 @@ class ResultActivity : AppCompatActivity() {
         binding.resultLabel.backgroundTintList = ColorStateList.valueOf(backgroundColor)
 
         binding.addReportButton.setOnClickListener {
-            startActivity(Intent(this, AddReportActivity::class.java))
+            val intent = Intent(this, AddReportActivity::class.java)
+            intent.putExtra("label", label)
+            intent.putExtra("imageUri", imageUriString)
+            startActivity(intent)
         }
 
         binding.backButton.setOnClickListener {
