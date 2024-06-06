@@ -54,12 +54,12 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="32dp"
-                    app:layout_constraintTop_toBottomOf="@id/mapLocation"
                     app:layout_constraintEnd_toStartOf="@id/mapButton"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mapLocation">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/mapLocationEditText"
@@ -75,8 +75,8 @@
                     android:layout_height="60dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="32dp"
-                    android:backgroundTint="@color/yellow"
                     android:background="@drawable/rounded_corner3"
+                    android:backgroundTint="@color/yellow"
                     android:src="@drawable/ic_location"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mapLocation" />
@@ -97,12 +97,12 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="32dp"
-                    app:layout_constraintTop_toBottomOf="@id/address"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/address">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/addressEditText"
@@ -127,22 +127,22 @@
                     android:id="@+id/descriptionEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="32dp"
                     android:hint="Additional information..."
-                    app:layout_constraintTop_toBottomOf="@id/description"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintTop_toBottomOf="@id/description">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/descriptionEditTextLayout"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:padding="10dp"
                         android:gravity="top"
                         android:inputType="textMultiLine"
-                        android:scrollbars="vertical"/>
+                        android:padding="10dp"
+                        android:scrollbars="vertical" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -158,24 +158,55 @@
 
                 <ImageView
                     android:id="@id/imageHolder"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                    android:layout_width="195dp"
+                    android:layout_height="205dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="10dp"
-                    app:srcCompat="@drawable/ic_image"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/photoEvidence" />
+                    app:layout_constraintTop_toBottomOf="@id/photoEvidence"
+                    app:srcCompat="@drawable/ic_image" />
 
                 <Button
                     android:id="@+id/submitReportButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
                     android:layout_marginStart="32dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginEnd="32dp"
-                    android:text="Done"
                     android:backgroundTint="@color/yellow"
+                    android:text="Done"
+                    app:layout_constraintTop_toBottomOf="@id/status" />
+
+                <TextView
+                    android:id="@+id/statusTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Address"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/imageHolder" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/status"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/statusTv">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/statusEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

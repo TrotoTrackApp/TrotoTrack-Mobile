@@ -7,6 +7,7 @@ import com.trototrackapp.trototrack.data.remote.response.LoginResponse
 import com.trototrackapp.trototrack.data.remote.response.RegisterResponse
 import com.trototrackapp.trototrack.data.remote.response.ScanResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Multipart
@@ -28,14 +29,15 @@ interface ApiService {
     @Multipart
     @POST("reports")
     suspend fun addReport(
-        @Part("location") location: String,
-        @Part("reference_location") reference_location: String,
-        @Part("latitude") latitude: Double,
-        @Part("longitude") longitude: Double,
+        @Part("location") location: RequestBody,
+        @Part("reference_location") reference_location: RequestBody,
+        @Part("latitude") latitude: RequestBody,
+        @Part("longitude") longitude: RequestBody,
         @Part image: MultipartBody.Part,
-        @Part("status_damage") statusDamage: String,
-        @Part("description") description: String
+        @Part("status_damage") status_damage: RequestBody,
+        @Part("description") description: RequestBody
     ): Response<AddReportResponse>
+
 
     @Multipart
     @POST("scan")

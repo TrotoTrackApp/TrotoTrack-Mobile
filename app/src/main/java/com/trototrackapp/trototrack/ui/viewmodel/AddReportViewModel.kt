@@ -3,9 +3,10 @@ package com.trototrackapp.trototrack.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import com.trototrackapp.trototrack.data.repository.ReportRepository
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class AddReportViewModel(private val reportRepository: ReportRepository) : ViewModel() {
 
-    fun addReport(locationName: String, referenceLocation: String, latitude: Double, longitude: Double, image: MultipartBody.Part, statusDamage: String, description: String) =
-        reportRepository.addReport(locationName, referenceLocation, latitude, longitude, image, statusDamage, description)
+    fun addReport(locationName: RequestBody, reference_location: RequestBody, latitude: RequestBody, longitude: RequestBody, image: MultipartBody.Part, status_damage: RequestBody, description: RequestBody) =
+        reportRepository.addReport(locationName, reference_location, latitude, longitude, image, status_damage, description)
 }
