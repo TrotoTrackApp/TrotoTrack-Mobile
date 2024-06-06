@@ -22,11 +22,11 @@
         android:layout_marginTop="20dp"
         android:text="RESULT"
         android:textStyle="bold"
-        android:paddingVertical="10dp"
-        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp"
+        android:paddingHorizontal="25dp"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="@color/yellow"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/resultImage"/>
@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/view1" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/description"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -72,7 +72,7 @@
         android:src="@drawable/app_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.765"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toEndOf="@+id/description"
         app:layout_constraintTop_toBottomOf="@+id/view1" />
 
     <com.google.android.material.button.MaterialButton
