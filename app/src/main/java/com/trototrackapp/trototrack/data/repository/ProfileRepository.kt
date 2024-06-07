@@ -14,7 +14,7 @@ class ProfileRepository(private val apiService: ApiService) {
         liveData {
             emit(ResultState.Loading)
             try {
-                val request = UpdateProfileRequest(name, email, username)
+                val request = UpdateProfileRequest(name, username, email)
                 val response = apiService.updateProfile(request)
                 if (response.isSuccessful) {
                     emit(ResultState.Success(response.body()!!))
