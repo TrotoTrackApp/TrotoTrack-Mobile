@@ -23,6 +23,8 @@ class ViewModelFactory private constructor(
             return ScanViewModel(scanRepository) as T
         } else if (modelClass.isAssignableFrom(GetReportsViewModel::class.java)) {
             return GetReportsViewModel(reportRepository) as T
+        } else if (modelClass.isAssignableFrom(DetailReportViewModel::class.java)) {
+            return DetailReportViewModel(reportRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

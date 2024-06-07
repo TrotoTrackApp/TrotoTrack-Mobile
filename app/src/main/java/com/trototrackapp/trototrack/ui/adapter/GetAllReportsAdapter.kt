@@ -1,5 +1,6 @@
 package com.trototrackapp.trototrack.ui.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.trototrackapp.trototrack.data.remote.response.DataItem
 import com.trototrackapp.trototrack.databinding.ItemReportBinding
+import com.trototrackapp.trototrack.ui.detail.DetailReportActivity
 import com.trototrackapp.trototrack.util.convertIso8601ToDate
 
 class GetAllReportsAdapter : ListAdapter<DataItem, GetAllReportsAdapter.MyViewHolder>(DIFF_CALLBACK) {
@@ -33,14 +35,12 @@ class GetAllReportsAdapter : ListAdapter<DataItem, GetAllReportsAdapter.MyViewHo
                 .load(report.image)
                 .into(binding.reportImage)
                 .clearOnDetach()
-//            itemView.setOnClickListener {
-//                val intent = Intent(itemView.context, DetailStoryActivity::class.java).apply {
-//                    putExtra(DetailStoryActivity.EXTRA_NAME, story.name)
-//                    putExtra(DetailStoryActivity.EXTRA_PHOTO_URL, story.photoUrl)
-//                    putExtra(DetailStoryActivity.EXTRA_DESCRIPTION, story.description)
-//                }
-//                itemView.context.startActivity(intent)
-//            }
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, DetailReportActivity::class.java).apply {
+                    putExtra(DetailReportActivity.REPORT_ID, report.id.toString())
+                }
+                itemView.context.startActivity(intent)
+            }
         }
     }
 
