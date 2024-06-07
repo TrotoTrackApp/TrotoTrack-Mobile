@@ -5,56 +5,68 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.trototrackapp.trototrack.R
+import com.trototrackapp.trototrack.data.ResultState
+import com.trototrackapp.trototrack.databinding.FragmentAllReportBinding
+import com.trototrackapp.trototrack.databinding.FragmentMyReportBinding
+import com.trototrackapp.trototrack.ui.adapter.GetAllReportsAdapter
+import com.trototrackapp.trototrack.ui.adapter.GetReportsUserAdapter
+import com.trototrackapp.trototrack.ui.viewmodel.GetReportsViewModel
+import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MyReportFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MyReportFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var reportsUserAdapter: GetReportsUserAdapter
+    private var _binding: FragmentMyReportBinding? = null
+    private val binding get() = _binding!!
+    private val getMyReportsViewModel: GetReportsViewModel by viewModels {
+        ViewModelFactory.getInstance(requireActivity())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_report, container, false)
+        _binding = FragmentMyReportBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        setupRecyclerView()
+        setupObserver()
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MyReportFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MyReportFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun setupRecyclerView() {
+        reportsUserAdapter = GetReportsUserAdapter()
+        binding.recycleViewReports.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = reportsUserAdapter
+        }
+    }
+
+    private fun setupObserver() {
+        getMyReportsViewModel.getReportsUser().observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is ResultState.Loading -> {
+                    binding.progressIndicator.visibility = View.VISIBLE
+                }
+                is ResultState.Success -> {
+                    binding.progressIndicator.visibility = View.GONE
+                    reportsUserAdapter.submitList(result.data.data)
+                }
+                is ResultState.Error -> {
+                    binding.progressIndicator.visibility = View.GONE
+                    Toast.makeText(context, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
                 }
             }
+        })
     }
 }
