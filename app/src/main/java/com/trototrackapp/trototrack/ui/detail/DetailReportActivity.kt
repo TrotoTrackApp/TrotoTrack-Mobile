@@ -1,5 +1,7 @@
 package com.trototrackapp.trototrack.ui.detail
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -53,6 +55,28 @@ class DetailReportActivity : AppCompatActivity() {
                         binding.reportVote.text = reportDetail.like.toString()
                         binding.reportLocation.text = reportDetail.location
                         binding.reportDescription.text = reportDetail.description
+
+                        binding.buttonCheckLocation.setOnClickListener {
+                            val latitude = reportDetail.latitude
+                            val longitude = reportDetail.longitude
+
+                            if (latitude != null && longitude != null) {
+                                val gmmIntentUri = Uri.parse("geo:$latitude,$longitude")
+                                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                                mapIntent.setPackage("com.google.android.apps.maps")
+
+                                mapIntent.putExtra("marker", "true")
+                                mapIntent.putExtra("zoom", 15)
+
+                                if (mapIntent.resolveActivity(packageManager) != null) {
+                                    startActivity(mapIntent)
+                                } else {
+                                    Toast.makeText(this, "Google Maps app not found", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                Toast.makeText(this, "Latitude or longitude is missing", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     }
                 }
                 is ResultState.Error -> {

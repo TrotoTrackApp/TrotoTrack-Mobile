@@ -36,13 +36,13 @@
             android:id="@+id/reportStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="76dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="Status"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/reportDate"
-            app:layout_constraintTop_toBottomOf="@id/reportImage" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reportDate" />
 
         <TextView
             android:id="@+id/reportVote"
@@ -61,11 +61,11 @@
             android:layout_width="10dp"
             android:layout_height="75dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="35dp"
             android:background="@drawable/rounded_corner"
             android:backgroundTint="#F49004"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reportDate" />
+            app:layout_constraintTop_toBottomOf="@+id/reportStatus" />
 
         <TextView
             android:id="@+id/location"
@@ -81,7 +81,7 @@
 
         <TextView
             android:id="@+id/reportLocation"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="20dp"
@@ -116,7 +116,7 @@
 
         <TextView
             android:id="@+id/reportDescription"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
@@ -128,6 +128,7 @@
             app:layout_constraintTop_toBottomOf="@+id/description" />
 
         <Button
+            android:id="@+id/buttonCheckLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
