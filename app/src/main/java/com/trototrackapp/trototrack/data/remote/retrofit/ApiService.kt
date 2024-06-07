@@ -12,6 +12,7 @@ import com.trototrackapp.trototrack.data.remote.response.LoginResponse
 import com.trototrackapp.trototrack.data.remote.response.RegisterResponse
 import com.trototrackapp.trototrack.data.remote.response.ScanResponse
 import com.trototrackapp.trototrack.data.remote.response.UpdateProfileResponse
+import com.trototrackapp.trototrack.data.remote.response.VoteReportResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -69,4 +70,7 @@ interface ApiService {
     suspend fun scan(
         @Part image: MultipartBody.Part,
     ): Response<ScanResponse>
+
+    @POST("reports/{id}/upvote")
+    suspend fun voteReport(@Path("id") id: String): Response<VoteReportResponse>
 }
