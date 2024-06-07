@@ -13,7 +13,7 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="NoActionBar" parent="Theme.Material3.DayNight">
+    <style name="WithActionBar" parent="Theme.Material3.DayNight">
         <!-- Primary colors -->
         <item name="colorPrimary">@color/yellow</item>
         <item name="colorPrimaryVariant">@color/orange</item>
