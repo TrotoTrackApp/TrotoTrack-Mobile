@@ -7,6 +7,7 @@ import com.trototrackapp.trototrack.data.remote.response.AddReportResponse
 import com.trototrackapp.trototrack.data.remote.response.DetailReportResponse
 import com.trototrackapp.trototrack.data.remote.response.GetAllReportsResponse
 import com.trototrackapp.trototrack.data.remote.response.GetReportsUserResponse
+import com.trototrackapp.trototrack.data.remote.response.VoteReportResponse
 import com.trototrackapp.trototrack.data.remote.retrofit.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -63,6 +64,21 @@ class ReportRepository(private val apiService: ApiService) {
             emit(ResultState.Loading)
             try {
                 val response = apiService.getReportUser()
+                if (response.isSuccessful) {
+                    emit(ResultState.Success(response.body()!!))
+                } else {
+                    emit(ResultState.Error(response.errorBody()?.string() ?: "An error occurred"))
+                }
+            } catch (e: Exception) {
+                emit(ResultState.Error(e.message ?: "An error occurred"))
+            }
+        }
+
+    fun voteReport(id: String): LiveData<ResultState<VoteReportResponse>> =
+        liveData {
+            emit(ResultState.Loading)
+            try {
+                val response = apiService.voteReport(id)
                 if (response.isSuccessful) {
                     emit(ResultState.Success(response.body()!!))
                 } else {
