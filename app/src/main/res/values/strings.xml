@@ -48,4 +48,27 @@
     <string name="descriptionText">Description</string>
     <string name="article_image">Article Image</string>
     <string name="articleTitle">Title Article</string>
+    <string name="scanResult">RESULT</string>
+    <string name="backButton">Back</string>
+    <string name="reportButton">Report</string>
+    <string name="descriptionResult">Deskripsi ... Lorem ipsum dolor sit amet, consectetur adipiscing elit ...</string>
+    <string name="result_image">Result Image</string>
+    <string name="locationText">Location</string>
+    <string name="addReportText">Enter Report Data</string>
+    <string name="photoText">Photo Evidence</string>
+    <string name="submit">Submit</string>
+    <string name="maps_button">Maps Button</string>
+    <string name="addressText">Address</string>
+    <string name="reportDescriptionHint">Additional information...</string>
+    <string name="addressHint">123 Main St, City</string>
+    <string name="locationHint">123 Main St, City, Countryt</string>
+    <string name="detailLocationText">Location :</string>
+    <string name="detailDescriptionText">Description :</string>
+    <string name="check_location">Check Location</string>
+    <string name="accountName">Name :</string>
+    <string name="name">User</string>
+    <string name="accountUsername">Username :</string>
+    <string name="accountEmail">Email :</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="log_out">Log Out</string>
 </resources>
