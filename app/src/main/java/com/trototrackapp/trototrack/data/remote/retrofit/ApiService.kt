@@ -3,15 +3,20 @@ package com.trototrackapp.trototrack.data.remote.retrofit
 import com.trototrackapp.trototrack.data.remote.request.LoginRequest
 import com.trototrackapp.trototrack.data.remote.request.RegisterRequest
 import com.trototrackapp.trototrack.data.remote.response.AddReportResponse
+import com.trototrackapp.trototrack.data.remote.response.DetailReportResponse
+import com.trototrackapp.trototrack.data.remote.response.GetAllReportsResponse
 import com.trototrackapp.trototrack.data.remote.response.LoginResponse
 import com.trototrackapp.trototrack.data.remote.response.RegisterResponse
 import com.trototrackapp.trototrack.data.remote.response.ScanResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
 
 interface ApiService {
 
@@ -28,14 +33,20 @@ interface ApiService {
     @Multipart
     @POST("reports")
     suspend fun addReport(
-        @Part("location") location: String,
-        @Part("reference_location") reference_location: String,
-        @Part("latitude") latitude: Double,
-        @Part("longitude") longitude: Double,
+        @Part("location") location: RequestBody,
+        @Part("reference_location") reference_location: RequestBody,
+        @Part("latitude") latitude: RequestBody,
+        @Part("longitude") longitude: RequestBody,
         @Part image: MultipartBody.Part,
-        @Part("status_damage") statusDamage: String,
-        @Part("description") description: String
+        @Part("status_damage") status_damage: RequestBody,
+        @Part("description") description: RequestBody
     ): Response<AddReportResponse>
+
+    @GET("reports")
+    suspend fun getAllReports(): Response<GetAllReportsResponse>
+
+    @GET("reports/{id}")
+    suspend fun getReportDetailById(@Path("id") id: String): Response<DetailReportResponse>
 
     @Multipart
     @POST("scan")

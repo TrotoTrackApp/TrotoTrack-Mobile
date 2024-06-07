@@ -8,4 +8,8 @@
     </style>
 
     <style name="Theme.TrotoTrack" parent="Base.Theme.TrotoTrack" />
+
+    <style name="background">
+        <item name="backgroundTint">@color/white</item>
+    </style>
 </resources>
