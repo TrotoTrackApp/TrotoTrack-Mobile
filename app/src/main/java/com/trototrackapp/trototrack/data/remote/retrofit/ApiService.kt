@@ -5,6 +5,7 @@ import com.trototrackapp.trototrack.data.remote.request.RegisterRequest
 import com.trototrackapp.trototrack.data.remote.response.AddReportResponse
 import com.trototrackapp.trototrack.data.remote.response.DetailReportResponse
 import com.trototrackapp.trototrack.data.remote.response.GetAllReportsResponse
+import com.trototrackapp.trototrack.data.remote.response.GetReportsUserResponse
 import com.trototrackapp.trototrack.data.remote.response.LoginResponse
 import com.trototrackapp.trototrack.data.remote.response.RegisterResponse
 import com.trototrackapp.trototrack.data.remote.response.ScanResponse
@@ -47,6 +48,9 @@ interface ApiService {
 
     @GET("reports/{id}")
     suspend fun getReportDetailById(@Path("id") id: String): Response<DetailReportResponse>
+
+    @GET("reports/profile")
+    suspend fun getReportUser(): Response<GetReportsUserResponse>
 
     @Multipart
     @POST("scan")
