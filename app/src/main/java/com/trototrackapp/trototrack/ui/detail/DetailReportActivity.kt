@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -26,6 +27,8 @@ class DetailReportActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val reportId = intent.getStringExtra(REPORT_ID)
 
@@ -85,6 +88,16 @@ class DetailReportActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     companion object {
