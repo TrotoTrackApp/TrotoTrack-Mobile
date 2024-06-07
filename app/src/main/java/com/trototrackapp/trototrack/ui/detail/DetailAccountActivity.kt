@@ -40,6 +40,11 @@ class DetailAccountActivity : AppCompatActivity() {
             showLogoutConfirmationDialog()
         }
 
+        binding.editButton.setOnClickListener {
+            val intent = Intent(this, EditProfileActivity::class.java)
+            startActivity(intent)
+        }
+
         loadUserData()
     }
 

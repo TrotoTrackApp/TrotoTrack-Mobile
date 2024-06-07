@@ -3,6 +3,8 @@ package com.trototrackapp.trototrack.ui.detail
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -23,10 +25,14 @@ class EditProfileActivity : AppCompatActivity() {
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         binding.submitButton.setOnClickListener {
             val name = binding.nameEditText.text.toString()
             val username = binding.usernameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
+
+            Log.d("EditProfileActivity", "Email: $email")
 
             binding.progressIndicator.visibility = View.VISIBLE
             profileViewModel.updateProfile(name, username, email).observe(this) { result ->
@@ -36,7 +42,7 @@ class EditProfileActivity : AppCompatActivity() {
                     }
                     is ResultState.Success -> {
                         binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Data Update successful", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, DetailAccountActivity::class.java)
 
                         startActivity(intent)
@@ -48,6 +54,16 @@ class EditProfileActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
