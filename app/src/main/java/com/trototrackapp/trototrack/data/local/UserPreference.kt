@@ -34,6 +34,18 @@ class UserPreference(private val context: Context) {
         return dataStore.data.first()[TOKEN_KEY] ?: ""
     }
 
+    suspend fun getName(): String {
+        return dataStore.data.first()[NAME_KEY] ?: ""
+    }
+
+    suspend fun getUsername(): String {
+        return dataStore.data.first()[USERNAME_KEY] ?: ""
+    }
+
+    suspend fun getEmail(): String {
+        return dataStore.data.first()[EMAIL_KEY] ?: ""
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: UserPreference? = null
