@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.trototrackapp.trototrack.data.remote.response.DataItem
 import com.trototrackapp.trototrack.databinding.ItemReportBinding
+import com.trototrackapp.trototrack.util.convertIso8601ToDate
 
 class GetAllReportsAdapter : ListAdapter<DataItem, GetAllReportsAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
@@ -26,7 +27,7 @@ class GetAllReportsAdapter : ListAdapter<DataItem, GetAllReportsAdapter.MyViewHo
             binding.reportLocation.text = report.location
             binding.reportStatus.text = report.status
             binding.reportStatusDamage.text = report.statusDamage
-            binding.reportDate.text = report.createdAt
+            binding.reportDate.text = convertIso8601ToDate(report.createdAt ?: "")
             binding.reportVote.text = report.like.toString()
             Glide.with(binding.root)
                 .load(report.image)
