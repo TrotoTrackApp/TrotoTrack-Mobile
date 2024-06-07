@@ -7,7 +7,7 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="background">
-        <item name="background">@color/black</item>
+    <style name="textColor">
+        <item name="backgroundTint">@color/white</item>
     </style>
 </resources>
