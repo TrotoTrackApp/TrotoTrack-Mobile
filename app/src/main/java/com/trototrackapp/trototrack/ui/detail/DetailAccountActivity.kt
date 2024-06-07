@@ -4,20 +4,28 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.data.local.UserPreference
 import com.trototrackapp.trototrack.databinding.ActivityDetailAccountBinding
+import com.trototrackapp.trototrack.ui.viewmodel.ProfileViewModel
+import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import com.trototrackapp.trototrack.ui.welcome.WelcomeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DetailAccountActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityDetailAccountBinding
     private lateinit var userPreference: UserPreference
+    private val profileViewModel: ProfileViewModel by viewModels {
+        ViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +38,11 @@ class DetailAccountActivity : AppCompatActivity() {
 
         binding.logout.setOnClickListener {
             showLogoutConfirmationDialog()
+        }
+
+        binding.editButton.setOnClickListener {
+            val intent = Intent(this, EditProfileActivity::class.java)
+            startActivity(intent)
         }
 
         loadUserData()
@@ -59,15 +72,24 @@ class DetailAccountActivity : AppCompatActivity() {
     }
 
     private fun loadUserData() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val name = userPreference.getName()
-            val username = userPreference.getUsername()
-            val email = userPreference.getEmail()
-
-            withContext(Dispatchers.Main) {
-                binding.nameUser.text = name
-                binding.usernameUser.text = username
-                binding.emailUser.text = email
+        profileViewModel.getUserProfile().observe(this) { result ->
+            when (result) {
+                is ResultState.Loading -> {
+                    binding.progressIndicator.visibility = View.VISIBLE
+                }
+                is ResultState.Success -> {
+                    binding.progressIndicator.visibility = View.GONE
+                    val userProfile = result.data.data
+                    if (userProfile != null) {
+                        binding.nameUser.text = userProfile.name
+                        binding.usernameUser.text = userProfile.username
+                        binding.emailUser.text = userProfile.email
+                    }
+                }
+                is ResultState.Error -> {
+                    binding.progressIndicator.visibility = View.GONE
+                    Toast.makeText(this, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

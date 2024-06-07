@@ -74,4 +74,5 @@
     <string name="homeNavigation">Home</string>
     <string name="toolsNavigation">Tools</string>
     <string name="historyNavigation">History</string>
+    <string name="nameText">Name</string>
 </resources>

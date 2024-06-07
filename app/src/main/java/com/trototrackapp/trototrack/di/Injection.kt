@@ -5,6 +5,7 @@ import android.util.Log
 import com.trototrackapp.trototrack.data.local.UserPreference
 import com.trototrackapp.trototrack.data.remote.retrofit.ApiConfig
 import com.trototrackapp.trototrack.data.repository.AuthRepository
+import com.trototrackapp.trototrack.data.repository.ProfileRepository
 import com.trototrackapp.trototrack.data.repository.ReportRepository
 import com.trototrackapp.trototrack.data.repository.ScanRepository
 import kotlinx.coroutines.flow.first
@@ -29,5 +30,12 @@ object Injection {
         val token = runBlocking { pref.getToken() }
         val apiService = ApiConfig.getApiService(token)
         return ScanRepository.getInstance(apiService)
+    }
+
+    fun provideProfileRepository(context: Context): ProfileRepository {
+        val pref = UserPreference.getInstance(context)
+        val token = runBlocking { pref.getToken() }
+        val apiService = ApiConfig.getApiService(token)
+        return ProfileRepository.getInstance(apiService)
     }
 }
