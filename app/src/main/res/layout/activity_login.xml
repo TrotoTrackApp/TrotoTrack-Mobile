@@ -128,6 +128,7 @@
             android:layout_marginBottom="75dp"
             android:backgroundTint="#FBBF07"
             android:text="@string/loginText"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/passwordEditTextLayout"
             app:layout_constraintHorizontal_bias="0.587"

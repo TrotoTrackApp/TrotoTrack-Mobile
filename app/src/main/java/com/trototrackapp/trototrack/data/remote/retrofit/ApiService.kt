@@ -6,6 +6,7 @@ import com.trototrackapp.trototrack.data.remote.request.UpdateProfileRequest
 import com.trototrackapp.trototrack.data.remote.response.AddReportResponse
 import com.trototrackapp.trototrack.data.remote.response.DetailReportResponse
 import com.trototrackapp.trototrack.data.remote.response.GetAllReportsResponse
+import com.trototrackapp.trototrack.data.remote.response.GetProfileResponse
 import com.trototrackapp.trototrack.data.remote.response.GetReportsUserResponse
 import com.trototrackapp.trototrack.data.remote.response.LoginResponse
 import com.trototrackapp.trototrack.data.remote.response.RegisterResponse
@@ -59,6 +60,9 @@ interface ApiService {
     suspend fun updateProfile(
         @Body request: UpdateProfileRequest
     ): Response<UpdateProfileResponse>
+
+    @GET("profile")
+    suspend fun getUserProfile(): Response<GetProfileResponse>
 
     @Multipart
     @POST("scan")
