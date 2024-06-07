@@ -34,7 +34,6 @@ class LoginActivity : AppCompatActivity() {
         binding.LoginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
-            Log.d("LoginActivity", "Email: $email, Password: $password")
 
             binding.progressIndicator.visibility = View.VISIBLE
             authViewModel.login(email, password).observe(this) { result ->

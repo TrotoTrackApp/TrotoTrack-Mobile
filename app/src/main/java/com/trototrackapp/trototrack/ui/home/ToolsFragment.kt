@@ -31,11 +31,6 @@ class ToolsFragment : Fragment() {
         ViewModelFactory.getInstance(requireActivity())
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Initialize any necessary components here
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -117,10 +112,5 @@ class ToolsFragment : Fragment() {
         if (isSuccess) {
             showImage()
         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = ToolsFragment()
     }
 }

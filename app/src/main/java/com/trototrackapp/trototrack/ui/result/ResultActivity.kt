@@ -7,11 +7,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import com.trototrackapp.trototrack.R
-import com.trototrackapp.trototrack.databinding.ActivityAddReportBinding
 import com.trototrackapp.trototrack.databinding.ActivityResultBinding
 import com.trototrackapp.trototrack.ui.add.AddReportActivity
-import com.trototrackapp.trototrack.ui.add.MapsActivity
 import com.trototrackapp.trototrack.ui.home.MainActivity
 
 class ResultActivity : AppCompatActivity() {
