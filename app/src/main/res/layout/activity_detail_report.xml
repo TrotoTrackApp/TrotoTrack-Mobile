@@ -43,20 +43,42 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reportDate" />
+            app:layout_constraintTop_toBottomOf="@+id/reportVote" />
+
+        <ImageButton
+            android:id="@+id/voteButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_star_big"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/yellow"
+            app:layout_constraintTop_toBottomOf="@+id/reportImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/vote_button" />
 
         <TextView
             android:id="@+id/reportVote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp"
             android:text="@string/vote"
-            android:textSize="18sp"
-            android:drawablePadding="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reportImage"
-            app:drawableStartCompat="@drawable/ic_star" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reportDate" />
+
+        <TextView
+            android:id="@+id/vote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="16dp"
+            android:text="@string/voteText"
+            app:layout_constraintBottom_toBottomOf="@+id/reportVote"
+            app:layout_constraintStart_toEndOf="@+id/reportVote"
+            app:layout_constraintTop_toTopOf="@+id/reportVote"
+            app:layout_constraintVertical_bias="0.0" />
 
         <View
             android:id="@+id/View"

@@ -75,4 +75,6 @@
     <string name="toolsNavigation">Tools</string>
     <string name="historyNavigation">History</string>
     <string name="nameText">Name</string>
+    <string name="voteText">Vote</string>
+    <string name="vote_button">Vote Button</string>
 </resources>
