@@ -13,6 +13,17 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="NoActionBar" parent="Theme.Material3.DayNight">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorPrimaryVariant">@color/orange</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/yellow</item>
+        <item name="colorSecondaryVariant">@color/orange</item>
+        <item name="colorOnSecondary">@color/white</item>
+    </style>
+
     <style name="Theme.TrotoTrack" parent="Base.Theme.TrotoTrack" />
 
     <style name="textColor">
