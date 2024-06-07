@@ -71,4 +71,7 @@
     <string name="accountEmail">Email :</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="log_out">Log Out</string>
+    <string name="homeNavigation">Home</string>
+    <string name="toolsNavigation">Tools</string>
+    <string name="historyNavigation">History</string>
 </resources>
