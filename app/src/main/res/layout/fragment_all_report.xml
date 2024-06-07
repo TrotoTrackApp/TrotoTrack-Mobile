@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_stories"
+            android:id="@+id/recycleViewReports"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"

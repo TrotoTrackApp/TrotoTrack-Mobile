@@ -9,4 +9,7 @@ class GetReportsViewModel(private val reportRepository: ReportRepository) : View
 
     fun getAllReports() =
         reportRepository.getAllReports()
+
+    fun getReportsUser() =
+        reportRepository.getReportsUser()
 }

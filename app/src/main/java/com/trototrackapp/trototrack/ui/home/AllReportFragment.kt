@@ -44,7 +44,7 @@ class AllReportFragment : Fragment() {
 
     private fun setupRecyclerView() {
         allReportsAdapter = GetAllReportsAdapter()
-        binding.rvStories.apply {
+        binding.recycleViewReports.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = allReportsAdapter
         }
