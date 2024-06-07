@@ -7,4 +7,7 @@ class DetailReportViewModel(private val reportRepository: ReportRepository) : Vi
 
     fun getReportDetail(reportId: String) =
         reportRepository.getReportDetail(reportId)
+
+    fun voteReport(id: String) =
+        reportRepository.voteReport(id)
 }
