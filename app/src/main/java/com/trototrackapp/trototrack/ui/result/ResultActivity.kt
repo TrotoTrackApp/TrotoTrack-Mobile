@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import com.trototrackapp.trototrack.R
 import com.trototrackapp.trototrack.databinding.ActivityAddReportBinding
 import com.trototrackapp.trototrack.databinding.ActivityResultBinding
@@ -21,6 +22,8 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val label = intent.getStringExtra("label")
         val description = intent.getStringExtra("description")
@@ -52,4 +55,15 @@ class ResultActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }
