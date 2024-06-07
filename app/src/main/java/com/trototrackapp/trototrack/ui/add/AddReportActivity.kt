@@ -40,6 +40,8 @@ class AddReportActivity : AppCompatActivity() {
         binding = ActivityAddReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val label = intent.getStringExtra("label")
         val imageUriString = intent.getStringExtra("imageUri")
 

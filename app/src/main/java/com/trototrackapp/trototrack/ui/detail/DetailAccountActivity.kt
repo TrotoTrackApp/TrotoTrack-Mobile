@@ -3,6 +3,7 @@ package com.trototrackapp.trototrack.ui.detail
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import com.trototrackapp.trototrack.data.local.UserPreference
 import com.trototrackapp.trototrack.databinding.ActivityDetailAccountBinding
@@ -10,6 +11,7 @@ import com.trototrackapp.trototrack.ui.welcome.WelcomeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DetailAccountActivity : AppCompatActivity() {
 
@@ -22,11 +24,15 @@ class DetailAccountActivity : AppCompatActivity() {
         binding = ActivityDetailAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         userPreference = UserPreference.getInstance(this)
 
         binding.logout.setOnClickListener {
             showLogoutConfirmationDialog()
         }
+
+        loadUserData()
     }
 
     private fun showLogoutConfirmationDialog() {
@@ -51,4 +57,29 @@ class DetailAccountActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    private fun loadUserData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val name = userPreference.getName()
+            val username = userPreference.getUsername()
+            val email = userPreference.getEmail()
+
+            withContext(Dispatchers.Main) {
+                binding.nameUser.text = name
+                binding.usernameUser.text = username
+                binding.emailUser.text = email
+            }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }
