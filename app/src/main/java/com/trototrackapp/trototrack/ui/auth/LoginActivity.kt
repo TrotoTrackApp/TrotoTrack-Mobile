@@ -51,9 +51,6 @@ class LoginActivity : AppCompatActivity() {
                             lifecycleScope.launch {
                                 userPreference.saveData(
                                     userData.id ?: "",
-                                    userData.name ?: "",
-                                    userData.username ?: "",
-                                    userData.email ?: "",
                                     userData.token ?: ""
                                 )
                             }
