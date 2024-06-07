@@ -3,9 +3,24 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
+
     <string name="welcomeText1">Care for Sidewalks, \nCare for Safety</string>
     <string name="welcomeText2">Trusted Sidewalk \nSecurity Detection</string>
     <string name="loginText">Login</string>
     <string name="signinText">Sign in</string>
     <string name="appLogo">App Logo</string>
+
+    <string name="loginPageText1">Login to your account</string>
+    <string name="loginPageText2">Please enter account data</string>
+    <string name="emailText">Email</string>
+    <string name="passwordText">Password</string>
+    <string name="emailHint">user@gmail.com</string>
+    <string name="passwordHint">********</string>
+
+    <string name="signinText1">Create your account</string>
+    <string name="signinText2">Please enter account data</string>
+    <string name="nameHint">user</string>
+    <string name="usernameHint">user123</string>
+    <string name="usernameText">Username</string>
+    <string name="passwordConfirmationText">Password Confirmation</string>
 </resources>
