@@ -105,6 +105,7 @@
                 android:layout_marginHorizontal="8dp"
                 android:text="@string/vote"
                 android:textSize="16sp"
+                android:drawablePadding="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.839"

@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -108,9 +107,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun sendLocationData() {
         val locationName = locationAddressTextView.text.toString()
         val latLng = centerMarker.position
-
-        Log.d("LoginActivity", latLng.latitude.toString())
-        Log.d("LoginActivity", latLng.longitude.toString())
 
         val resultIntent = Intent().apply {
             putExtra("LOCATION_NAME", locationName)
