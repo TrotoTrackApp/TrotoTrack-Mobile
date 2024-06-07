@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.trototrackapp.trototrack.data.ResultState
-import com.trototrackapp.trototrack.data.local.UserPreference
 import com.trototrackapp.trototrack.databinding.ActivityEditProfileBinding
 import com.trototrackapp.trototrack.ui.viewmodel.ProfileViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
