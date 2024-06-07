@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.data.remote.response.AddReportResponse
+import com.trototrackapp.trototrack.data.remote.response.GetAllReportsResponse
 import com.trototrackapp.trototrack.data.remote.retrofit.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -24,6 +25,22 @@ class ReportRepository(private val apiService: ApiService) {
                 emit(ResultState.Error(e.message ?: "An error occurred"))
             }
         }
+
+    fun getAllReports(): LiveData<ResultState<GetAllReportsResponse>> =
+        liveData {
+            emit(ResultState.Loading)
+            try {
+                val response = apiService.getAllReports()
+                if (response.isSuccessful) {
+                    emit(ResultState.Success(response.body()!!))
+                } else {
+                    emit(ResultState.Error(response.errorBody()?.string() ?: "An error occurred"))
+                }
+            } catch (e: Exception) {
+                emit(ResultState.Error(e.message ?: "An error occurred"))
+            }
+        }
+
 
     companion object {
         @Volatile

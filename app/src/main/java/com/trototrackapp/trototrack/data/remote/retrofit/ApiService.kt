@@ -3,6 +3,7 @@ package com.trototrackapp.trototrack.data.remote.retrofit
 import com.trototrackapp.trototrack.data.remote.request.LoginRequest
 import com.trototrackapp.trototrack.data.remote.request.RegisterRequest
 import com.trototrackapp.trototrack.data.remote.response.AddReportResponse
+import com.trototrackapp.trototrack.data.remote.response.GetAllReportsResponse
 import com.trototrackapp.trototrack.data.remote.response.LoginResponse
 import com.trototrackapp.trototrack.data.remote.response.RegisterResponse
 import com.trototrackapp.trototrack.data.remote.response.ScanResponse
@@ -10,6 +11,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -38,6 +40,8 @@ interface ApiService {
         @Part("description") description: RequestBody
     ): Response<AddReportResponse>
 
+    @GET("reports")
+    suspend fun getAllReports(): Response<GetAllReportsResponse>
 
     @Multipart
     @POST("scan")
