@@ -25,7 +25,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/appLogo" />
 
     <TextView
         android:id="@+id/AppName"
@@ -43,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="92dp"
-        android:text="Care for Sidewalks, \nCare for Safety"
+        android:text="@string/welcomeText1"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/View1"
         app:layout_constraintEnd_toStartOf="@+id/View1"
@@ -55,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="96dp"
-        android:text="Trusted Sidewalk \nSecurity Detection"
+        android:text="@string/welcomeText2"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/View2"
         app:layout_constraintStart_toEndOf="@+id/View2"
@@ -89,8 +90,8 @@
         android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="#FBBF07"
-        android:text="Login"
+        android:backgroundTint="@color/yellow"
+        android:text="@string/loginText"
         app:layout_constraintBottom_toTopOf="@+id/SignInButton"
         app:layout_constraintEnd_toEndOf="@+id/SignInButton"
         app:layout_constraintHorizontal_bias="0.0"
@@ -101,16 +102,16 @@
         android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginBottom="36dp"
-        android:text="Sign in"
-        android:textColor="#FBBF07"
+        android:text="@string/signinText"
+        android:textColor="@color/yellow"
         android:textSize="15sp"
         app:backgroundTint="@android:color/transparent"
         app:cornerRadius="30dp"
+        app:strokeColor="@color/yellow"
+        app:strokeWidth="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.559"
-        app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="#FBBF07"
-        app:strokeWidth="3dp" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

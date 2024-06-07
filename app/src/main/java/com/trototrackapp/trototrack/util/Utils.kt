@@ -62,3 +62,10 @@ fun createCustomTempFile(context: Context): File {
     val filesDir = context.externalCacheDir
     return File.createTempFile(timeStamp, ".jpg", filesDir)
 }
+
+fun convertIso8601ToDate(isoDate: String): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+    val date = inputFormat.parse(isoDate)
+    return outputFormat.format(date)
+}
