@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.trototrackapp.trototrack.R
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.FragmentAllReportBinding
 import com.trototrackapp.trototrack.ui.adapter.GetAllReportsAdapter
@@ -23,10 +22,6 @@ class AllReportFragment : Fragment() {
     private val binding get() = _binding!!
     private val getAllReportsViewModel: GetReportsViewModel by viewModels {
         ViewModelFactory.getInstance(requireActivity())
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(

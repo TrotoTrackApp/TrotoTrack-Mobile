@@ -53,6 +53,7 @@
             android:layout_marginEnd="32dp"
             android:text="@string/vote"
             android:textSize="18sp"
+            android:drawablePadding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reportImage"
             app:drawableStartCompat="@drawable/ic_star" />
@@ -99,12 +100,12 @@
             android:id="@+id/View2"
             android:layout_width="10dp"
             android:layout_height="75dp"
+            android:layout_marginTop="46dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
             android:background="@drawable/rounded_corner"
             android:backgroundTint="#F49004"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/View" />
+            app:layout_constraintTop_toBottomOf="@+id/reportLocation" />
 
         <TextView
             android:id="@+id/description"

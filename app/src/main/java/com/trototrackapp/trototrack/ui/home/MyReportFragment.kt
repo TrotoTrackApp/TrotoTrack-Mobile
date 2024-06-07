@@ -9,11 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.trototrackapp.trototrack.R
 import com.trototrackapp.trototrack.data.ResultState
-import com.trototrackapp.trototrack.databinding.FragmentAllReportBinding
 import com.trototrackapp.trototrack.databinding.FragmentMyReportBinding
-import com.trototrackapp.trototrack.ui.adapter.GetAllReportsAdapter
 import com.trototrackapp.trototrack.ui.adapter.GetReportsUserAdapter
 import com.trototrackapp.trototrack.ui.viewmodel.GetReportsViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
@@ -25,10 +22,6 @@ class MyReportFragment : Fragment() {
     private val binding get() = _binding!!
     private val getMyReportsViewModel: GetReportsViewModel by viewModels {
         ViewModelFactory.getInstance(requireActivity())
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(

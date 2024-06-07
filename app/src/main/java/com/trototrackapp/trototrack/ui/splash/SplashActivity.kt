@@ -3,7 +3,6 @@ package com.trototrackapp.trototrack.ui.splash
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log // Import Log untuk mencetak token
 import androidx.lifecycle.lifecycleScope
 import com.trototrackapp.trototrack.R
 import com.trototrackapp.trototrack.data.local.UserPreference
@@ -19,7 +18,6 @@ class SplashActivity : AppCompatActivity() {
         val userPreference = UserPreference.getInstance(this)
         lifecycleScope.launch {
             val token = userPreference.getToken()
-            Log.d("SplashActivity", "Token: $token") // Cetak token untuk memeriksa nilainya
             if (token.isNotEmpty()) {
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             } else {
