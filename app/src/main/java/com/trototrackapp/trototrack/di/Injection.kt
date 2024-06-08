@@ -6,6 +6,7 @@ import com.trototrackapp.trototrack.data.local.UserModel
 import com.trototrackapp.trototrack.data.local.UserPreference
 import com.trototrackapp.trototrack.data.local.dataStore
 import com.trototrackapp.trototrack.data.remote.retrofit.ApiConfig
+import com.trototrackapp.trototrack.data.repository.ArticleRepository
 import com.trototrackapp.trototrack.data.repository.AuthRepository
 import com.trototrackapp.trototrack.data.repository.ProfileRepository
 import com.trototrackapp.trototrack.data.repository.ReportRepository
@@ -35,6 +36,12 @@ object Injection {
         val user = getUserFromPreference(context)
         val apiService = ApiConfig.getApiService(user.token)
         return ProfileRepository.getInstance(apiService)
+    }
+
+    suspend fun provideArticleRepository(context: Context): ArticleRepository {
+        val user = getUserFromPreference(context)
+        val apiService = ApiConfig.getApiService(user.token)
+        return ArticleRepository.getInstance(apiService)
     }
 
     private suspend fun getUserFromPreference(context: Context): UserModel {
