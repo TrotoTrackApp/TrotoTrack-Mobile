@@ -8,24 +8,23 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.data.local.UserPreference
+import com.trototrackapp.trototrack.data.local.dataStore
 import com.trototrackapp.trototrack.databinding.ActivityDetailAccountBinding
 import com.trototrackapp.trototrack.ui.viewmodel.ProfileViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import com.trototrackapp.trototrack.ui.welcome.WelcomeActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DetailAccountActivity : AppCompatActivity() {
 
-
     private lateinit var binding: ActivityDetailAccountBinding
-    private lateinit var userPreference: UserPreference
     private val profileViewModel: ProfileViewModel by viewModels {
         ViewModelFactory.getInstance(this)
     }
+    private lateinit var userPreference: UserPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +33,7 @@ class DetailAccountActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        userPreference = UserPreference.getInstance(this)
+        userPreference = UserPreference.getInstance(dataStore)
 
         binding.logout.setOnClickListener {
             showLogoutConfirmationDialog()
@@ -44,7 +43,10 @@ class DetailAccountActivity : AppCompatActivity() {
             val intent = Intent(this, EditProfileActivity::class.java)
             startActivity(intent)
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         loadUserData()
     }
 
@@ -63,12 +65,12 @@ class DetailAccountActivity : AppCompatActivity() {
     }
 
     private fun logout() {
-        CoroutineScope(Dispatchers.IO).launch {
-            userPreference.clear()
+        lifecycleScope.launch {
+            userPreference.logout()
+            val intent = Intent(this@DetailAccountActivity, WelcomeActivity::class.java)
+            startActivity(intent)
+            finishAffinity()
         }
-        val intent = Intent(this, WelcomeActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
     private fun loadUserData() {
@@ -103,5 +105,4 @@ class DetailAccountActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 }

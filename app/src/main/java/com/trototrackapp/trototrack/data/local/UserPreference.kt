@@ -1,49 +1,60 @@
+// UserPreference.kt
 package com.trototrackapp.trototrack.data.local
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-private val Context.dataStore by preferencesDataStore(name = "user_preferences")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
 
-class UserPreference(private val context: Context) {
+class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
-    private val dataStore = context.dataStore
-
-    suspend fun saveData(id: String, token: String) {
+    suspend fun saveSession(user: UserModel) {
         dataStore.edit { preferences ->
-            preferences[ID_KEY] = id
-            preferences[TOKEN_KEY] = token
+            preferences[ID_KEY] = user.id
+            preferences[TOKEN_KEY] = user.token
         }
     }
 
-    suspend fun clear() {
+    fun getSession(): Flow<UserModel> {
+        return dataStore.data.map { preferences ->
+            UserModel(
+                preferences[ID_KEY] ?: "",
+                preferences[TOKEN_KEY] ?: "",
+            )
+        }
+    }
+
+    suspend fun logout() {
         dataStore.edit { preferences ->
             preferences.clear()
         }
     }
 
-    suspend fun getToken(): String {
-        return dataStore.data.first()[TOKEN_KEY] ?: ""
-    }
-
-    suspend fun getId(): String {
-        return dataStore.data.first()[ID_KEY] ?: ""
+    fun getToken(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[TOKEN_KEY] ?: ""
+        }
     }
 
     companion object {
         @Volatile
         private var INSTANCE: UserPreference? = null
 
-        val ID_KEY = stringPreferencesKey("id")
-        val TOKEN_KEY = stringPreferencesKey("token")
+        private val ID_KEY = stringPreferencesKey("id")
+        private val TOKEN_KEY = stringPreferencesKey("token")
 
-        fun getInstance(context: Context): UserPreference {
+        fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: UserPreference(context)
-            }.also { INSTANCE = it }
+                val instance = UserPreference(dataStore)
+                INSTANCE = instance
+                instance
+            }
         }
     }
 }
