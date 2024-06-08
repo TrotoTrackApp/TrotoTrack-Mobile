@@ -4,6 +4,7 @@ package com.trototrackapp.trototrack.ui.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.trototrackapp.trototrack.data.repository.ArticleRepository
 import com.trototrackapp.trototrack.data.repository.AuthRepository
 import com.trototrackapp.trototrack.data.repository.ProfileRepository
 import com.trototrackapp.trototrack.data.repository.ReportRepository
@@ -15,7 +16,8 @@ class ViewModelFactory private constructor(
     private val authRepository: AuthRepository,
     private val reportRepository: ReportRepository,
     private val scanRepository: ScanRepository,
-    private val profileRepository: ProfileRepository
+    private val profileRepository: ProfileRepository,
+    private val articleRepository: ArticleRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -38,6 +40,9 @@ class ViewModelFactory private constructor(
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(profileRepository) as T
             }
+            modelClass.isAssignableFrom(GetArticleViewModel::class.java) -> {
+                GetArticleViewModel(articleRepository) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }
@@ -52,7 +57,8 @@ class ViewModelFactory private constructor(
                         Injection.provideAuthRepository(),
                         Injection.provideReportRepository(context),
                         Injection.provideScanRepository(context),
-                        Injection.provideProfileRepository(context)
+                        Injection.provideProfileRepository(context),
+                        Injection.provideArticleRepository(context)
                     ).also { instance = it }
                 }
             }
