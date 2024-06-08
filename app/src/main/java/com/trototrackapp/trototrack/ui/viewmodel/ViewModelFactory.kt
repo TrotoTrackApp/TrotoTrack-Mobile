@@ -1,3 +1,4 @@
+// ViewModelFactory.kt
 package com.trototrackapp.trototrack.ui.viewmodel
 
 import android.content.Context
@@ -8,6 +9,7 @@ import com.trototrackapp.trototrack.data.repository.ProfileRepository
 import com.trototrackapp.trototrack.data.repository.ReportRepository
 import com.trototrackapp.trototrack.data.repository.ScanRepository
 import com.trototrackapp.trototrack.di.Injection
+import kotlinx.coroutines.runBlocking
 
 class ViewModelFactory private constructor(
     private val authRepository: AuthRepository,
@@ -17,20 +19,27 @@ class ViewModelFactory private constructor(
 ) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {
-            return AuthViewModel(authRepository) as T
-        } else if (modelClass.isAssignableFrom(AddReportViewModel::class.java)) {
-            return AddReportViewModel(reportRepository) as T
-        } else if (modelClass.isAssignableFrom(ScanViewModel::class.java)) {
-            return ScanViewModel(scanRepository) as T
-        } else if (modelClass.isAssignableFrom(GetReportsViewModel::class.java)) {
-            return GetReportsViewModel(reportRepository) as T
-        } else if (modelClass.isAssignableFrom(DetailReportViewModel::class.java)) {
-            return DetailReportViewModel(reportRepository) as T
-        } else if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
-            return ProfileViewModel(profileRepository) as T
+        return when {
+            modelClass.isAssignableFrom(AuthViewModel::class.java) -> {
+                AuthViewModel(authRepository) as T
+            }
+            modelClass.isAssignableFrom(AddReportViewModel::class.java) -> {
+                AddReportViewModel(reportRepository) as T
+            }
+            modelClass.isAssignableFrom(ScanViewModel::class.java) -> {
+                ScanViewModel(scanRepository) as T
+            }
+            modelClass.isAssignableFrom(GetReportsViewModel::class.java) -> {
+                GetReportsViewModel(reportRepository) as T
+            }
+            modelClass.isAssignableFrom(DetailReportViewModel::class.java) -> {
+                DetailReportViewModel(reportRepository) as T
+            }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(profileRepository) as T
+            }
+            else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
-        throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
 
     companion object {
@@ -38,12 +47,14 @@ class ViewModelFactory private constructor(
         private var instance: ViewModelFactory? = null
         fun getInstance(context: Context): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(
-                    Injection.provideAuthRepository(context),
-                    Injection.provideReportRepository(context),
-                    Injection.provideScanRepository(context),
-                    Injection.provideProfileRepository(context)
-                ).also { instance = it }
+                instance ?: runBlocking {
+                    ViewModelFactory(
+                        Injection.provideAuthRepository(),
+                        Injection.provideReportRepository(context),
+                        Injection.provideScanRepository(context),
+                        Injection.provideProfileRepository(context)
+                    ).also { instance = it }
+                }
             }
     }
 }

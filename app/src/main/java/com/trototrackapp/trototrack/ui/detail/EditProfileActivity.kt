@@ -32,8 +32,6 @@ class EditProfileActivity : AppCompatActivity() {
             val username = binding.usernameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
 
-            Log.d("EditProfileActivity", "Email: $email")
-
             binding.progressIndicator.visibility = View.VISIBLE
             profileViewModel.updateProfile(name, username, email).observe(this) { result ->
                 when (result) {
