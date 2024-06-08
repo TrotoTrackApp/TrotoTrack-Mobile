@@ -65,7 +65,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation ("com.github.yalantis:ucrop:2.2.8")
+    api("com.theartofdev.edmodo:android-image-cropper:2.8.+")
 
 
 }

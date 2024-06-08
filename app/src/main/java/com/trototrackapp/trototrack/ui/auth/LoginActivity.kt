@@ -35,33 +35,35 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            binding.progressIndicator.visibility = View.VISIBLE
-            authViewModel.login(email, password).observe(this) { result ->
-                when (result) {
-                    is ResultState.Loading -> {
-                        binding.progressIndicator.visibility = View.VISIBLE
-                    }
-                    is ResultState.Success -> {
-                        binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
+            binding.LoginButton.setOnClickListener {
+                val email = binding.emailEditText.text.toString()
+                val password = binding.passwordEditText.text.toString()
 
-                        val userData = result.data.data
-                        if (userData != null) {
-                            lifecycleScope.launch {
-                                userPreference.saveData(
-                                    userData.id ?: "",
-                                    userData.token ?: ""
-                                )
+                binding.progressIndicator.visibility = View.VISIBLE
+                authViewModel.login(email, password).observe(this) { result ->
+                    when (result) {
+                        is ResultState.Loading -> {
+                            binding.progressIndicator.visibility = View.VISIBLE
+                        }
+                        is ResultState.Success -> {
+                            binding.progressIndicator.visibility = View.GONE
+                            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+                            val userData = result.data.data
+                            if (userData != null) {
+                                lifecycleScope.launch {
+                                    userPreference.saveData(
+                                        userData.id ?: "",
+                                        userData.token ?: ""
+                                    )
+                                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                                    finishAffinity()
+                                }
                             }
                         }
-
-                        startActivity(intent)
-                        finishAffinity()
-                    }
-                    is ResultState.Error -> {
-                        binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(this, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                        is ResultState.Error -> {
+                            binding.progressIndicator.visibility = View.GONE
+                            Toast.makeText(this, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }

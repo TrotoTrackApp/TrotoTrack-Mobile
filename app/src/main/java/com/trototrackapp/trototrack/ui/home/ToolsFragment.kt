@@ -1,5 +1,6 @@
 package com.trototrackapp.trototrack.ui.home
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,6 +12,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.FragmentToolsBinding
 import com.trototrackapp.trototrack.ui.result.ResultActivity
@@ -35,7 +38,6 @@ class ToolsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentToolsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -48,7 +50,6 @@ class ToolsFragment : Fragment() {
         }
 
         binding.scanButton.setOnClickListener {
-
             if (currentImageUri == null) {
                 Toast.makeText(requireContext(), "Please capture an image first", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -110,7 +111,30 @@ class ToolsFragment : Fragment() {
         ActivityResultContracts.TakePicture()
     ) { isSuccess ->
         if (isSuccess) {
-            showImage()
+            startCrop(currentImageUri)
+        }
+    }
+
+    private fun startCrop(uri: Uri?) {
+        uri?.let {
+            CropImage.activity(it)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(requireContext(), this)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == RESULT_OK) {
+                val resultUri = result.uri
+                currentImageUri = resultUri
+                showImage()
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error
+                Log.e("Crop Error", error.message, error)
+            }
         }
     }
 }
