@@ -196,7 +196,28 @@
                     app:layout_constraintStart_toEndOf="@+id/articlesText"
                     app:layout_constraintTop_toTopOf="@id/articlesText" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleViewArticle"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/articlesText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:listitem="@layout/item_articles" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

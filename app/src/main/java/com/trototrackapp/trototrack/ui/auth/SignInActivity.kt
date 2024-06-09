@@ -4,12 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.ActivitySignInBinding
 import com.trototrackapp.trototrack.ui.viewmodel.AuthViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
+import org.json.JSONException
+import org.json.JSONObject
 
 class SignInActivity : AppCompatActivity() {
 
@@ -37,14 +39,32 @@ class SignInActivity : AppCompatActivity() {
                     }
                     is ResultState.Success -> {
                         binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent)
-                        finishAffinity()
+                        val dialog = AlertDialog.Builder(this)
+                            .setMessage("Account created successfully")
+                            .setPositiveButton("OK") { dialog, _ ->
+                                dialog.dismiss()
+                                val intent = Intent(this, LoginActivity::class.java)
+                                startActivity(intent)
+                                finishAffinity()
+                            }
+                            .create()
+                        dialog.show()
                     }
                     is ResultState.Error -> {
                         binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(this, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                        val errorMessage = result.message.let {
+                            try {
+                                val json = JSONObject(it)
+                                json.getString("message")
+                            } catch (e: JSONException) {
+                                it
+                            }
+                        } ?: "An error occurred"
+                        val dialog = AlertDialog.Builder(this)
+                            .setMessage(errorMessage)
+                            .setPositiveButton("OK", null)
+                            .create()
+                        dialog.show()
                     }
                 }
             }

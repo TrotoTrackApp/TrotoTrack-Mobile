@@ -10,51 +10,39 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
+private val Context.dataStore by preferencesDataStore(name = "user_preferences")
 
-class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
+class UserPreference(private val context: Context) {
 
-    suspend fun saveSession(user: UserModel) {
+    private val dataStore = context.dataStore
+
+    suspend fun saveToken(token: String) {
         dataStore.edit { preferences ->
-            preferences[ID_KEY] = user.id
-            preferences[TOKEN_KEY] = user.token
+            preferences[TOKEN_KEY] = token
         }
     }
 
-    fun getSession(): Flow<UserModel> {
-        return dataStore.data.map { preferences ->
-            UserModel(
-                preferences[ID_KEY] ?: "",
-                preferences[TOKEN_KEY] ?: "",
-            )
-        }
-    }
-
-    suspend fun logout() {
+    suspend fun clear() {
         dataStore.edit { preferences ->
             preferences.clear()
         }
     }
 
-    fun getToken(): Flow<String> {
-        return dataStore.data.map { preferences ->
-            preferences[TOKEN_KEY] ?: ""
-        }
+    val tokenFlow: Flow<String?> = dataStore.data.map { preferences ->
+        preferences[TOKEN_KEY]
     }
 
     companion object {
+
         @Volatile
         private var INSTANCE: UserPreference? = null
 
-        private val ID_KEY = stringPreferencesKey("id")
-        private val TOKEN_KEY = stringPreferencesKey("token")
+        val TOKEN_KEY = stringPreferencesKey("token")
 
-        fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
+        fun getInstance(context: Context): UserPreference {
             return INSTANCE ?: synchronized(this) {
-                val instance = UserPreference(dataStore)
-                INSTANCE = instance
-                instance
-            }
+                INSTANCE ?: UserPreference(context)
+            }.also { INSTANCE = it }
         }
     }
 }

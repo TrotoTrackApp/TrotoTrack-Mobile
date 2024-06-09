@@ -6,18 +6,32 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.FragmentHomeBinding
+import com.trototrackapp.trototrack.ui.adapter.ArticlesAdapter
 import com.trototrackapp.trototrack.ui.detail.DetailAccountActivity
+import com.trototrackapp.trototrack.ui.viewmodel.ArticlesViewModel
+import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
+import org.json.JSONException
+import org.json.JSONObject
 
 class HomeFragment : Fragment() {
 
+    private lateinit var articlesAdapter: ArticlesAdapter
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val articlesViewModel: ArticlesViewModel by viewModels {
+        ViewModelFactory.getInstance(requireActivity())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -25,10 +39,47 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupRecyclerView()
+        setupObserver()
+
         binding.detailAccountButton.setOnClickListener {
             val intent = Intent(activity, DetailAccountActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun setupRecyclerView() {
+        articlesAdapter = ArticlesAdapter()
+        binding.recycleViewArticle.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = articlesAdapter
+        }
+    }
+
+    private fun setupObserver() {
+        articlesViewModel.getArticle().observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is ResultState.Loading -> {
+                    binding.progressIndicator.visibility = View.VISIBLE
+                }
+                is ResultState.Success -> {
+                    binding.progressIndicator.visibility = View.GONE
+                    articlesAdapter.submitList(result.data.data)
+                }
+                is ResultState.Error -> {
+                    binding.progressIndicator.visibility = View.GONE
+                    val errorMessage = result.message.let {
+                        try {
+                            val json = JSONObject(it)
+                            json.getString("message")
+                        } catch (e: JSONException) {
+                            it
+                        }
+                    } ?: "An error occurred"
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {

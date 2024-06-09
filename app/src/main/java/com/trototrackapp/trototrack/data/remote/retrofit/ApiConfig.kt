@@ -5,14 +5,17 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.trototrackapp.trototrack.BuildConfig
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 
 object ApiConfig {
-    fun getApiService(token: String): ApiService {
-        val loggingInterceptor = HttpLoggingInterceptor()
-            .setLevel(HttpLoggingInterceptor.Level.BODY)
+    fun getApiService(tokenFlow: Flow<String?>): ApiService {
+        val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val authInterceptor = Interceptor { chain ->
             val req = chain.request()
+            val token = runBlocking { tokenFlow.first() }
             val requestHeaders = req.newBuilder()
                 .addHeader("Authorization", "Bearer $token")
                 .build()

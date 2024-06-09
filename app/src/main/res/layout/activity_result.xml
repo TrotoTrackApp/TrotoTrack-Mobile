@@ -1,110 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.result.ResultActivity">
 
-    <ImageView
-        android:id="@+id/resultImage"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:src="@drawable/ic_image"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/image_holder" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/resultLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/scanResult"
-        android:textStyle="bold"
-        android:paddingVertical="16dp"
-        android:paddingHorizontal="24dp"
-        android:background="@drawable/rounded_corner"
-        android:backgroundTint="@color/yellow"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/resultImage"/>
+        <ImageView
+            android:id="@+id/resultImage"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@drawable/ic_image"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/image_holder" />
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/yellow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/resultLabel" />
+        <TextView
+            android:id="@+id/resultLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/scanResult"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="24dp"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/yellow"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/resultImage"/>
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/rounded_corner4"
-        android:backgroundTint="@color/light_yellow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view1" />
+        <View
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/yellow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/resultLabel" />
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="56dp"
-        android:text="@string/descriptionResult"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view1" />
+        <View
+            android:id="@+id/view2"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/rounded_corner4"
+            android:backgroundTint="@color/light_yellow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view1" />
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/app_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.765"
-        app:layout_constraintStart_toEndOf="@+id/description"
-        app:layout_constraintTop_toBottomOf="@+id/view1"
-        android:contentDescription="@string/result_image" />
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="56dp"
+            android:text="@string/descriptionResult"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view1" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/backButton"
-        android:layout_width="125dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:text="@string/backButton"
-        android:textColor="#FBBF07"
-        android:textSize="15sp"
-        app:backgroundTint="@android:color/transparent"
-        app:cornerRadius="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view2"
-        app:strokeColor="#FBBF07"
-        app:strokeWidth="3dp" />
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/app_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.765"
+            app:layout_constraintStart_toEndOf="@+id/description"
+            app:layout_constraintTop_toBottomOf="@+id/view1"
+            android:contentDescription="@string/result_image" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/addReportButton"
-        android:layout_width="125dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="#FBBF07"
-        android:text="@string/reportButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/backButton"
-        app:layout_constraintTop_toBottomOf="@id/view2" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/backButton"
+            android:layout_width="125dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="64dp"
+            android:text="@string/backButton"
+            android:textColor="#FBBF07"
+            android:textSize="15sp"
+            app:backgroundTint="@android:color/transparent"
+            app:cornerRadius="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view2"
+            app:strokeColor="#FBBF07"
+            app:strokeWidth="3dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addReportButton"
+            android:layout_width="125dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="#FBBF07"
+            android:text="@string/reportButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/backButton"
+            app:layout_constraintTop_toBottomOf="@id/view2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -13,15 +13,17 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.ActivityDetailReportBinding
-import com.trototrackapp.trototrack.ui.viewmodel.DetailReportViewModel
+import com.trototrackapp.trototrack.ui.viewmodel.ReportsViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import com.trototrackapp.trototrack.util.convertIso8601ToDate
 import kotlinx.coroutines.launch
+import org.json.JSONException
+import org.json.JSONObject
 
 class DetailReportActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailReportBinding
-    private val detailReportViewModel: DetailReportViewModel by viewModels {
+    private val reportViewModel: ReportsViewModel by viewModels {
         ViewModelFactory.getInstance(this)
     }
 
@@ -41,7 +43,7 @@ class DetailReportActivity : AppCompatActivity() {
                 .setPositiveButton("Yes") { dialog, _ ->
                     lifecycleScope.launch {
                         if (reportId != null) {
-                            detailReportViewModel.voteReport(reportId).observe(this@DetailReportActivity) { result ->
+                            reportViewModel.voteReport(reportId).observe(this@DetailReportActivity) { result ->
                                 when (result) {
                                     is ResultState.Loading -> {
                                         binding.progressIndicator.visibility = View.VISIBLE
@@ -54,7 +56,15 @@ class DetailReportActivity : AppCompatActivity() {
 
                                     is ResultState.Error -> {
                                         binding.progressIndicator.visibility = View.GONE
-                                        Toast.makeText(this@DetailReportActivity, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                                        val errorMessage = result.message.let {
+                                            try {
+                                                val json = JSONObject(it)
+                                                json.getString("message")
+                                            } catch (e: JSONException) {
+                                                it
+                                            }
+                                        } ?: "An error occurred"
+                                        Toast.makeText(this@DetailReportActivity, errorMessage, Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             }
@@ -77,7 +87,7 @@ class DetailReportActivity : AppCompatActivity() {
     }
 
     private fun setupObserver(reportId: String) {
-        detailReportViewModel.getReportDetail(reportId).observe(this) { result ->
+        reportViewModel.getReportDetail(reportId).observe(this) { result ->
             when (result) {
                 is ResultState.Loading -> {
                     binding.progressIndicator.visibility = View.VISIBLE

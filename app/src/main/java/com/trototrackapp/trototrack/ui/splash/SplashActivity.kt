@@ -6,10 +6,9 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.trototrackapp.trototrack.R
 import com.trototrackapp.trototrack.data.local.UserPreference
-import com.trototrackapp.trototrack.data.local.dataStore
 import com.trototrackapp.trototrack.ui.home.MainActivity
 import com.trototrackapp.trototrack.ui.welcome.WelcomeActivity
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 class SplashActivity : AppCompatActivity() {
@@ -17,10 +16,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val userPreference = UserPreference.getInstance(dataStore)
+        val userPreference = UserPreference.getInstance(this)
         lifecycleScope.launch {
-            val token = userPreference.getToken().first()
-            if (token.isNotEmpty()) {
+            val token = userPreference.tokenFlow.firstOrNull()
+            if (token != null) {
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             } else {
                 startActivity(Intent(this@SplashActivity, WelcomeActivity::class.java))

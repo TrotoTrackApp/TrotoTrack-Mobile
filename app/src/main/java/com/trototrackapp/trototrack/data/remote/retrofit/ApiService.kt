@@ -6,6 +6,7 @@ import com.trototrackapp.trototrack.data.remote.request.UpdateProfileRequest
 import com.trototrackapp.trototrack.data.remote.response.AddReportResponse
 import com.trototrackapp.trototrack.data.remote.response.DetailReportResponse
 import com.trototrackapp.trototrack.data.remote.response.GetAllReportsResponse
+import com.trototrackapp.trototrack.data.remote.response.GetArticleResponse
 import com.trototrackapp.trototrack.data.remote.response.GetProfileResponse
 import com.trototrackapp.trototrack.data.remote.response.GetReportsUserResponse
 import com.trototrackapp.trototrack.data.remote.response.LoginResponse
@@ -73,4 +74,7 @@ interface ApiService {
 
     @POST("reports/{id}/upvote")
     suspend fun voteReport(@Path("id") id: String): Response<VoteReportResponse>
+
+    @GET("articles")
+    suspend fun getArticle(): Response<GetArticleResponse>
 }

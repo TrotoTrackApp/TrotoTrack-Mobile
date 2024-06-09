@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -92,7 +91,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val geocoder = Geocoder(this, Locale.getDefault())
         try {
             val addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
-            if (addresses != null && addresses.isNotEmpty()) {
+            if (!addresses.isNullOrEmpty()) {
                 val address = addresses[0].getAddressLine(0)
                 locationAddressTextView.text = address
             } else {
