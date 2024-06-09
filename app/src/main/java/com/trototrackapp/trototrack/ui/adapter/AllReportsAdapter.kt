@@ -3,6 +3,7 @@ package com.trototrackapp.trototrack.ui.adapter
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -54,6 +55,21 @@ class AllReportsAdapter : ListAdapter<DataItem, AllReportsAdapter.MyViewHolder>(
                 itemView.context.startActivity(intent)
             }
         }
+    }
+
+    fun filterData(text: String) {
+        Log.d("FilterData", "Search text: $text")
+        submitList(if (text.isEmpty()) {
+            currentList
+        } else {
+            val filteredList = currentList.filter { report ->
+                val location = report.location ?: ""
+                val containsText = location.contains(text, ignoreCase = true)
+                Log.d("FilterData", "Location: $location, Contains text: $containsText")
+                containsText
+            }
+            filteredList
+        })
     }
 
     companion object {
