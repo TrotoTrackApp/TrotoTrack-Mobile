@@ -1,6 +1,8 @@
 package com.trototrackapp.trototrack.ui.home
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,34 +13,50 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.FragmentAllReportBinding
-import com.trototrackapp.trototrack.ui.adapter.GetAllReportsAdapter
-import com.trototrackapp.trototrack.ui.viewmodel.GetReportsViewModel
+import com.trototrackapp.trototrack.ui.adapter.AllReportsAdapter
+import com.trototrackapp.trototrack.ui.viewmodel.ReportsViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
+import org.json.JSONException
+import org.json.JSONObject
 
 class AllReportFragment : Fragment() {
 
-    private lateinit var allReportsAdapter: GetAllReportsAdapter
+    private lateinit var allReportsAdapter: AllReportsAdapter
     private var _binding: FragmentAllReportBinding? = null
     private val binding get() = _binding!!
-    private val getAllReportsViewModel: GetReportsViewModel by viewModels {
+    private val reportsViewModel: ReportsViewModel by viewModels {
         ViewModelFactory.getInstance(requireActivity())
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAllReportBinding.inflate(inflater, container, false)
         val view = binding.root
 
         setupRecyclerView()
         setupObserver()
 
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                allReportsAdapter.filterData(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Kosong
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Kosong
+            }
+        })
+
         return view
     }
 
     private fun setupRecyclerView() {
-        allReportsAdapter = GetAllReportsAdapter()
+        allReportsAdapter = AllReportsAdapter()
         binding.recycleViewReports.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = allReportsAdapter
@@ -46,7 +64,7 @@ class AllReportFragment : Fragment() {
     }
 
     private fun setupObserver() {
-        getAllReportsViewModel.getAllReports().observe(viewLifecycleOwner, Observer { result ->
+        reportsViewModel.getAllReports().observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is ResultState.Loading -> {
                     binding.progressIndicator.visibility = View.VISIBLE
@@ -57,11 +75,21 @@ class AllReportFragment : Fragment() {
                 }
                 is ResultState.Error -> {
                     binding.progressIndicator.visibility = View.GONE
-                    Toast.makeText(context, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                    val errorMessage = result.message.let {
+                        try {
+                            val json = JSONObject(it)
+                            json.getString("message")
+                        } catch (e: JSONException) {
+                            it
+                        }
+                    } ?: "An error occurred"
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         })
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

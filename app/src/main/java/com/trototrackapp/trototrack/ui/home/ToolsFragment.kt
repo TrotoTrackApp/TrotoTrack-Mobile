@@ -24,6 +24,8 @@ import com.trototrackapp.trototrack.util.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONException
+import org.json.JSONObject
 
 class ToolsFragment : Fragment() {
 
@@ -37,7 +39,7 @@ class ToolsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentToolsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -82,8 +84,15 @@ class ToolsFragment : Fragment() {
                     }
                     is ResultState.Error -> {
                         binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(requireContext(), "Error: ${result.message}", Toast.LENGTH_LONG).show()
-                        Log.e("ScanViewModel", "Error: ${result.message}")
+                        val errorMessage = result.message.let {
+                            try {
+                                val json = JSONObject(it)
+                                json.getString("message")
+                            } catch (e: JSONException) {
+                                it
+                            }
+                        } ?: "An error occurred"
+                        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

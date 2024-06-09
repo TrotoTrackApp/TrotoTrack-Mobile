@@ -6,16 +6,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.trototrackapp.trototrack.data.ResultState
-import com.trototrackapp.trototrack.data.local.UserModel
 import com.trototrackapp.trototrack.data.local.UserPreference
-import com.trototrackapp.trototrack.data.local.dataStore
 import com.trototrackapp.trototrack.databinding.ActivityLoginBinding
 import com.trototrackapp.trototrack.ui.home.MainActivity
 import com.trototrackapp.trototrack.ui.viewmodel.AuthViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
+import org.json.JSONException
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
 
@@ -30,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userPreference = UserPreference.getInstance(dataStore)
+        userPreference = UserPreference.getInstance(this)
 
         binding.LoginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
@@ -42,23 +43,40 @@ class LoginActivity : AppCompatActivity() {
                     }
                     is ResultState.Success -> {
                         binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                        val data = result.data.data
-                        if (data != null) {
-                            val userModel = UserModel(
-                                id = data.id ?: "",
-                                token = data.token ?: ""
-                            )
+                        val token = result.data.data?.token
+                        if (token != null) {
                             lifecycleScope.launch {
-                                userPreference.saveSession(userModel)
-                                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                                finishAffinity()
+                                userPreference.saveToken(token)
                             }
+                            val dialog = AlertDialog.Builder(this)
+                                .setMessage("Login Successfull")
+                                .setPositiveButton("OK") { dialog, _ ->
+                                    dialog.dismiss()
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finishAffinity()
+                                }
+                                .create()
+                            dialog.show()
+                        } else {
+                            Toast.makeText(this, "Error: Token is null", Toast.LENGTH_SHORT).show()
                         }
                     }
                     is ResultState.Error -> {
                         binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(this, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                        val errorMessage = result.message.let {
+                            try {
+                                val json = JSONObject(it)
+                                json.getString("message")
+                            } catch (e: JSONException) {
+                                it
+                            }
+                        } ?: "An error occurred"
+                        val dialog = AlertDialog.Builder(this)
+                             .setMessage(errorMessage)
+                             .setPositiveButton("OK", null)
+                             .create()
+                        dialog.show()
                     }
                 }
             }

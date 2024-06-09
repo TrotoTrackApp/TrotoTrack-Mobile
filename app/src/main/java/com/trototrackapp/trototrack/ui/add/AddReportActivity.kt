@@ -13,18 +13,20 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.ActivityAddReportBinding
 import com.trototrackapp.trototrack.ui.home.MainActivity
-import com.trototrackapp.trototrack.ui.viewmodel.AddReportViewModel
+import com.trototrackapp.trototrack.ui.viewmodel.ReportsViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import com.trototrackapp.trototrack.util.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONException
+import org.json.JSONObject
 
 class AddReportActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddReportBinding
-    private val addReportViewModel: AddReportViewModel by viewModels {
+    private val reportViewModel: ReportsViewModel by viewModels {
         ViewModelFactory.getInstance(this)
     }
 
@@ -75,7 +77,7 @@ class AddReportActivity : AppCompatActivity() {
             val longitudeRequestBody = longitude.toString().toRequestBody("text/plain".toMediaTypeOrNull())
 
             binding.progressIndicator.visibility = View.VISIBLE
-            addReportViewModel.addReport(
+            reportViewModel.addReport(
                 locationRequestBody,
                 referenceLocationRequestBody,
                 latitudeRequestBody,
@@ -97,7 +99,15 @@ class AddReportActivity : AppCompatActivity() {
                     }
                     is ResultState.Error -> {
                         binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(this, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                        val errorMessage = result.message.let {
+                            try {
+                                val json = JSONObject(it)
+                                json.getString("message")
+                            } catch (e: JSONException) {
+                                it
+                            }
+                        } ?: "An error occurred"
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
