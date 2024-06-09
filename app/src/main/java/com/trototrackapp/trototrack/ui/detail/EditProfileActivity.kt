@@ -3,7 +3,6 @@ package com.trototrackapp.trototrack.ui.detail
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -50,7 +49,7 @@ class EditProfileActivity : AppCompatActivity() {
                     }
                     is ResultState.Error -> {
                         binding.progressIndicator.visibility = View.GONE
-                        val errorMessage = result.message?.let {
+                        val errorMessage = result.message.let {
                             try {
                                 val json = JSONObject(it)
                                 json.getString("message")

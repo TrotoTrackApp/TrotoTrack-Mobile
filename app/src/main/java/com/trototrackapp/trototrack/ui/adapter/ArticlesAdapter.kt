@@ -1,6 +1,5 @@
 package com.trototrackapp.trototrack.ui.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.trototrackapp.trototrack.data.remote.response.DataArticle
 import com.trototrackapp.trototrack.databinding.ItemArticlesBinding
 
-class GetArticleAdapter : ListAdapter<DataArticle, GetArticleAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class ArticlesAdapter : ListAdapter<DataArticle, ArticlesAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemArticlesBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -93,7 +93,7 @@ class DetailAccountActivity : AppCompatActivity() {
                 }
                 is ResultState.Error -> {
                     binding.progressIndicator.visibility = View.GONE
-                    val errorMessage = result.message?.let {
+                    val errorMessage = result.message.let {
                         try {
                             val json = JSONObject(it)
                             json.getString("message")
