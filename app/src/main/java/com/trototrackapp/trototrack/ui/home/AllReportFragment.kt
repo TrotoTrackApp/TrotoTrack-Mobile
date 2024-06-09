@@ -14,6 +14,8 @@ import com.trototrackapp.trototrack.databinding.FragmentAllReportBinding
 import com.trototrackapp.trototrack.ui.adapter.GetAllReportsAdapter
 import com.trototrackapp.trototrack.ui.viewmodel.GetReportsViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
+import org.json.JSONException
+import org.json.JSONObject
 
 class AllReportFragment : Fragment() {
 
@@ -57,7 +59,15 @@ class AllReportFragment : Fragment() {
                 }
                 is ResultState.Error -> {
                     binding.progressIndicator.visibility = View.GONE
-                    Toast.makeText(context, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                    val errorMessage = result.message?.let {
+                        try {
+                            val json = JSONObject(it)
+                            json.getString("message")
+                        } catch (e: JSONException) {
+                            it
+                        }
+                    } ?: "An error occurred"
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         })
