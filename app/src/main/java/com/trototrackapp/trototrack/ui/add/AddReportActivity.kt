@@ -20,6 +20,8 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONException
+import org.json.JSONObject
 
 class AddReportActivity : AppCompatActivity() {
 
@@ -97,7 +99,15 @@ class AddReportActivity : AppCompatActivity() {
                     }
                     is ResultState.Error -> {
                         binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(this, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                        val errorMessage = result.message?.let {
+                            try {
+                                val json = JSONObject(it)
+                                json.getString("message")
+                            } catch (e: JSONException) {
+                                it
+                            }
+                        } ?: "An error occurred"
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

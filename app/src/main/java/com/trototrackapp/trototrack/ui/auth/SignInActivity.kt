@@ -10,6 +10,8 @@ import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.ActivitySignInBinding
 import com.trototrackapp.trototrack.ui.viewmodel.AuthViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
+import org.json.JSONException
+import org.json.JSONObject
 
 class SignInActivity : AppCompatActivity() {
 
@@ -44,7 +46,15 @@ class SignInActivity : AppCompatActivity() {
                     }
                     is ResultState.Error -> {
                         binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(this, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                        val errorMessage = result.message?.let {
+                            try {
+                                val json = JSONObject(it)
+                                json.getString("message")
+                            } catch (e: JSONException) {
+                                it
+                            }
+                        } ?: "An error occurred"
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

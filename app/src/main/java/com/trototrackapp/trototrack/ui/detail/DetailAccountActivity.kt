@@ -16,6 +16,8 @@ import com.trototrackapp.trototrack.ui.viewmodel.ProfileViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import com.trototrackapp.trototrack.ui.welcome.WelcomeActivity
 import kotlinx.coroutines.launch
+import org.json.JSONException
+import org.json.JSONObject
 
 class DetailAccountActivity : AppCompatActivity() {
 
@@ -91,7 +93,15 @@ class DetailAccountActivity : AppCompatActivity() {
                 }
                 is ResultState.Error -> {
                     binding.progressIndicator.visibility = View.GONE
-                    Toast.makeText(this, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                    val errorMessage = result.message?.let {
+                        try {
+                            val json = JSONObject(it)
+                            json.getString("message")
+                        } catch (e: JSONException) {
+                            it
+                        }
+                    } ?: "An error occurred"
+                    Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         }
