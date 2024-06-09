@@ -1,6 +1,8 @@
 package com.trototrackapp.trototrack.ui.home
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +37,20 @@ class AllReportFragment : Fragment() {
 
         setupRecyclerView()
         setupObserver()
+
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                allReportsAdapter.filterData(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Kosong
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Kosong
+            }
+        })
 
         return view
     }
@@ -72,6 +88,8 @@ class AllReportFragment : Fragment() {
             }
         })
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
