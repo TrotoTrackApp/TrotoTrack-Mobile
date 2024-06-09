@@ -1,6 +1,8 @@
 package com.trototrackapp.trototrack.ui.adapter
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -31,6 +33,16 @@ class AllReportsAdapter : ListAdapter<DataItem, AllReportsAdapter.MyViewHolder>(
             binding.reportStatusDamage.text = report.statusDamage
             binding.reportDate.text = convertIso8601ToDate(report.createdAt ?: "")
             binding.reportVote.text = report.like.toString()
+
+            val backgroundColor = when (report.statusDamage) {
+                "light damaged" -> Color.YELLOW
+                "heavy damaged" -> Color.RED
+                "good" -> Color.GREEN
+                else -> Color.TRANSPARENT
+            }
+
+            binding.reportStatusDamage.backgroundTintList = ColorStateList.valueOf(backgroundColor)
+
             Glide.with(binding.root)
                 .load(report.image)
                 .into(binding.reportImage)
