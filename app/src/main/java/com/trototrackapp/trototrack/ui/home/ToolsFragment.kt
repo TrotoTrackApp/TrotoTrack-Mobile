@@ -39,7 +39,7 @@ class ToolsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentToolsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -84,7 +84,7 @@ class ToolsFragment : Fragment() {
                     }
                     is ResultState.Error -> {
                         binding.progressIndicator.visibility = View.GONE
-                        val errorMessage = result.message?.let {
+                        val errorMessage = result.message.let {
                             try {
                                 val json = JSONObject(it)
                                 json.getString("message")

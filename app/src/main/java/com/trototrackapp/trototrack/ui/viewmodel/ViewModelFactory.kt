@@ -25,23 +25,17 @@ class ViewModelFactory private constructor(
             modelClass.isAssignableFrom(AuthViewModel::class.java) -> {
                 AuthViewModel(authRepository) as T
             }
-            modelClass.isAssignableFrom(AddReportViewModel::class.java) -> {
-                AddReportViewModel(reportRepository) as T
-            }
             modelClass.isAssignableFrom(ScanViewModel::class.java) -> {
                 ScanViewModel(scanRepository) as T
             }
-            modelClass.isAssignableFrom(GetReportsViewModel::class.java) -> {
-                GetReportsViewModel(reportRepository) as T
-            }
-            modelClass.isAssignableFrom(DetailReportViewModel::class.java) -> {
-                DetailReportViewModel(reportRepository) as T
+            modelClass.isAssignableFrom(ReportsViewModel::class.java) -> {
+                ReportsViewModel(reportRepository) as T
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(profileRepository) as T
             }
-            modelClass.isAssignableFrom(GetArticleViewModel::class.java) -> {
-                GetArticleViewModel(articleRepository) as T
+            modelClass.isAssignableFrom(ArticlesViewModel::class.java) -> {
+                ArticlesViewModel(articleRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

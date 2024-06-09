@@ -11,25 +11,25 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.FragmentAllReportBinding
-import com.trototrackapp.trototrack.ui.adapter.GetAllReportsAdapter
-import com.trototrackapp.trototrack.ui.viewmodel.GetReportsViewModel
+import com.trototrackapp.trototrack.ui.adapter.AllReportsAdapter
+import com.trototrackapp.trototrack.ui.viewmodel.ReportsViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import org.json.JSONException
 import org.json.JSONObject
 
 class AllReportFragment : Fragment() {
 
-    private lateinit var allReportsAdapter: GetAllReportsAdapter
+    private lateinit var allReportsAdapter: AllReportsAdapter
     private var _binding: FragmentAllReportBinding? = null
     private val binding get() = _binding!!
-    private val getAllReportsViewModel: GetReportsViewModel by viewModels {
+    private val reportsViewModel: ReportsViewModel by viewModels {
         ViewModelFactory.getInstance(requireActivity())
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAllReportBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -40,7 +40,7 @@ class AllReportFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        allReportsAdapter = GetAllReportsAdapter()
+        allReportsAdapter = AllReportsAdapter()
         binding.recycleViewReports.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = allReportsAdapter
@@ -48,7 +48,7 @@ class AllReportFragment : Fragment() {
     }
 
     private fun setupObserver() {
-        getAllReportsViewModel.getAllReports().observe(viewLifecycleOwner, Observer { result ->
+        reportsViewModel.getAllReports().observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is ResultState.Loading -> {
                     binding.progressIndicator.visibility = View.VISIBLE
@@ -59,7 +59,7 @@ class AllReportFragment : Fragment() {
                 }
                 is ResultState.Error -> {
                     binding.progressIndicator.visibility = View.GONE
-                    val errorMessage = result.message?.let {
+                    val errorMessage = result.message.let {
                         try {
                             val json = JSONObject(it)
                             json.getString("message")

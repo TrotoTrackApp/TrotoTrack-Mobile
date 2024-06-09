@@ -12,26 +12,26 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.FragmentHomeBinding
-import com.trototrackapp.trototrack.ui.adapter.GetArticleAdapter
+import com.trototrackapp.trototrack.ui.adapter.ArticlesAdapter
 import com.trototrackapp.trototrack.ui.detail.DetailAccountActivity
-import com.trototrackapp.trototrack.ui.viewmodel.GetArticleViewModel
+import com.trototrackapp.trototrack.ui.viewmodel.ArticlesViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import org.json.JSONException
 import org.json.JSONObject
 
 class HomeFragment : Fragment() {
 
-    private lateinit var getArticleAdapter: GetArticleAdapter
+    private lateinit var articlesAdapter: ArticlesAdapter
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val getArticleViewModel: GetArticleViewModel by viewModels {
+    private val articlesViewModel: ArticlesViewModel by viewModels {
         ViewModelFactory.getInstance(requireActivity())
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,26 +49,26 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        getArticleAdapter = GetArticleAdapter()
+        articlesAdapter = ArticlesAdapter()
         binding.recycleViewArticle.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = getArticleAdapter
+            adapter = articlesAdapter
         }
     }
 
     private fun setupObserver() {
-        getArticleViewModel.getArticle().observe(viewLifecycleOwner, Observer { result ->
+        articlesViewModel.getArticle().observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is ResultState.Loading -> {
                     binding.progressIndicator.visibility = View.VISIBLE
                 }
                 is ResultState.Success -> {
                     binding.progressIndicator.visibility = View.GONE
-                    getArticleAdapter.submitList(result.data.data)
+                    articlesAdapter.submitList(result.data.data)
                 }
                 is ResultState.Error -> {
                     binding.progressIndicator.visibility = View.GONE
-                    val errorMessage = result.message?.let {
+                    val errorMessage = result.message.let {
                         try {
                             val json = JSONObject(it)
                             json.getString("message")

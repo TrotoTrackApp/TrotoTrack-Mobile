@@ -12,7 +12,7 @@ import com.trototrackapp.trototrack.databinding.ItemReportBinding
 import com.trototrackapp.trototrack.ui.detail.DetailReportActivity
 import com.trototrackapp.trototrack.util.convertIso8601ToDate
 
-class GetReportsUserAdapter : ListAdapter<DataReportUser, GetReportsUserAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class UserReportsAdapter : ListAdapter<DataReportUser, UserReportsAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemReportBinding.inflate(LayoutInflater.from(parent.context), parent, false)

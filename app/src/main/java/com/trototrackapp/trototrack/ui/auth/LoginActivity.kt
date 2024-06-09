@@ -3,10 +3,10 @@ package com.trototrackapp.trototrack.ui.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.data.local.UserPreference
@@ -45,21 +45,26 @@ class LoginActivity : AppCompatActivity() {
                         binding.progressIndicator.visibility = View.GONE
                         val token = result.data.data?.token
                         if (token != null) {
-                            Log.d("LoginActivity", "Token received: $token")
                             lifecycleScope.launch {
                                 userPreference.saveToken(token)
                             }
-                            Toast.makeText(this, "Login Successfull", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
-                            finishAffinity()
+                            val dialog = AlertDialog.Builder(this)
+                                .setMessage("Login Successfull")
+                                .setPositiveButton("OK") { dialog, _ ->
+                                    dialog.dismiss()
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finishAffinity()
+                                }
+                                .create()
+                            dialog.show()
                         } else {
                             Toast.makeText(this, "Error: Token is null", Toast.LENGTH_SHORT).show()
                         }
                     }
                     is ResultState.Error -> {
                         binding.progressIndicator.visibility = View.GONE
-                        val errorMessage = result.message?.let {
+                        val errorMessage = result.message.let {
                             try {
                                 val json = JSONObject(it)
                                 json.getString("message")
@@ -67,7 +72,11 @@ class LoginActivity : AppCompatActivity() {
                                 it
                             }
                         } ?: "An error occurred"
-                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                        val dialog = AlertDialog.Builder(this)
+                             .setMessage(errorMessage)
+                             .setPositiveButton("OK", null)
+                             .create()
+                        dialog.show()
                     }
                 }
             }

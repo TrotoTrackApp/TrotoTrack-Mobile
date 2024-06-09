@@ -11,25 +11,25 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.FragmentMyReportBinding
-import com.trototrackapp.trototrack.ui.adapter.GetReportsUserAdapter
-import com.trototrackapp.trototrack.ui.viewmodel.GetReportsViewModel
+import com.trototrackapp.trototrack.ui.adapter.UserReportsAdapter
+import com.trototrackapp.trototrack.ui.viewmodel.ReportsViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import org.json.JSONException
 import org.json.JSONObject
 
 class MyReportFragment : Fragment() {
 
-    private lateinit var reportsUserAdapter: GetReportsUserAdapter
+    private lateinit var userReportsAdapter: UserReportsAdapter
     private var _binding: FragmentMyReportBinding? = null
     private val binding get() = _binding!!
-    private val getMyReportsViewModel: GetReportsViewModel by viewModels {
+    private val reportsViewModel: ReportsViewModel by viewModels {
         ViewModelFactory.getInstance(requireActivity())
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMyReportBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -40,26 +40,26 @@ class MyReportFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        reportsUserAdapter = GetReportsUserAdapter()
+        userReportsAdapter = UserReportsAdapter()
         binding.recycleViewReports.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = reportsUserAdapter
+            adapter = userReportsAdapter
         }
     }
 
     private fun setupObserver() {
-        getMyReportsViewModel.getReportsUser().observe(viewLifecycleOwner, Observer { result ->
+        reportsViewModel.getReportsUser().observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is ResultState.Loading -> {
                     binding.progressIndicator.visibility = View.VISIBLE
                 }
                 is ResultState.Success -> {
                     binding.progressIndicator.visibility = View.GONE
-                    reportsUserAdapter.submitList(result.data.data)
+                    userReportsAdapter.submitList(result.data.data)
                 }
                 is ResultState.Error -> {
                     binding.progressIndicator.visibility = View.GONE
-                    val errorMessage = result.message?.let {
+                    val errorMessage = result.message.let {
                         try {
                             val json = JSONObject(it)
                             json.getString("message")
