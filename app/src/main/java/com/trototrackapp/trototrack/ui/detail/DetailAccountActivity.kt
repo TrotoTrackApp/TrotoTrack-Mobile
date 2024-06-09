@@ -11,7 +11,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.data.local.UserPreference
-import com.trototrackapp.trototrack.data.local.dataStore
 import com.trototrackapp.trototrack.databinding.ActivityDetailAccountBinding
 import com.trototrackapp.trototrack.ui.viewmodel.ProfileViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
@@ -33,7 +32,7 @@ class DetailAccountActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        userPreference = UserPreference.getInstance(dataStore)
+        userPreference = UserPreference.getInstance(this)
 
         binding.logout.setOnClickListener {
             showLogoutConfirmationDialog()
@@ -54,10 +53,10 @@ class DetailAccountActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle("Logout")
             .setMessage("Are you sure you want to log out?")
-            .setPositiveButton("Yes") { dialog, which ->
+            .setPositiveButton("Yes") { _, _ ->
                 logout()
             }
-            .setNegativeButton("No") { dialog, which ->
+            .setNegativeButton("No") { dialog, _ ->
                 dialog.dismiss()
             }
             .create()
@@ -65,11 +64,13 @@ class DetailAccountActivity : AppCompatActivity() {
     }
 
     private fun logout() {
+        val userPreference = UserPreference.getInstance(this)
         lifecycleScope.launch {
-            userPreference.logout()
+            userPreference.clear()
             val intent = Intent(this@DetailAccountActivity, WelcomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-            finishAffinity()
+            finish()
         }
     }
 

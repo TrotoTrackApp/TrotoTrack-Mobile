@@ -10,7 +10,7 @@ import com.trototrackapp.trototrack.data.repository.ProfileRepository
 import com.trototrackapp.trototrack.data.repository.ReportRepository
 import com.trototrackapp.trototrack.data.repository.ScanRepository
 import com.trototrackapp.trototrack.di.Injection
-import kotlinx.coroutines.runBlocking
+
 
 class ViewModelFactory private constructor(
     private val authRepository: AuthRepository,
@@ -49,18 +49,19 @@ class ViewModelFactory private constructor(
 
     companion object {
         @Volatile
-        private var instance: ViewModelFactory? = null
-        fun getInstance(context: Context): ViewModelFactory =
-            instance ?: synchronized(this) {
-                instance ?: runBlocking {
-                    ViewModelFactory(
-                        Injection.provideAuthRepository(),
-                        Injection.provideReportRepository(context),
-                        Injection.provideScanRepository(context),
-                        Injection.provideProfileRepository(context),
-                        Injection.provideArticleRepository(context)
-                    ).also { instance = it }
-                }
+        private var INSTANCE: ViewModelFactory? = null
+
+        @JvmStatic
+        fun getInstance(context: Context): ViewModelFactory {
+            val authRepository = Injection.provideAuthRepository(context)
+            val reportRepository = Injection.provideReportRepository(context)
+            val scanRepository = Injection.provideScanRepository(context)
+            val profileRepository = Injection.provideProfileRepository(context)
+            val articleRepository = Injection.provideArticleRepository(context)
+            return INSTANCE ?: synchronized(ViewModelFactory::class.java) {
+                INSTANCE ?: ViewModelFactory(authRepository, reportRepository, scanRepository, profileRepository, articleRepository)
+                    .also { INSTANCE = it }
             }
+        }
     }
 }
