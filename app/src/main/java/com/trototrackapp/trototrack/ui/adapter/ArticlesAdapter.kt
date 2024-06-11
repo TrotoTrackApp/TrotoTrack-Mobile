@@ -1,5 +1,6 @@
 package com.trototrackapp.trototrack.ui.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.trototrackapp.trototrack.data.remote.response.DataArticle
 import com.trototrackapp.trototrack.databinding.ItemArticlesBinding
+import com.trototrackapp.trototrack.ui.detail.DetailArticleActivity
 
 class ArticlesAdapter : ListAdapter<DataArticle, ArticlesAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
@@ -29,12 +31,15 @@ class ArticlesAdapter : ListAdapter<DataArticle, ArticlesAdapter.MyViewHolder>(D
                 .load(article.image)
                 .into(binding.articleImage)
                 .clearOnDetach()
-//            itemView.setOnClickListener {
-//                val intent = Intent(itemView.context, DetailReportActivity::class.java).apply {
-//                    putExtra(DetailReportActivity.REPORT_ID, article.id.toString())
-//                }
-//                itemView.context.startActivity(intent)
-//            }
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, DetailArticleActivity::class.java).apply {
+                    putExtra("title", article.title)
+                    putExtra("description", article.description)
+                    putExtra("image", article.image)
+                    putExtra("date", article.createdAt)
+                }
+                itemView.context.startActivity(intent)
+            }
         }
     }
 
