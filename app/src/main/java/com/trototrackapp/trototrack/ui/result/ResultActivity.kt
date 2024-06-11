@@ -7,6 +7,9 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import androidx.core.content.ContextCompat
+import com.trototrackapp.trototrack.R
 import com.trototrackapp.trototrack.databinding.ActivityResultBinding
 import com.trototrackapp.trototrack.ui.add.AddReportActivity
 import com.trototrackapp.trototrack.ui.home.MainActivity
@@ -33,13 +36,22 @@ class ResultActivity : AppCompatActivity() {
         binding.resultImage.setImageURI(imageUri)
 
         val backgroundColor = when (label) {
-            "light damaged" -> Color.YELLOW
-            "heavy damaged" -> Color.RED
-            "good" -> Color.GREEN
+            "light damaged" -> ContextCompat.getColor(this, R.color.light_yellow)
+            "heavy damaged" -> ContextCompat.getColor(this, R.color.light_red)
+            "good" -> ContextCompat.getColor(this, R.color.light_green)
             else -> Color.TRANSPARENT
         }
 
         binding.resultLabel.backgroundTintList = ColorStateList.valueOf(backgroundColor)
+
+        val image2Src = when (label) {
+            "light damaged" -> R.drawable.damaged
+            "heavy damaged" -> R.drawable.damaged
+            "good" -> R.drawable.good
+            else -> R.drawable.app_logo
+        }
+
+        binding.image2.setImageResource(image2Src)
 
         binding.addReportButton.setOnClickListener {
             val intent = Intent(this, AddReportActivity::class.java)
@@ -47,6 +59,12 @@ class ResultActivity : AppCompatActivity() {
             intent.putExtra("imageUri", imageUriString)
             startActivity(intent)
         }
+
+        if (label == "good") {
+            binding.addReportButton.isEnabled = false
+            binding.addReportButton.visibility = View.INVISIBLE
+        }
+
 
         binding.backButton.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))

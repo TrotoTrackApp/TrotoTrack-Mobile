@@ -77,4 +77,5 @@
     <string name="nameText">Name</string>
     <string name="voteText">Vote</string>
     <string name="vote_button">Vote Button</string>
+    <string name="searchBar">Search Report...</string>
 </resources>
