@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.ActivitySendOtpBinding
-import com.trototrackapp.trototrack.ui.home.MainActivity
 import com.trototrackapp.trototrack.ui.viewmodel.ForgetPasswordViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import org.json.JSONException
@@ -40,7 +39,9 @@ class SendOtpActivity : AppCompatActivity() {
                             .setMessage("OTP has been successfully sent to your email. Please check your email inbox and spam folder and follow the instructions to verify your account")
                             .setPositiveButton("OK") { dialog, _ ->
                                 dialog.dismiss()
-                                val intent = Intent(this, MainActivity::class.java)
+                                val intent = Intent(this, VerifyOtpActivity::class.java).apply {
+                                    putExtra("email", email)
+                                }
                                 startActivity(intent)
                             }
                             .create()
@@ -56,10 +57,6 @@ class SendOtpActivity : AppCompatActivity() {
                                 it
                             }
                         } ?: "An error occurred"
-                        val dialog = AlertDialog.Builder(this)
-                            .setMessage(errorMessage)
-                            .setPositiveButton("OK", null)
-                            .create()
                         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }

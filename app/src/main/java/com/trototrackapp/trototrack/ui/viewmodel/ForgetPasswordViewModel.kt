@@ -7,4 +7,6 @@ class ForgetPasswordViewModel(private val forgetPasswordRepository: ForgetPasswo
 
     fun sendOtp(email: String) = forgetPasswordRepository.sendOtp(email)
 
+    fun verifyOtp(email: String, otp: String) = forgetPasswordRepository.verifyOtp(email, otp)
+
 }
