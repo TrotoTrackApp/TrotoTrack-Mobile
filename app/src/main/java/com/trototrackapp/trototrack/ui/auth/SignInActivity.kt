@@ -29,10 +29,10 @@ class SignInActivity : AppCompatActivity() {
             val username = binding.usernameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
-            val confirm_password = binding.passwordConfirmationEditText.text.toString()
+            val confirmPassword = binding.passwordConfirmationEditText.text.toString()
 
             binding.progressIndicator.visibility = View.VISIBLE
-            authViewModel.register(name, username, email, password, confirm_password).observe(this) { result ->
+            authViewModel.register(name, username, email, password, confirmPassword).observe(this) { result ->
                 when (result) {
                     is ResultState.Loading -> {
                         binding.progressIndicator.visibility = View.VISIBLE
@@ -40,7 +40,7 @@ class SignInActivity : AppCompatActivity() {
                     is ResultState.Success -> {
                         binding.progressIndicator.visibility = View.GONE
                         val dialog = AlertDialog.Builder(this)
-                            .setMessage("Account created successfully")
+                            .setMessage("Your account has been successfully created. Please verify your account via the email we have sent")
                             .setPositiveButton("OK") { dialog, _ ->
                                 dialog.dismiss()
                                 val intent = Intent(this, LoginActivity::class.java)

@@ -5,6 +5,7 @@ import com.trototrackapp.trototrack.data.local.UserPreference
 import com.trototrackapp.trototrack.data.remote.retrofit.ApiConfig
 import com.trototrackapp.trototrack.data.repository.ArticleRepository
 import com.trototrackapp.trototrack.data.repository.AuthRepository
+import com.trototrackapp.trototrack.data.repository.ForgetPasswordRepository
 import com.trototrackapp.trototrack.data.repository.ProfileRepository
 import com.trototrackapp.trototrack.data.repository.ReportRepository
 import com.trototrackapp.trototrack.data.repository.ScanRepository
@@ -43,5 +44,12 @@ object Injection {
         val tokenFlow = userPreference.tokenFlow
         val apiService = ApiConfig.getApiService(tokenFlow)
         return ArticleRepository.getInstance(apiService)
+    }
+
+    fun provideForgetPasswordRepository(context: Context): ForgetPasswordRepository {
+        val userPreference = UserPreference.getInstance(context)
+        val tokenFlow = userPreference.tokenFlow
+        val apiService = ApiConfig.getApiService(tokenFlow)
+        return ForgetPasswordRepository.getInstance(apiService)
     }
 }
