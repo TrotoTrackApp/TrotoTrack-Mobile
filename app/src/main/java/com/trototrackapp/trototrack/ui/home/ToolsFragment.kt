@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.theartofdev.edmodo.cropper.CropImage
@@ -49,6 +50,10 @@ class ToolsFragment : Fragment() {
 
         binding.cameraButton.setOnClickListener {
             startCamera()
+        }
+
+        binding.cameraButton.setOnClickListener {
+            startGallery()
         }
 
         binding.scanButton.setOnClickListener {
@@ -108,6 +113,21 @@ class ToolsFragment : Fragment() {
         currentImageUri?.let {
             Log.d("Image URI", "showImage: $it")
             binding.imageHolder.setImageURI(it)
+        }
+    }
+
+    private fun startGallery() {
+        launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    private val launcherGallery = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            currentImageUri = uri
+            startCrop(currentImageUri)
+        } else {
+            Log.d("Photo Picker", "No media selected")
         }
     }
 
