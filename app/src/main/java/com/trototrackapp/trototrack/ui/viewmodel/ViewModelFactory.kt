@@ -39,6 +39,9 @@ class ViewModelFactory private constructor(
             modelClass.isAssignableFrom(ArticlesViewModel::class.java) -> {
                 ArticlesViewModel(articleRepository) as T
             }
+            modelClass.isAssignableFrom(ForgetPasswordViewModel::class.java) -> {
+                ForgetPasswordViewModel(forgetPasswordRepository) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }
