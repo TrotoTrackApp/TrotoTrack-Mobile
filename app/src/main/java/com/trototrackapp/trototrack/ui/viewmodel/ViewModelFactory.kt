@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.trototrackapp.trototrack.data.repository.ArticleRepository
 import com.trototrackapp.trototrack.data.repository.AuthRepository
+import com.trototrackapp.trototrack.data.repository.ForgetPasswordRepository
 import com.trototrackapp.trototrack.data.repository.ProfileRepository
 import com.trototrackapp.trototrack.data.repository.ReportRepository
 import com.trototrackapp.trototrack.data.repository.ScanRepository
@@ -17,7 +18,8 @@ class ViewModelFactory private constructor(
     private val reportRepository: ReportRepository,
     private val scanRepository: ScanRepository,
     private val profileRepository: ProfileRepository,
-    private val articleRepository: ArticleRepository
+    private val articleRepository: ArticleRepository,
+    private val forgetPasswordRepository: ForgetPasswordRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -52,8 +54,9 @@ class ViewModelFactory private constructor(
             val scanRepository = Injection.provideScanRepository(context)
             val profileRepository = Injection.provideProfileRepository(context)
             val articleRepository = Injection.provideArticleRepository(context)
+            val forgetPasswordRepository = Injection.provideForgetPasswordRepository(context)
             return INSTANCE ?: synchronized(ViewModelFactory::class.java) {
-                INSTANCE ?: ViewModelFactory(authRepository, reportRepository, scanRepository, profileRepository, articleRepository)
+                INSTANCE ?: ViewModelFactory(authRepository, reportRepository, scanRepository, profileRepository, articleRepository, forgetPasswordRepository)
                     .also { INSTANCE = it }
             }
         }

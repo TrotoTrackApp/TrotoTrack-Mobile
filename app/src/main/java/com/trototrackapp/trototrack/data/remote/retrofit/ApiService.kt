@@ -1,8 +1,11 @@
 package com.trototrackapp.trototrack.data.remote.retrofit
 
 import com.trototrackapp.trototrack.data.remote.request.LoginRequest
+import com.trototrackapp.trototrack.data.remote.request.NewPasswordRequest
 import com.trototrackapp.trototrack.data.remote.request.RegisterRequest
+import com.trototrackapp.trototrack.data.remote.request.SendOtpRequest
 import com.trototrackapp.trototrack.data.remote.request.UpdateProfileRequest
+import com.trototrackapp.trototrack.data.remote.request.VerifyOtpRequest
 import com.trototrackapp.trototrack.data.remote.response.AddReportResponse
 import com.trototrackapp.trototrack.data.remote.response.DetailReportResponse
 import com.trototrackapp.trototrack.data.remote.response.GetAllReportsResponse
@@ -10,9 +13,12 @@ import com.trototrackapp.trototrack.data.remote.response.GetArticleResponse
 import com.trototrackapp.trototrack.data.remote.response.GetProfileResponse
 import com.trototrackapp.trototrack.data.remote.response.GetReportsUserResponse
 import com.trototrackapp.trototrack.data.remote.response.LoginResponse
+import com.trototrackapp.trototrack.data.remote.response.NewPasswordResponse
 import com.trototrackapp.trototrack.data.remote.response.RegisterResponse
 import com.trototrackapp.trototrack.data.remote.response.ScanResponse
+import com.trototrackapp.trototrack.data.remote.response.SendOtpResponse
 import com.trototrackapp.trototrack.data.remote.response.UpdateProfileResponse
+import com.trototrackapp.trototrack.data.remote.response.VerifyOtpResponse
 import com.trototrackapp.trototrack.data.remote.response.VoteReportResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -20,6 +26,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Multipart
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
@@ -41,11 +48,11 @@ interface ApiService {
     @POST("reports")
     suspend fun addReport(
         @Part("location") location: RequestBody,
-        @Part("reference_location") reference_location: RequestBody,
+        @Part("reference_location") referenceLocation: RequestBody,
         @Part("latitude") latitude: RequestBody,
         @Part("longitude") longitude: RequestBody,
         @Part image: MultipartBody.Part,
-        @Part("status_damage") status_damage: RequestBody,
+        @Part("status_damage") statusDamage: RequestBody,
         @Part("description") description: RequestBody
     ): Response<AddReportResponse>
 
@@ -77,4 +84,19 @@ interface ApiService {
 
     @GET("articles")
     suspend fun getArticle(): Response<GetArticleResponse>
+
+    @POST("send-otp")
+    suspend fun sendOtp(
+        @Body request: SendOtpRequest
+    ): Response<SendOtpResponse>
+
+    @POST("verify-otp")
+    suspend fun verifyOtp(
+        @Body request: VerifyOtpRequest
+    ): Response<VerifyOtpResponse>
+
+    @PATCH("new-password")
+    suspend fun newPassword(
+        @Body request: NewPasswordRequest
+    ): Response<NewPasswordResponse>
 }

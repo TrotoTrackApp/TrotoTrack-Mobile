@@ -14,11 +14,11 @@ import okhttp3.RequestBody
 
 class ReportRepository(private val apiService: ApiService) {
 
-    fun addReport(locationName: RequestBody, referenceLocation: RequestBody, latitude: RequestBody, longitude: RequestBody, image: MultipartBody.Part, status_damage: RequestBody, description: RequestBody): LiveData<ResultState<AddReportResponse>> =
+    fun addReport(locationName: RequestBody, referenceLocation: RequestBody, latitude: RequestBody, longitude: RequestBody, image: MultipartBody.Part, statusDamage: RequestBody, description: RequestBody): LiveData<ResultState<AddReportResponse>> =
         liveData {
             emit(ResultState.Loading)
             try {
-                val response = apiService.addReport(locationName, referenceLocation, latitude, longitude, image, status_damage, description)
+                val response = apiService.addReport(locationName, referenceLocation, latitude, longitude, image, statusDamage, description)
                 if (response.isSuccessful) {
                     emit(ResultState.Success(response.body()!!))
                 } else {
