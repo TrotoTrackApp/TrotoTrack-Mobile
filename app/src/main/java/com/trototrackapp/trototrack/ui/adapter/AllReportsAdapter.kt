@@ -6,10 +6,12 @@ import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.trototrackapp.trototrack.R
 import com.trototrackapp.trototrack.data.remote.response.DataItem
 import com.trototrackapp.trototrack.databinding.ItemReportBinding
 import com.trototrackapp.trototrack.ui.detail.DetailReportActivity
@@ -36,9 +38,9 @@ class AllReportsAdapter : ListAdapter<DataItem, AllReportsAdapter.MyViewHolder>(
             binding.reportVote.text = report.like.toString()
 
             val backgroundColor = when (report.statusDamage) {
-                "light damaged" -> Color.YELLOW
-                "heavy damaged" -> Color.RED
-                "good" -> Color.GREEN
+                "light damaged" -> ContextCompat.getColor(itemView.context, R.color.light_yellow)
+                "heavy damaged" -> ContextCompat.getColor(itemView.context, R.color.light_red)
+                "good" -> ContextCompat.getColor(itemView.context, R.color.light_green)
                 else -> Color.TRANSPARENT
             }
 
