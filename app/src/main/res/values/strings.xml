@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">TrotoTrack</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
 
@@ -51,7 +51,7 @@
     <string name="scanResult">RESULT</string>
     <string name="backButton">Back</string>
     <string name="reportButton">Report</string>
-    <string name="descriptionResult">Deskripsi ... Lorem ipsum dolor sit amet, consectetur adipiscing elit ...</string>
+    <string name="descriptionResult">Deskripsi … Lorem ipsum dolor sit amet, consectetur adipiscing elit …</string>
     <string name="result_image">Result Image</string>
     <string name="locationText">Location</string>
     <string name="addReportText">Enter Report Data</string>
@@ -59,7 +59,7 @@
     <string name="submit">Submit</string>
     <string name="maps_button">Maps Button</string>
     <string name="addressText">Address</string>
-    <string name="reportDescriptionHint">Additional information...</string>
+    <string name="reportDescriptionHint">Additional information…</string>
     <string name="addressHint">123 Main St, City</string>
     <string name="locationHint">123 Main St, City, Countryt</string>
     <string name="detailLocationText">Location :</string>
@@ -77,5 +77,6 @@
     <string name="nameText">Name</string>
     <string name="voteText">Vote</string>
     <string name="vote_button">Vote Button</string>
-    <string name="searchBar">Search Report...</string>
+    <string name="searchBar">Search Report…</string>
+    <string name="articleDate">articleDate</string>
 </resources>
