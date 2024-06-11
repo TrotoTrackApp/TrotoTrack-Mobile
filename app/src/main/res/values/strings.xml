@@ -79,4 +79,5 @@
     <string name="vote_button">Vote Button</string>
     <string name="searchBar">Search Report…</string>
     <string name="articleDate">articleDate</string>
+    <string name="galleryText">Gallery</string>
 </resources>

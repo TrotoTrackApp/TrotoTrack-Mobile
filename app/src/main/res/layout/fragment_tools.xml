@@ -119,18 +119,27 @@
                     app:layout_constraintTop_toBottomOf="@id/imageHolder" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/scanButton"
+                    android:id="@+id/galleryButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="64dp"
                     android:backgroundTint="@color/yellow"
-                    android:text="@string/analyzeText"
+                    android:text="@string/galleryText"
                     android:textStyle="bold"
-                    app:icon="@drawable/ic_scan"
+                    app:icon="@drawable/ic_gallery"
                     app:iconGravity="textTop"
                     app:layout_constraintBottom_toBottomOf="@+id/cameraButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/cameraButton" />
+
+                <Button
+                    android:id="@+id/scanButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="64dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/analyzeText"
+                    app:layout_constraintTop_toBottomOf="@id/cameraButton" />
 
                 <View
                     android:id="@+id/view2"
@@ -140,7 +149,7 @@
                     android:backgroundTint="@color/yellow"
                     android:background="@drawable/rounded_corner"
                     android:layout_marginHorizontal="24dp"
-                    app:layout_constraintTop_toBottomOf="@id/cameraButton"
+                    app:layout_constraintTop_toBottomOf="@id/scanButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
