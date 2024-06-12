@@ -58,10 +58,10 @@
     <string name="photoText">Photo Evidence</string>
     <string name="submit">Submit</string>
     <string name="maps_button">Maps Button</string>
-    <string name="addressText">Address</string>
-    <string name="reportDescriptionHint">Additional information…</string>
-    <string name="addressHint">123 Main St, City</string>
-    <string name="locationHint">123 Main St, City, Countryt</string>
+    <string name="addressText">Location Details</string>
+    <string name="reportDescriptionHint">Additional Information…</string>
+    <string name="addressHint">e.g. In front of mosque</string>
+    <string name="locationHint">e.g. 123 Main St, City, Country</string>
     <string name="detailLocationText">Location :</string>
     <string name="detailDescriptionText">Description :</string>
     <string name="check_location">Check Location</string>

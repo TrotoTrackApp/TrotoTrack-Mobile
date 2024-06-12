@@ -46,14 +46,33 @@
             android:textColorHint="@color/gray"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/buttonResendOtp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Resend OTP"
+        android:textColor="@color/yellow"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="@+id/otpEditTextLayout"
+        app:layout_constraintStart_toStartOf="@+id/otpEditTextLayout"
+        app:layout_constraintTop_toBottomOf="@id/otpEditTextLayout" />
+
     <Button
         android:id="@+id/verifyOtpButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginVertical="64dp"
         android:layout_marginHorizontal="64dp"
+        android:layout_marginVertical="64dp"
+        android:layout_marginTop="76dp"
         android:text="Verify"
-        app:layout_constraintTop_toBottomOf="@id/otpEditTextLayout"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.625"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonResendOtp" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressIndicator"
