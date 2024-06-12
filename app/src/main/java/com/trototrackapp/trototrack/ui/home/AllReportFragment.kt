@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -37,20 +38,7 @@ class AllReportFragment : Fragment() {
 
         setupRecyclerView()
         setupObserver()
-
-        binding.searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                allReportsAdapter.filterData(s.toString())
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // No action needed here
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // No action needed here
-            }
-        })
+        setupSearchView()
 
         return view
     }
@@ -63,8 +51,45 @@ class AllReportFragment : Fragment() {
         }
     }
 
+    private fun setupSearchView() {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                reportsViewModel.getAllReports(query).observe(viewLifecycleOwner, Observer { result ->
+                    when (result) {
+                        is ResultState.Loading -> {
+                            binding.progressIndicator.visibility = View.VISIBLE
+                        }
+                        is ResultState.Success -> {
+                            binding.progressIndicator.visibility = View.GONE
+                            allReportsAdapter.submitList(result.data.data)
+                        }
+                        is ResultState.Error -> {
+                            binding.progressIndicator.visibility = View.GONE
+                            val errorMessage = result.message.let {
+                                try {
+                                    val json = JSONObject(it)
+                                    json.getString("message")
+                                } catch (e: JSONException) {
+                                    it
+                                }
+                            } ?: "An error occurred"
+                            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+                return false
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+
+                return true
+            }
+
+        })
+    }
+
     private fun setupObserver() {
-        reportsViewModel.getAllReports().observe(viewLifecycleOwner, Observer { result ->
+        reportsViewModel.getAllReports(null).observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is ResultState.Loading -> {
                     binding.progressIndicator.visibility = View.VISIBLE

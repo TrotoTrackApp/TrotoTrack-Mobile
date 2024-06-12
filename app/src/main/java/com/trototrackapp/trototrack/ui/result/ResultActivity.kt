@@ -45,8 +45,8 @@ class ResultActivity : AppCompatActivity() {
         binding.resultLabel.backgroundTintList = ColorStateList.valueOf(backgroundColor)
 
         val image2Src = when (label) {
-            "Light Damaged" -> R.drawable.damaged
-            "Heavy Damaged" -> R.drawable.damaged
+            "Light Damaged" -> R.drawable.damaged2
+            "Heavy Damaged" -> R.drawable.damaged2
             "Good" -> R.drawable.good
             else -> R.drawable.app_logo
         }

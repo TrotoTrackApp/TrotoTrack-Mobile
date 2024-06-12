@@ -59,19 +59,6 @@ class AllReportsAdapter : ListAdapter<DataItem, AllReportsAdapter.MyViewHolder>(
         }
     }
 
-    fun filterData(text: String) {
-        Log.d("FilterData", "Search text: $text")
-        if (text.isEmpty()) {
-            submitList(currentList.toList())  // Ensure a new list instance
-        } else {
-            val filteredList = currentList.filter { report ->
-                val location = report.location ?: ""
-                location.contains(text, ignoreCase = true)
-            }
-            submitList(filteredList.toList())  // Ensure a new list instance
-        }
-    }
-
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DataItem>() {
             override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {

@@ -29,11 +29,11 @@ class ReportRepository(private val apiService: ApiService) {
             }
         }
 
-    fun getAllReports(): LiveData<ResultState<GetAllReportsResponse>> =
+    fun getAllReports(searchQuery: String?): LiveData<ResultState<GetAllReportsResponse>> =
         liveData {
             emit(ResultState.Loading)
             try {
-                val response = apiService.getAllReports()
+                val response = apiService.getAllReports(searchQuery)
                 if (response.isSuccessful) {
                     emit(ResultState.Success(response.body()!!))
                 } else {
