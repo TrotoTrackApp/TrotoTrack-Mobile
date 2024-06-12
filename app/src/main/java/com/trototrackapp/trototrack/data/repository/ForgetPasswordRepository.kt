@@ -1,5 +1,6 @@
 package com.trototrackapp.trototrack.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.trototrackapp.trototrack.data.ResultState
@@ -45,11 +46,11 @@ class ForgetPasswordRepository(private val apiService: ApiService) {
             }
         }
 
-    fun newPassword(email: String, password: String, confirmPassword: String): LiveData<ResultState<NewPasswordResponse>> =
+    fun newPassword(password: String, confirmPassword: String): LiveData<ResultState<NewPasswordResponse>> =
         liveData {
             emit(ResultState.Loading)
             try {
-                val request = NewPasswordRequest(email, password, confirmPassword)
+                val request = NewPasswordRequest(password, confirmPassword)
                 val response = apiService.newPassword(request)
                 if (response.isSuccessful) {
                     emit(ResultState.Success(response.body()!!))

@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import com.trototrackapp.trototrack.data.ResultState
@@ -52,7 +54,7 @@ class ToolsFragment : Fragment() {
             startCamera()
         }
 
-        binding.cameraButton.setOnClickListener {
+        binding.galleryButton.setOnClickListener {
             startGallery()
         }
 
@@ -146,10 +148,20 @@ class ToolsFragment : Fragment() {
 
     private fun startCrop(uri: Uri?) {
         uri?.let {
-            CropImage.activity(it)
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .start(requireContext(), this)
+            showPreCropDialog(it)
         }
+    }
+
+    private fun showPreCropDialog(uri: Uri) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Highlight Guidance")
+            .setMessage("Please highlight the picture on the damaged sidewalk")
+            .setPositiveButton("OK") { _, _ ->
+                CropImage.activity(uri)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .start(requireContext(), this)
+            }
+            .show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

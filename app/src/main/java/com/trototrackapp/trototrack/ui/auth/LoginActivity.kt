@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.data.local.UserPreference
 import com.trototrackapp.trototrack.databinding.ActivityLoginBinding
+import com.trototrackapp.trototrack.ui.add.SendOtpActivity
 import com.trototrackapp.trototrack.ui.home.MainActivity
 import com.trototrackapp.trototrack.ui.viewmodel.AuthViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
@@ -48,16 +49,9 @@ class LoginActivity : AppCompatActivity() {
                             lifecycleScope.launch {
                                 userPreference.saveToken(token)
                             }
-                            val dialog = AlertDialog.Builder(this)
-                                .setMessage("Login Successfull")
-                                .setPositiveButton("OK") { dialog, _ ->
-                                    dialog.dismiss()
-                                    val intent = Intent(this, MainActivity::class.java)
-                                    startActivity(intent)
-                                    finishAffinity()
-                                }
-                                .create()
-                            dialog.show()
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            finishAffinity()
                         } else {
                             Toast.makeText(this, "Error: Token is null", Toast.LENGTH_SHORT).show()
                         }
@@ -80,6 +74,11 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        binding.forgetPasswordButton.setOnClickListener {
+            val intent = Intent(this, SendOtpActivity::class.java)
+            startActivity(intent)
         }
     }
 }
