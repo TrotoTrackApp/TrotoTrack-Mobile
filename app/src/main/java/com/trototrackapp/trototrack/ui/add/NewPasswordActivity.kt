@@ -8,11 +8,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import com.trototrackapp.trototrack.data.ResultState
+import com.trototrackapp.trototrack.data.local.UserPreference
 import com.trototrackapp.trototrack.databinding.ActivityNewPasswordBinding
 import com.trototrackapp.trototrack.ui.auth.LoginActivity
 import com.trototrackapp.trototrack.ui.viewmodel.ForgetPasswordViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
+import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -28,6 +31,8 @@ class NewPasswordActivity : AppCompatActivity() {
         binding = ActivityNewPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val userPreference = UserPreference.getInstance(this)
+
         binding.submitButton.setOnClickListener {
             val password = binding.passwordEditText.text.toString()
             val passwordConfirmation = binding.passwordConfirmationEditText.text.toString()
@@ -40,6 +45,9 @@ class NewPasswordActivity : AppCompatActivity() {
 
                     is ResultState.Success -> {
                         binding.progressIndicator.visibility = View.GONE
+                        lifecycleScope.launch {
+                            userPreference.clear()
+                        }
                         val dialog = AlertDialog.Builder(this)
                             .setMessage("New password created successfully")
                             .setPositiveButton("OK") { dialog, _ ->
