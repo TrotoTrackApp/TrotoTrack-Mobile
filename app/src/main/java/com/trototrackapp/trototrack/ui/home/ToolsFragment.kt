@@ -10,7 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -49,6 +51,10 @@ class ToolsFragment : Fragment() {
 
         binding.cameraButton.setOnClickListener {
             startCamera()
+        }
+
+        binding.galleryButton.setOnClickListener {
+            startGallery()
         }
 
         binding.scanButton.setOnClickListener {
@@ -111,6 +117,21 @@ class ToolsFragment : Fragment() {
         }
     }
 
+    private fun startGallery() {
+        launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    private val launcherGallery = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            currentImageUri = uri
+            startCrop(currentImageUri)
+        } else {
+            Log.d("Photo Picker", "No media selected")
+        }
+    }
+
     private fun startCamera() {
         currentImageUri = getImageUri(requireContext())
         launcherIntentCamera.launch(currentImageUri)
@@ -126,10 +147,20 @@ class ToolsFragment : Fragment() {
 
     private fun startCrop(uri: Uri?) {
         uri?.let {
-            CropImage.activity(it)
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .start(requireContext(), this)
+            showPreCropDialog(it)
         }
+    }
+
+    private fun showPreCropDialog(uri: Uri) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Highlight Guidance")
+            .setMessage("Please highlight the picture on the damaged sidewalk")
+            .setPositiveButton("OK") { _, _ ->
+                CropImage.activity(uri)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .start(requireContext(), this)
+            }
+            .show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

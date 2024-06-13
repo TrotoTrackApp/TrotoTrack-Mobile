@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.trototrackapp.trototrack.databinding.ActivityDetailArticleBinding
+import com.trototrackapp.trototrack.util.convertIso8601ToDate
 
 class DetailArticleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailArticleBinding
@@ -20,7 +21,7 @@ class DetailArticleActivity : AppCompatActivity() {
 
         binding.articleTitle.text = title
         binding.articleDescription.text = description
-        binding.articleDate.text = date
+        binding.articleDate.text = date?.let { convertIso8601ToDate(it) }
         Glide.with(this)
             .load(image)
             .into(binding.articleImage)

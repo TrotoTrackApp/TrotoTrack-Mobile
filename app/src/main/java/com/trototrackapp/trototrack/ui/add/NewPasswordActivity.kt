@@ -1,46 +1,55 @@
-package com.trototrackapp.trototrack.ui.auth
+package com.trototrackapp.trototrack.ui.add
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import com.trototrackapp.trototrack.data.ResultState
-import com.trototrackapp.trototrack.databinding.ActivitySignInBinding
-import com.trototrackapp.trototrack.ui.viewmodel.AuthViewModel
+import com.trototrackapp.trototrack.data.local.UserPreference
+import com.trototrackapp.trototrack.databinding.ActivityNewPasswordBinding
+import com.trototrackapp.trototrack.ui.auth.LoginActivity
+import com.trototrackapp.trototrack.ui.viewmodel.ForgetPasswordViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
+import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
 
-class SignInActivity : AppCompatActivity() {
+class NewPasswordActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySignInBinding
-    private val authViewModel: AuthViewModel by viewModels {
+    private lateinit var binding: ActivityNewPasswordBinding
+    private val forgetPasswordViewModel: ForgetPasswordViewModel by viewModels {
         ViewModelFactory.getInstance(this)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignInBinding.inflate(layoutInflater)
+        binding = ActivityNewPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.DoneButton.setOnClickListener {
-            val name = binding.nameEditText.text.toString()
-            val username = binding.usernameEditText.text.toString()
-            val email = binding.emailEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
-            val confirmPassword = binding.passwordConfirmationEditText.text.toString()
+        val userPreference = UserPreference.getInstance(this)
 
-            binding.progressIndicator.visibility = View.VISIBLE
-            authViewModel.register(name, username, email, password, confirmPassword).observe(this) { result ->
+        binding.submitButton.setOnClickListener {
+            val password = binding.passwordEditText.text.toString()
+            val passwordConfirmation = binding.passwordConfirmationEditText.text.toString()
+
+            forgetPasswordViewModel.newPassword(password, passwordConfirmation).observe(this) { result ->
                 when (result) {
                     is ResultState.Loading -> {
                         binding.progressIndicator.visibility = View.VISIBLE
                     }
+
                     is ResultState.Success -> {
                         binding.progressIndicator.visibility = View.GONE
+                        lifecycleScope.launch {
+                            userPreference.clear()
+                        }
                         val dialog = AlertDialog.Builder(this)
-                            .setMessage("Your account has been successfully created. Please verify your account via the email we have sent")
+                            .setMessage("New password created successfully")
                             .setPositiveButton("OK") { dialog, _ ->
                                 dialog.dismiss()
                                 val intent = Intent(this, LoginActivity::class.java)
@@ -50,7 +59,9 @@ class SignInActivity : AppCompatActivity() {
                             .create()
                         dialog.show()
                     }
+
                     is ResultState.Error -> {
+                        Log.d("SubmitButton", "Error: ${result.message}")
                         binding.progressIndicator.visibility = View.GONE
                         val errorMessage = result.message.let {
                             try {
@@ -60,11 +71,7 @@ class SignInActivity : AppCompatActivity() {
                                 it
                             }
                         } ?: "An error occurred"
-                        val dialog = AlertDialog.Builder(this)
-                            .setMessage(errorMessage)
-                            .setPositiveButton("OK", null)
-                            .create()
-                        dialog.show()
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

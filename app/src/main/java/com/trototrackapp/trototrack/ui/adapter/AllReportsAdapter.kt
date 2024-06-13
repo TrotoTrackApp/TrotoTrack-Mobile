@@ -3,7 +3,6 @@ package com.trototrackapp.trototrack.ui.adapter
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -38,9 +37,9 @@ class AllReportsAdapter : ListAdapter<DataItem, AllReportsAdapter.MyViewHolder>(
             binding.reportVote.text = report.like.toString()
 
             val backgroundColor = when (report.statusDamage) {
-                "light damaged" -> ContextCompat.getColor(itemView.context, R.color.light_yellow)
-                "heavy damaged" -> ContextCompat.getColor(itemView.context, R.color.light_red)
-                "good" -> ContextCompat.getColor(itemView.context, R.color.light_green)
+                "Light Damaged" -> ContextCompat.getColor(itemView.context, R.color.light_yellow)
+                "Heavy Damaged" -> ContextCompat.getColor(itemView.context, R.color.Red)
+                "Good" -> ContextCompat.getColor(itemView.context, R.color.light_green)
                 else -> Color.TRANSPARENT
             }
 
@@ -57,21 +56,6 @@ class AllReportsAdapter : ListAdapter<DataItem, AllReportsAdapter.MyViewHolder>(
                 itemView.context.startActivity(intent)
             }
         }
-    }
-
-    fun filterData(text: String) {
-        Log.d("FilterData", "Search text: $text")
-        submitList(if (text.isEmpty()) {
-            currentList
-        } else {
-            val filteredList = currentList.filter { report ->
-                val location = report.location ?: ""
-                val containsText = location.contains(text, ignoreCase = true)
-                Log.d("FilterData", "Location: $location, Contains text: $containsText")
-                containsText
-            }
-            filteredList
-        })
     }
 
     companion object {
