@@ -80,4 +80,13 @@
     <string name="searchBar">Search Report…</string>
     <string name="articleDate">articleDate</string>
     <string name="galleryText">Gallery</string>
+    <string name="newPasswordText">Please enter your new password</string>
+    <string name="enterEmailText">Enter your email</string>
+    <string name="resendOtp">Resend OTP</string>
+    <string name="verify">Verify</string>
+    <string name="verifyOtpText">Enter the OTP code you received from email</string>
+    <string name="confirm">Confirm</string>
+    <string name="confirmationText">Thank you for using our application. Click the button below to check the results in more detail</string>
+    <string name="password_image">Password Image</string>
+    <string name="otp_image">Otp Image</string>
 </resources>

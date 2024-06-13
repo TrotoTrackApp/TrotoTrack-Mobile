@@ -26,7 +26,6 @@ import com.trototrackapp.trototrack.ui.viewmodel.ArticlesViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import org.json.JSONException
 import org.json.JSONObject
-import java.text.FieldPosition
 
 class HomeFragment : Fragment() {
 

@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.data.local.UserPreference
 import com.trototrackapp.trototrack.databinding.ActivityVerifyOtpBinding
-import com.trototrackapp.trototrack.ui.home.MainActivity
 import com.trototrackapp.trototrack.ui.viewmodel.ForgetPasswordViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
@@ -72,7 +71,14 @@ class VerifyOtpActivity : AppCompatActivity() {
         }
 
         binding.verifyOtpButton.setOnClickListener {
-            val otp = binding.otpEditText.text.toString()
+            val otpDigit1 = binding.otpDigit1.text.toString()
+            val otpDigit2 = binding.otpDigit2.text.toString()
+            val otpDigit3 = binding.otpDigit3.text.toString()
+            val otpDigit4 = binding.otpDigit4.text.toString()
+            val otpDigit5 = binding.otpDigit5.text.toString()
+            val otpDigit6 = binding.otpDigit6.text.toString()
+
+            val otp = otpDigit1 + otpDigit2 + otpDigit3 + otpDigit4 + otpDigit5 + otpDigit6
             if (email != null) {
                 forgetPasswordViewModel.verifyOtp(email, otp).observe(this) { result ->
                     when (result) {
