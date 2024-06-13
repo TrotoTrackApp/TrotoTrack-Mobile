@@ -17,6 +17,7 @@ import com.trototrackapp.trototrack.ui.home.MainActivity
 class ResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultBinding
+    private lateinit var resultConfirmationFragment: ResultConfirmationFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +70,11 @@ class ResultActivity : AppCompatActivity() {
         binding.backButton.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
+
+        resultConfirmationFragment = ResultConfirmationFragment.newInstance(label ?: "")
+        supportFragmentManager.beginTransaction()
+            .replace(android.R.id.content, resultConfirmationFragment)
+            .commit()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

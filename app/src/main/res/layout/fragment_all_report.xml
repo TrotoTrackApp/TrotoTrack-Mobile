@@ -15,7 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="14dp"
+            app:queryHint="Search..."
+            android:background="@drawable/searchview_background"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
