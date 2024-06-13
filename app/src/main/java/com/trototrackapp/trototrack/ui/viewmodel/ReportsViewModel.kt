@@ -7,8 +7,8 @@ import okhttp3.RequestBody
 
 class ReportsViewModel(private val reportRepository: ReportRepository) : ViewModel() {
 
-    fun getAllReports() =
-        reportRepository.getAllReports()
+    fun getAllReports(searchQuery: String?) =
+        reportRepository.getAllReports(searchQuery)
 
     fun getReportsUser() =
         reportRepository.getReportsUser()

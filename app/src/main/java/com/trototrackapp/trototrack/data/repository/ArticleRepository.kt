@@ -3,7 +3,6 @@ package com.trototrackapp.trototrack.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.trototrackapp.trototrack.data.ResultState
-import com.trototrackapp.trototrack.data.remote.response.GetAllReportsResponse
 import com.trototrackapp.trototrack.data.remote.response.GetArticleResponse
 import com.trototrackapp.trototrack.data.remote.retrofit.ApiService
 

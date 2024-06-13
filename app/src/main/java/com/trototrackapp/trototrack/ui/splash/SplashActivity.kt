@@ -19,9 +19,10 @@ class SplashActivity : AppCompatActivity() {
         val userPreference = UserPreference.getInstance(this)
         lifecycleScope.launch {
             val token = userPreference.tokenFlow.firstOrNull()
-            if (token != null) {
+            if (token != null && !userPreference.isTokenExpired()) {
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             } else {
+                userPreference.clear()
                 startActivity(Intent(this@SplashActivity, WelcomeActivity::class.java))
             }
             finish()

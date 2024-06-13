@@ -60,6 +60,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="32dp"
+                    app:hintTextColor="@color/light_gray"
                     android:hint="@string/locationHint"
                     app:layout_constraintEnd_toStartOf="@id/mapButton"
                     app:layout_constraintStart_toStartOf="parent"
@@ -107,6 +108,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="32dp"
                     android:hint="@string/addressHint"
+                    app:hintTextColor="@color/light_gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/address">
@@ -139,6 +141,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="32dp"
                     android:hint="@string/reportDescriptionHint"
+                    app:hintTextColor="@color/light_gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/description">
@@ -161,6 +164,7 @@
                     android:layout_marginTop="24dp"
                     android:text="@string/photoText"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/descriptionEditText" />
 

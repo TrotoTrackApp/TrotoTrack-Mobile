@@ -37,9 +37,9 @@ class UserReportsAdapter : ListAdapter<DataReportUser, UserReportsAdapter.MyView
             binding.reportVote.text = report.like.toString()
 
             val backgroundColor = when (report.statusDamage) {
-                "light damaged" -> ContextCompat.getColor(itemView.context, R.color.light_yellow)
-                "heavy damaged" -> ContextCompat.getColor(itemView.context, R.color.light_red)
-                "good" -> ContextCompat.getColor(itemView.context, R.color.light_green)
+                "Light Damaged" -> ContextCompat.getColor(itemView.context, R.color.light_yellow)
+                "Heavy Damaged" -> ContextCompat.getColor(itemView.context, R.color.light_red)
+                "Good" -> ContextCompat.getColor(itemView.context, R.color.light_green)
                 else -> Color.TRANSPARENT
             }
 

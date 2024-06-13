@@ -27,11 +27,11 @@ class AuthRepository(private val apiService: ApiService) {
             }
         }
 
-    fun register(name: String, username: String, email: String, password: String, confirm_password: String): LiveData<ResultState<RegisterResponse>> =
+    fun register(name: String, username: String, email: String, password: String, confirmPassword: String): LiveData<ResultState<RegisterResponse>> =
         liveData {
             emit(ResultState.Loading)
             try {
-                val request = RegisterRequest(name, username, email, password, confirm_password)
+                val request = RegisterRequest(name, username, email, password, confirmPassword)
                 val response = apiService.register(request)
                 if (response.isSuccessful) {
                     emit(ResultState.Success(response.body()!!))

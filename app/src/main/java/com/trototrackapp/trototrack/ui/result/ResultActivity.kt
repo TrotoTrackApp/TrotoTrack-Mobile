@@ -17,6 +17,7 @@ import com.trototrackapp.trototrack.ui.home.MainActivity
 class ResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultBinding
+    private lateinit var resultConfirmationFragment: ResultConfirmationFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,18 +37,18 @@ class ResultActivity : AppCompatActivity() {
         binding.resultImage.setImageURI(imageUri)
 
         val backgroundColor = when (label) {
-            "light damaged" -> ContextCompat.getColor(this, R.color.light_yellow)
-            "heavy damaged" -> ContextCompat.getColor(this, R.color.light_red)
-            "good" -> ContextCompat.getColor(this, R.color.light_green)
+            "Light Damaged" -> ContextCompat.getColor(this, R.color.light_yellow)
+            "Heavy Damaged" -> ContextCompat.getColor(this, R.color.Red)
+            "Good" -> ContextCompat.getColor(this, R.color.light_green)
             else -> Color.TRANSPARENT
         }
 
         binding.resultLabel.backgroundTintList = ColorStateList.valueOf(backgroundColor)
 
         val image2Src = when (label) {
-            "light damaged" -> R.drawable.damaged
-            "heavy damaged" -> R.drawable.damaged
-            "good" -> R.drawable.good
+            "Light Damaged" -> R.drawable.damaged2
+            "Heavy Damaged" -> R.drawable.damaged2
+            "Good" -> R.drawable.good
             else -> R.drawable.app_logo
         }
 
@@ -60,7 +61,7 @@ class ResultActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        if (label == "good") {
+        if (label == "Good") {
             binding.addReportButton.isEnabled = false
             binding.addReportButton.visibility = View.INVISIBLE
         }
@@ -69,6 +70,11 @@ class ResultActivity : AppCompatActivity() {
         binding.backButton.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
+
+        resultConfirmationFragment = ResultConfirmationFragment.newInstance(label ?: "")
+        supportFragmentManager.beginTransaction()
+            .replace(android.R.id.content, resultConfirmationFragment)
+            .commit()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

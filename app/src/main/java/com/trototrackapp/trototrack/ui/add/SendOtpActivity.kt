@@ -1,38 +1,34 @@
-package com.trototrackapp.trototrack.ui.auth
+package com.trototrackapp.trototrack.ui.add
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.trototrackapp.trototrack.data.ResultState
-import com.trototrackapp.trototrack.databinding.ActivitySignInBinding
-import com.trototrackapp.trototrack.ui.viewmodel.AuthViewModel
+import com.trototrackapp.trototrack.databinding.ActivitySendOtpBinding
+import com.trototrackapp.trototrack.ui.viewmodel.ForgetPasswordViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
 import org.json.JSONException
 import org.json.JSONObject
 
-class SignInActivity : AppCompatActivity() {
+class SendOtpActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySignInBinding
-    private val authViewModel: AuthViewModel by viewModels {
+    private lateinit var binding: ActivitySendOtpBinding
+    private val forgetPasswordViewModel: ForgetPasswordViewModel by viewModels {
         ViewModelFactory.getInstance(this)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignInBinding.inflate(layoutInflater)
+        binding = ActivitySendOtpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.DoneButton.setOnClickListener {
-            val name = binding.nameEditText.text.toString()
-            val username = binding.usernameEditText.text.toString()
+        binding.sendOtpButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
-            val confirmPassword = binding.passwordConfirmationEditText.text.toString()
-
-            binding.progressIndicator.visibility = View.VISIBLE
-            authViewModel.register(name, username, email, password, confirmPassword).observe(this) { result ->
+            forgetPasswordViewModel.sendOtp(email).observe(this) { result ->
                 when (result) {
                     is ResultState.Loading -> {
                         binding.progressIndicator.visibility = View.VISIBLE
@@ -40,12 +36,13 @@ class SignInActivity : AppCompatActivity() {
                     is ResultState.Success -> {
                         binding.progressIndicator.visibility = View.GONE
                         val dialog = AlertDialog.Builder(this)
-                            .setMessage("Your account has been successfully created. Please verify your account via the email we have sent")
+                            .setMessage("OTP has been successfully sent to your email. Please check your email inbox and spam folder and follow the instructions to verify your account")
                             .setPositiveButton("OK") { dialog, _ ->
                                 dialog.dismiss()
-                                val intent = Intent(this, LoginActivity::class.java)
+                                val intent = Intent(this, VerifyOtpActivity::class.java).apply {
+                                    putExtra("email", email)
+                                }
                                 startActivity(intent)
-                                finishAffinity()
                             }
                             .create()
                         dialog.show()
@@ -60,11 +57,7 @@ class SignInActivity : AppCompatActivity() {
                                 it
                             }
                         } ?: "An error occurred"
-                        val dialog = AlertDialog.Builder(this)
-                            .setMessage(errorMessage)
-                            .setPositiveButton("OK", null)
-                            .create()
-                        dialog.show()
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
