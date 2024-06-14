@@ -29,8 +29,8 @@ class ResultConfirmationFragment : Fragment() {
         binding.scanResult.text = label
 
         when (label) {
-            "Light Damaged" -> binding.scanResult.setTextColor(Color.RED)
-            "Heavy Damaged" -> binding.scanResult.setTextColor(Color.YELLOW)
+            "Light Damaged" -> binding.scanResult.setTextColor(Color.YELLOW)
+            "Heavy Damaged" -> binding.scanResult.setTextColor(Color.RED)
             "Good" -> binding.scanResult.setTextColor(Color.GREEN)
             else -> binding.scanResult.setTextColor(Color.BLACK) // Warna default jika label tidak cocok
         }
