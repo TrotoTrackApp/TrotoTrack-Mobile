@@ -36,14 +36,22 @@ class UserReportsAdapter : ListAdapter<DataReportUser, UserReportsAdapter.MyView
             binding.reportDate.text = convertIso8601ToDate(report.createdAt ?: "")
             binding.reportVote.text = report.like.toString()
 
-            val backgroundColor = when (report.statusDamage) {
-                "Light Damaged" -> ContextCompat.getColor(itemView.context, R.color.light_yellow)
-                "Heavy Damaged" -> ContextCompat.getColor(itemView.context, R.color.light_red)
-                "Good" -> ContextCompat.getColor(itemView.context, R.color.light_green)
+            val backgroundColorStatusDamage = when (report.statusDamage) {
+                "Light Damaged" -> ContextCompat.getColor(itemView.context, R.color.yellow)
+                "Heavy Damaged" -> ContextCompat.getColor(itemView.context, R.color.red)
+                "Good" -> ContextCompat.getColor(itemView.context, R.color.green)
                 else -> Color.TRANSPARENT
             }
 
-            binding.reportStatusDamage.backgroundTintList = ColorStateList.valueOf(backgroundColor)
+            val backgroundColorStatus = when (report.status) {
+                "Pending" -> ContextCompat.getColor(itemView.context, R.color.yellow)
+                "Rejected" -> ContextCompat.getColor(itemView.context, R.color.red)
+                "Approved" -> ContextCompat.getColor(itemView.context, R.color.green)
+                else -> Color.TRANSPARENT
+            }
+
+            binding.reportStatusDamage.backgroundTintList = ColorStateList.valueOf(backgroundColorStatusDamage)
+            binding.reportStatus.backgroundTintList = ColorStateList.valueOf(backgroundColorStatus)
 
             Glide.with(binding.root)
                 .load(report.image)
