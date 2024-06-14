@@ -89,4 +89,6 @@
     <string name="confirmationText">Thank you for using our application. Click the button below to check the results in more detail</string>
     <string name="password_image">Password Image</string>
     <string name="otp_image">Otp Image</string>
+    <string name="pilih_lokasi_laporan">Pilih Lokasi Laporan</string>
+    <string name="empty">...</string>
 </resources>

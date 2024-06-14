@@ -1,6 +1,8 @@
 package com.trototrackapp.trototrack.ui.detail
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,8 +11,10 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.trototrackapp.trototrack.R
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.ActivityDetailReportBinding
 import com.trototrackapp.trototrack.ui.viewmodel.ReportsViewModel
@@ -104,18 +108,33 @@ class DetailReportActivity : AppCompatActivity() {
                         binding.reportVote.text = reportDetail.like.toString()
                         binding.reportLocation.text = reportDetail.location
                         binding.reportDescription.text = reportDetail.description
+                        binding.reportStatusDamage.text = reportDetail.statusDamage
+
+                        val backgroundColorStatusDamage = when (reportDetail.statusDamage) {
+                            "Light Damaged" -> ContextCompat.getColor(this, R.color.yellow)
+                            "Heavy Damaged" -> ContextCompat.getColor(this, R.color.red)
+                            "Good" -> ContextCompat.getColor(this, R.color.green)
+                            else -> Color.TRANSPARENT
+                        }
+
+                        val backgroundColorStatus = when (reportDetail.status) {
+                            "Pending" -> ContextCompat.getColor(this, R.color.yellow)
+                            "Rejected" -> ContextCompat.getColor(this, R.color.red)
+                            "Approved" -> ContextCompat.getColor(this, R.color.green)
+                            else -> Color.TRANSPARENT
+                        }
+
+                        binding.reportStatusDamage.backgroundTintList = ColorStateList.valueOf(backgroundColorStatusDamage)
+                        binding.reportStatus.backgroundTintList = ColorStateList.valueOf(backgroundColorStatus)
 
                         binding.buttonCheckLocation.setOnClickListener {
                             val latitude = reportDetail.latitude
                             val longitude = reportDetail.longitude
 
                             if (latitude != null && longitude != null) {
-                                val gmmIntentUri = Uri.parse("geo:$latitude,$longitude")
+                                val gmmIntentUri = Uri.parse("geo:0,0?q=$latitude,$longitude")
                                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                                 mapIntent.setPackage("com.google.android.apps.maps")
-
-                                mapIntent.putExtra("marker", "true")
-                                mapIntent.putExtra("zoom", 15)
 
                                 if (mapIntent.resolveActivity(packageManager) != null) {
                                     startActivity(mapIntent)

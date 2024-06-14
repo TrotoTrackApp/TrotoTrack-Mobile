@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         map:cardCornerRadius="20dp"
+        android:layout_marginBottom="-20dp"
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintEnd_toEndOf="parent">
@@ -27,15 +28,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="40dp"
             android:layout_marginHorizontal="20dp">
 
             <TextView
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pilih Lokasi Laporan"
-                android:textSize="20dp"
+                android:text="@string/pilih_lokasi_laporan"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 map:layout_constraintTop_toTopOf="parent"
                 map:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +52,7 @@
                 android:backgroundTint="@color/light_yellow"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
-                android:text="..."
+                android:text="@string/empty"
                 android:textSize="18sp"
                 map:layout_constraintEnd_toEndOf="parent"
                 map:layout_constraintStart_toStartOf="parent"
@@ -63,7 +65,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginHorizontal="20dp"
                 android:backgroundTint="@color/yellow"
-                android:text="Done"
+                android:text="@string/submit"
                 android:textSize="16sp"
                 map:layout_constraintStart_toStartOf="parent"
                 map:layout_constraintEnd_toEndOf="parent"
@@ -71,5 +73,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

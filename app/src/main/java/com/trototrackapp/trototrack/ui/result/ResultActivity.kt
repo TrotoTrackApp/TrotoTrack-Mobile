@@ -38,8 +38,8 @@ class ResultActivity : AppCompatActivity() {
 
         val backgroundColor = when (label) {
             "Light Damaged" -> ContextCompat.getColor(this, R.color.light_yellow)
-            "Heavy Damaged" -> ContextCompat.getColor(this, R.color.Red)
-            "Good" -> ContextCompat.getColor(this, R.color.light_green)
+            "Heavy Damaged" -> ContextCompat.getColor(this, R.color.red)
+            "Good" -> ContextCompat.getColor(this, R.color.green)
             else -> Color.TRANSPARENT
         }
 
