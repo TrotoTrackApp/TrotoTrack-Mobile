@@ -124,6 +124,16 @@ class DetailReportActivity : AppCompatActivity() {
                             else -> Color.TRANSPARENT
                         }
 
+                        if (reportDetail.reason != null) {
+                            binding.View3.visibility = View.VISIBLE
+                            binding.reason.visibility = View.VISIBLE
+                            binding.reportReason.visibility = View.VISIBLE
+                        } else {
+                            binding.View3.visibility = View.INVISIBLE
+                            binding.reason.visibility = View.INVISIBLE
+                            binding.reportReason.visibility = View.INVISIBLE
+                        }
+
                         binding.reportStatusDamage.backgroundTintList = ColorStateList.valueOf(backgroundColorStatusDamage)
                         binding.reportStatus.backgroundTintList = ColorStateList.valueOf(backgroundColorStatus)
 
