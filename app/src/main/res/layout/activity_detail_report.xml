@@ -39,11 +39,34 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
             android:text="@string/reportStatus"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:background="@drawable/rounded_corner"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reportVote" />
+
+        <TextView
+            android:id="@+id/reportStatusDamage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:background="@drawable/rounded_corner"
+            android:text="@string/reportStatus"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/reportStatus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintStart_toEndOf="@+id/reportStatus"
+            app:layout_constraintTop_toTopOf="@+id/reportStatus"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
             android:id="@+id/voteButton"

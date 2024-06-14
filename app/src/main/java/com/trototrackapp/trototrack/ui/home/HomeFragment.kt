@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
         setupObserver()
 
         list.add(SliderData(R.drawable.home1))
-        list.add(SliderData(R.drawable.app_logo))
+        list.add(SliderData(R.drawable.home2))
         list.add(SliderData(R.drawable.app_logo))
 
         slideAdapter = SliderAdapter(list)
