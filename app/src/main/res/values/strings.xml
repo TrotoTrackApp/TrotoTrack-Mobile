@@ -91,4 +91,6 @@
     <string name="otp_image">Otp Image</string>
     <string name="pilih_lokasi_laporan">Pilih Lokasi Laporan</string>
     <string name="empty">...</string>
+    <string name="reasontext">reasonText</string>
+    <string name="reportreason">reportReason</string>
 </resources>
