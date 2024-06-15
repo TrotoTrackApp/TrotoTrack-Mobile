@@ -52,7 +52,7 @@
         <activity
             android:name=".ui.add.MapsActivity"
             android:exported="false"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"/>
         <activity
             android:name=".ui.result.ResultActivity"
             android:exported="false"
@@ -79,7 +79,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.welcome.WelcomeActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">
