@@ -71,6 +71,7 @@ class JobFragment : Fragment() {
                             putExtra("address", result.data.data?.address)
                             putExtra("phone", result.data.data?.phone)
                             putExtra("file", result.data.data?.file)
+                            putExtra("status", result.data.data?.status)
                         }
                         startActivity(intent)
                     }
