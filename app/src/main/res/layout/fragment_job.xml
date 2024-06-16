@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@id/jobTitle" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/applyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="64dp"
@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@id/jobText" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/SignInButton"
+        android:id="@+id/checkButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="64dp"
@@ -65,7 +65,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/applyButton"
         app:layout_constraintVertical_bias="0.287"
         app:strokeColor="@color/yellow"
         app:strokeWidth="3dp" />
