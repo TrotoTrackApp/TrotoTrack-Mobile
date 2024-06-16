@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.trototrackapp.trototrack.databinding.FragmentJobBinding
-import com.trototrackapp.trototrack.ui.detail.DetailAccountActivity
+import com.trototrackapp.trototrack.ui.add.JobActivity
 
 class JobFragment : Fragment() {
 
@@ -26,7 +26,7 @@ class JobFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.applyButton.setOnClickListener {
-            val intent = Intent(activity, DetailAccountActivity::class.java)
+            val intent = Intent(activity, JobActivity::class.java)
             startActivity(intent)
         }
     }
