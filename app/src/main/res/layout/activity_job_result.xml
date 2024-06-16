@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="TrotoJob"
+                android:text="@string/trotojob"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="@id/appLogo"
                 app:layout_constraintBottom_toBottomOf="@id/appLogo"
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="Name :"
+                android:text="@string/nameText2"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/appLogo"
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="name"
+                android:text="@string/name"
                 app:layout_constraintTop_toBottomOf="@id/name"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="NIK :"
+                android:text="@string/nikText2"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/view"
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="NIK"
+                android:text="@string/name"
                 app:layout_constraintTop_toBottomOf="@id/nik"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="Address :"
+                android:text="@string/addressText2"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/view2"
@@ -117,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Address"
+                android:text="@string/name"
                 app:layout_constraintTop_toBottomOf="@id/address"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -137,7 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="Phone :"
+                android:text="@string/phoneText2"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/view3"
@@ -148,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Phone"
+                android:text="@string/name"
                 app:layout_constraintTop_toBottomOf="@id/phone"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -168,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="File :"
+                android:text="@string/fileText2"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@id/view4"
@@ -181,7 +181,7 @@
                 android:layout_marginStart="64dp"
                 android:layout_marginTop="4dp"
                 android:padding="0dp"
-                android:text="Download"
+                android:text="@string/download"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/file"
                 app:layout_constraintStart_toEndOf="@+id/file"
@@ -197,7 +197,7 @@
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="4dp"
                 android:textColor="@color/white"
-                android:text="Status"
+                android:text="@string/jobStatus"
                 android:textSize="24sp"
                 app:layout_constraintTop_toBottomOf="@id/file"
                 app:layout_constraintStart_toStartOf="parent"/>

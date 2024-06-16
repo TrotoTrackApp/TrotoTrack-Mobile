@@ -96,4 +96,19 @@
     <string name="jobNavigation">Job</string>
     <string name="trotojob">TrotoJob</string>
     <string name="file_button">file_button</string>
+    <string name="job_image">job_image</string>
+    <string name="jobPageText">Do you have the skills and passion to repair damaged sidewalks? Our application provides the opportunity for you to join a professional team in improving city infrastructure.</string>
+    <string name="apply">Apply</string>
+    <string name="checkApplication">Check Application</string>
+    <string name="jobPageText2">Enter Your Personal Data</string>
+    <string name="nikText">NIK</string>
+    <string name="phoneText">Phone Number</string>
+    <string name="cvText">CV</string>
+    <string name="nameText2">Name :</string>
+    <string name="nikText2">NIK :</string>
+    <string name="addressText2">Address :</string>
+    <string name="phoneText2">Phone :</string>
+    <string name="fileText2">File :</string>
+    <string name="download">Download</string>
+    <string name="jobStatus">jobStatus</string>
 </resources>

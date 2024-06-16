@@ -18,7 +18,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/sidewalk_repair"/>
+            android:src="@drawable/sidewalk_repair"
+            android:contentDescription="@string/job_image" />
 
         <TextView
             android:id="@+id/jobTitle"
@@ -38,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="36dp"
             android:layout_marginTop="16dp"
-            android:text="Do you have the skills and passion to repair damaged sidewalks? Our application provides the opportunity for you to join a professional team in improving city infrastructure."
+            android:text="@string/jobPageText"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="64dp"
             android:layout_marginTop="36dp"
-            android:text="Apply"
+            android:text="@string/apply"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/jobText" />
 
@@ -61,7 +62,7 @@
             android:layout_marginHorizontal="64dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="50dp"
-            android:text="Check Application"
+            android:text="@string/checkApplication"
             android:textColor="@color/yellow"
             android:textSize="16sp"
             app:backgroundTint="@android:color/transparent"
