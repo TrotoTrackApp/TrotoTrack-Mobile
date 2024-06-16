@@ -57,10 +57,28 @@ fun uriToFile(imageUri: Uri, context: Context): File {
     return myFile
 }
 
+fun uriToPdfFile(pdfUri: Uri, context: Context): File {
+    val pdfFile = createCustomTempFileForPdf(context)
+    val inputStream = context.contentResolver.openInputStream(pdfUri) ?: return pdfFile
+    val outputStream = FileOutputStream(pdfFile)
+    val buffer = ByteArray(1024)
+    var length: Int
+    while (inputStream.read(buffer).also { length = it } > 0) outputStream.write(buffer, 0, length)
+    outputStream.close()
+    inputStream.close()
+    return pdfFile
+}
+
 fun createCustomTempFile(context: Context): File {
     val filesDir = context.externalCacheDir
     return File.createTempFile(timeStamp, ".jpg", filesDir)
 }
+
+fun createCustomTempFileForPdf(context: Context): File {
+    val filesDir = context.externalCacheDir
+    return File.createTempFile(timeStamp, ".pdf", filesDir)
+}
+
 
 fun convertIso8601ToDate(isoDate: String): String {
     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
