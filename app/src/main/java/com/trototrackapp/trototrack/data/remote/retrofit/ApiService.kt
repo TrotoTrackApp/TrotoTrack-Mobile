@@ -12,6 +12,7 @@ import com.trototrackapp.trototrack.data.remote.response.GetAllReportsResponse
 import com.trototrackapp.trototrack.data.remote.response.GetArticleResponse
 import com.trototrackapp.trototrack.data.remote.response.GetProfileResponse
 import com.trototrackapp.trototrack.data.remote.response.GetReportsUserResponse
+import com.trototrackapp.trototrack.data.remote.response.JobResponse
 import com.trototrackapp.trototrack.data.remote.response.LoginResponse
 import com.trototrackapp.trototrack.data.remote.response.NewPasswordResponse
 import com.trototrackapp.trototrack.data.remote.response.RegisterResponse
@@ -102,4 +103,14 @@ interface ApiService {
     suspend fun newPassword(
         @Body request: NewPasswordRequest
     ): Response<NewPasswordResponse>
+
+    @Multipart
+    @POST("jobs")
+    suspend fun job(
+        @Part("name") name: RequestBody,
+        @Part("nik") nik: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part file: MultipartBody.Part,
+    ): Response<JobResponse>
 }
