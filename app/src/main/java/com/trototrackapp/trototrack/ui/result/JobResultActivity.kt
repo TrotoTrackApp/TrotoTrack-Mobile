@@ -31,9 +31,10 @@ class JobResultActivity : AppCompatActivity() {
         binding.nikUser.text = nik
         binding.addressUser.text = address
         binding.phoneUser.text = phone
+        binding.status.text = status
 
         val backgroundColor = when (status) {
-            "Pending" -> ContextCompat.getColor(this, R.color.light_yellow)
+            "Pending" -> ContextCompat.getColor(this, R.color.yellow)
             "Rejected" -> ContextCompat.getColor(this, R.color.red)
             "Approved" -> ContextCompat.getColor(this, R.color.green)
             else -> Color.TRANSPARENT
