@@ -10,6 +10,7 @@ import com.trototrackapp.trototrack.data.remote.response.AddReportResponse
 import com.trototrackapp.trototrack.data.remote.response.DetailReportResponse
 import com.trototrackapp.trototrack.data.remote.response.GetAllReportsResponse
 import com.trototrackapp.trototrack.data.remote.response.GetArticleResponse
+import com.trototrackapp.trototrack.data.remote.response.GetJobResponse
 import com.trototrackapp.trototrack.data.remote.response.GetProfileResponse
 import com.trototrackapp.trototrack.data.remote.response.GetReportsUserResponse
 import com.trototrackapp.trototrack.data.remote.response.JobResponse
@@ -113,4 +114,7 @@ interface ApiService {
         @Part("phone") phone: RequestBody,
         @Part file: MultipartBody.Part,
     ): Response<JobResponse>
+
+    @GET("jobs/profile")
+    suspend fun getJob(): Response<GetJobResponse>
 }
