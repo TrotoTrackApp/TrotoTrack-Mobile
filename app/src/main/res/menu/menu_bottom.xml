@@ -12,4 +12,8 @@
         android:id="@+id/nav_report"
         android:icon="@drawable/ic_report"
         android:title="@string/historyNavigation"/>
+    <item
+        android:id="@+id/nav_job"
+        android:icon="@drawable/ic_job"
+        android:title="@string/jobNavigation"/>
 </menu>

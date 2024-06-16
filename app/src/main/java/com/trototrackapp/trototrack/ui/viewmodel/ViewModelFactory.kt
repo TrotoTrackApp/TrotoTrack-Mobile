@@ -20,7 +20,7 @@ class ViewModelFactory private constructor(
     private val scanRepository: ScanRepository,
     private val profileRepository: ProfileRepository,
     private val articleRepository: ArticleRepository,
-    private val forgetPasswordRepository: ForgetPasswordRepository
+    private val forgetPasswordRepository: ForgetPasswordRepository,
     private val jobRepository: JobRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
@@ -43,6 +43,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(ForgetPasswordViewModel::class.java) -> {
                 ForgetPasswordViewModel(forgetPasswordRepository) as T
+            }
+            modelClass.isAssignableFrom(JobViewModel::class.java) -> {
+                JobViewModel(jobRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
