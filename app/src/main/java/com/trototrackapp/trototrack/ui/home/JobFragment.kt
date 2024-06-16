@@ -1,11 +1,13 @@
 package com.trototrackapp.trototrack.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.trototrackapp.trototrack.databinding.FragmentJobBinding
+import com.trototrackapp.trototrack.ui.detail.DetailAccountActivity
 
 class JobFragment : Fragment() {
 
@@ -22,5 +24,10 @@ class JobFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.applyButton.setOnClickListener {
+            val intent = Intent(activity, DetailAccountActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
