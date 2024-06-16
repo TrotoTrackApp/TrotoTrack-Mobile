@@ -94,4 +94,5 @@
     <string name="reasontext">reasonText</string>
     <string name="reportreason">reportReason</string>
     <string name="jobNavigation">Job</string>
+    <string name="trotojob">TrotoJob</string>
 </resources>
