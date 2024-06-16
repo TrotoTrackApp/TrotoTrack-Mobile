@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.FragmentJobBinding
 import com.trototrackapp.trototrack.ui.add.JobActivity
-import com.trototrackapp.trototrack.ui.detail.DetailArticleActivity
 import com.trototrackapp.trototrack.ui.result.JobResultActivity
 import com.trototrackapp.trototrack.ui.viewmodel.JobViewModel
 import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
@@ -26,6 +26,7 @@ class JobFragment : Fragment() {
     private val jobViewModel: JobViewModel by viewModels {
         ViewModelFactory.getInstance(requireActivity())
     }
+    private var isRegistered: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +42,18 @@ class JobFragment : Fragment() {
         setupObserver()
 
         binding.applyButton.setOnClickListener {
-            val intent = Intent(activity, JobActivity::class.java)
-            startActivity(intent)
+            if (isRegistered) {
+                AlertDialog.Builder(requireContext())
+                    .setMessage("You have registered")
+                    .setPositiveButton("OK") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .create()
+                    .show()
+            } else {
+                val intent = Intent(activity, JobActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
@@ -53,7 +64,7 @@ class JobFragment : Fragment() {
 
                 }
                 is ResultState.Success -> {
-                    binding.applyButton.setOnClickListener {
+                    binding.checkButton.setOnClickListener {
                         val intent = Intent(activity, JobResultActivity::class.java).apply {
                             putExtra("name", result.data.data?.name)
                             putExtra("nik", result.data.data?.nik)
@@ -63,6 +74,8 @@ class JobFragment : Fragment() {
                         }
                         startActivity(intent)
                     }
+                    isRegistered = result.data.data != null
+                    binding.applyButton.isEnabled = !isRegistered
                 }
                 is ResultState.Error -> {
                     val errorMessage = result.message.let {
@@ -77,5 +90,10 @@ class JobFragment : Fragment() {
                 }
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
