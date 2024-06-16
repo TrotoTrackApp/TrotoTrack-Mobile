@@ -1,32 +1,47 @@
 package com.trototrackapp.trototrack.ui.add
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import android.Manifest
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.databinding.ActivityJobBinding
+import com.trototrackapp.trototrack.ui.home.MainActivity
+import com.trototrackapp.trototrack.ui.viewmodel.JobViewModel
+import com.trototrackapp.trototrack.ui.viewmodel.ViewModelFactory
+import com.trototrackapp.trototrack.util.uriToPdfFile
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONException
+import org.json.JSONObject
 
 class JobActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityJobBinding
+    private val jobViewModel: JobViewModel by viewModels {
+        ViewModelFactory.getInstance(this)
+    }
+    private var currentFileUri: Uri? = null
 
     private val selectPdfLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val uri: Uri? = result.data?.data
-            uri?.let {
-                val fileName = getFileName(it)
-                binding.fileLocationEditText.setText(fileName)
-            }
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            currentFileUri = uri
+            val fileName = getFileName(uri)
+            binding.fileLocationEditText.setText(fileName)
+        } else {
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -36,25 +51,78 @@ class JobActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.fileButton.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 100)
-            } else {
-                openFilePicker()
-            }
+            openFilePicker()
         }
 
-        binding.submitButton.setOnClickListener{
-            //
+        binding.submitButton.setOnClickListener {
+            if (currentFileUri == null) {
+                Toast.makeText(this, "Please fill all required fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val name = binding.nameEditText.text.toString()
+            val nik = binding.nikEditText.text.toString()
+            val address = binding.addressEditText.text.toString()
+            val phone = binding.phoneEditText.text.toString()
+
+            val nameRequestBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
+            val nikRequestBody = nik.toRequestBody("text/plain".toMediaTypeOrNull())
+            val addressRequestBody = address.toRequestBody("text/plain".toMediaTypeOrNull())
+            val phoneRequestBody = phone.toRequestBody("text/plain".toMediaTypeOrNull())
+
+            val file = uriToPdfFile(currentFileUri!!, this)
+            val requestPdfFile = file.asRequestBody("application/pdf".toMediaTypeOrNull())
+            val fileMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                "file", file.name, requestPdfFile
+            )
+
+            jobViewModel.job(
+                nameRequestBody,
+                nikRequestBody,
+                addressRequestBody,
+                phoneRequestBody,
+                fileMultipart
+            ).observe(this) { result ->
+                when (result) {
+                    is ResultState.Loading -> {
+                        binding.progressIndicator.visibility = View.VISIBLE
+                    }
+
+                    is ResultState.Success -> {
+                        binding.progressIndicator.visibility = View.GONE
+                        Toast.makeText(
+                            this,
+                            "Application has been successfully sent",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        finishAffinity()
+                    }
+
+                    is ResultState.Error -> {
+                        binding.progressIndicator.visibility = View.GONE
+                        val errorMessage = result.message.let {
+                            try {
+                                val json = JSONObject(it)
+                                json.getString("message")
+                            } catch (e: JSONException) {
+                                it
+                            }
+                        } ?: "An error occurred"
+                        val dialog = AlertDialog.Builder(this)
+                            .setMessage(errorMessage)
+                            .setPositiveButton("OK", null)
+                            .create()
+                        dialog.show()
+                    }
+                }
+            }
         }
     }
 
     private fun openFilePicker() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "application/pdf"
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
-        selectPdfLauncher.launch(intent)
+        selectPdfLauncher.launch("application/pdf")
     }
 
     override fun onRequestPermissionsResult(
