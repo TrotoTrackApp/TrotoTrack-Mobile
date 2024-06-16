@@ -43,7 +43,7 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="Name :"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -54,80 +54,125 @@
                 android:id="@id/nameUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="8dp"
                 android:text="name"
                 app:layout_constraintTop_toBottomOf="@id/name"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginVertical="12dp"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/nameUser"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/nik"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="14dp"
                 android:text="NIK :"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/nameUser"
+                app:layout_constraintTop_toBottomOf="@id/view"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/nikUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="8dp"
                 android:text="NIK"
                 app:layout_constraintTop_toBottomOf="@id/nik"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginVertical="12dp"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/nikUser"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="14dp"
                 android:text="Address :"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/nikUser"
+                app:layout_constraintTop_toBottomOf="@id/view2"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/addressUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="NIK"
+                android:layout_marginTop="8dp"
+                android:text="Address"
                 app:layout_constraintTop_toBottomOf="@id/address"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginVertical="12dp"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/addressUser"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="14dp"
                 android:text="Phone :"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/addressUser"
+                app:layout_constraintTop_toBottomOf="@id/view3"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/phoneUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="8dp"
                 android:text="Phone"
                 app:layout_constraintTop_toBottomOf="@id/phone"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginVertical="12dp"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/phoneUser"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/file"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="File :"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/phoneUser"/>
+                app:layout_constraintTop_toBottomOf="@id/view4"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <Button
                 android:id="@+id/downloadButton"
@@ -147,7 +192,7 @@
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/rounded_corner"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="4dp"
