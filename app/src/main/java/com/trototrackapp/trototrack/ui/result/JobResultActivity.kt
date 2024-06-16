@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.trototrackapp.trototrack.R
@@ -19,6 +20,8 @@ class JobResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityJobResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val name = intent.getStringExtra("name")
         val nik = intent.getStringExtra("nik")
@@ -48,6 +51,16 @@ class JobResultActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "File URL is not available", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

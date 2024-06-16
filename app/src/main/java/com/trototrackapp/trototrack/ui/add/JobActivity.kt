@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -49,6 +50,8 @@ class JobActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityJobBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.fileButton.setOnClickListener {
             openFilePicker()
@@ -155,5 +158,15 @@ class JobActivity : AppCompatActivity() {
             }
         }
         return result ?: "unknown_file"
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
