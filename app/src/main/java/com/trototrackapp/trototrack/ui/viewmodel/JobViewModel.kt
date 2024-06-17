@@ -12,4 +12,7 @@ class JobViewModel(private val jobRepository: JobRepository) : ViewModel() {
 
     fun job(name: RequestBody, nik: RequestBody, address: RequestBody, phone: RequestBody, file: MultipartBody.Part) =
         jobRepository.job(name, nik, address, phone, file)
+
+    fun updateJob(id: String, name: RequestBody, nik: RequestBody, address: RequestBody, phone: RequestBody, file: MultipartBody.Part) =
+        jobRepository.updateJob(id, name, nik, address, phone, file)
 }

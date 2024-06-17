@@ -33,18 +33,7 @@ class JobActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private var currentFileUri: Uri? = null
-
-    private val selectPdfLauncher = registerForActivityResult(
-        ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        if (uri != null) {
-            currentFileUri = uri
-            val fileName = getFileName(uri)
-            binding.fileLocationEditText.setText(fileName)
-        } else {
-            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show()
-        }
-    }
+    private var jobId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +41,8 @@ class JobActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        jobId = intent.getStringExtra("id")
 
         binding.fileButton.setOnClickListener {
             openFilePicker()
@@ -79,45 +70,90 @@ class JobActivity : AppCompatActivity() {
                 "file", file.name, requestPdfFile
             )
 
-            jobViewModel.job(
-                nameRequestBody,
-                nikRequestBody,
-                addressRequestBody,
-                phoneRequestBody,
-                fileMultipart
-            ).observe(this) { result ->
-                when (result) {
-                    is ResultState.Loading -> {
-                        binding.progressIndicator.visibility = View.VISIBLE
+            // Check if jobId exists and call the appropriate method
+            if (jobId != null) {
+                // Update existing job
+                jobViewModel.updateJob(
+                    jobId!!,
+                    nameRequestBody,
+                    nikRequestBody,
+                    addressRequestBody,
+                    phoneRequestBody,
+                    fileMultipart
+                ).observe(this) { result ->
+                    when (result) {
+                        is ResultState.Loading -> {
+                            binding.progressIndicator.visibility = View.VISIBLE
+                        }
+                        is ResultState.Success -> {
+                            binding.progressIndicator.visibility = View.GONE
+                            Toast.makeText(
+                                this,
+                                "Application has been successfully sent",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            finishAffinity()
+                        }
+                        is ResultState.Error -> {
+                            binding.progressIndicator.visibility = View.GONE
+                            val errorMessage = result.message.let {
+                                try {
+                                    val json = JSONObject(it)
+                                    json.getString("message")
+                                } catch (e: JSONException) {
+                                    it
+                                }
+                            } ?: "An error occurred"
+                            val dialog = AlertDialog.Builder(this)
+                                .setMessage(errorMessage)
+                                .setPositiveButton("OK", null)
+                                .create()
+                            dialog.show()
+                        }
                     }
-
-                    is ResultState.Success -> {
-                        binding.progressIndicator.visibility = View.GONE
-                        Toast.makeText(
-                            this,
-                            "Application has been successfully sent",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finishAffinity()
-                    }
-
-                    is ResultState.Error -> {
-                        binding.progressIndicator.visibility = View.GONE
-                        val errorMessage = result.message.let {
-                            try {
-                                val json = JSONObject(it)
-                                json.getString("message")
-                            } catch (e: JSONException) {
-                                it
-                            }
-                        } ?: "An error occurred"
-                        val dialog = AlertDialog.Builder(this)
-                            .setMessage(errorMessage)
-                            .setPositiveButton("OK", null)
-                            .create()
-                        dialog.show()
+                }
+            } else {
+                // Create new job
+                jobViewModel.job(
+                    nameRequestBody,
+                    nikRequestBody,
+                    addressRequestBody,
+                    phoneRequestBody,
+                    fileMultipart
+                ).observe(this) { result ->
+                    when (result) {
+                        is ResultState.Loading -> {
+                            binding.progressIndicator.visibility = View.VISIBLE
+                        }
+                        is ResultState.Success -> {
+                            binding.progressIndicator.visibility = View.GONE
+                            Toast.makeText(
+                                this,
+                                "Application has been successfully sent",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            finishAffinity()
+                        }
+                        is ResultState.Error -> {
+                            binding.progressIndicator.visibility = View.GONE
+                            val errorMessage = result.message.let {
+                                try {
+                                    val json = JSONObject(it)
+                                    json.getString("message")
+                                } catch (e: JSONException) {
+                                    it
+                                }
+                            } ?: "An error occurred"
+                            val dialog = AlertDialog.Builder(this)
+                                .setMessage(errorMessage)
+                                .setPositiveButton("OK", null)
+                                .create()
+                            dialog.show()
+                        }
                     }
                 }
             }
@@ -134,6 +170,18 @@ class JobActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             openFilePicker()
+        }
+    }
+
+    private val selectPdfLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            currentFileUri = uri
+            val fileName = getFileName(uri)
+            binding.fileLocationEditText.setText(fileName)
+        } else {
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show()
         }
     }
 

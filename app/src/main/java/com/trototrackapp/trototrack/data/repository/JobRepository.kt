@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import com.trototrackapp.trototrack.data.ResultState
 import com.trototrackapp.trototrack.data.remote.response.GetJobResponse
 import com.trototrackapp.trototrack.data.remote.response.JobResponse
+import com.trototrackapp.trototrack.data.remote.response.UpdateJobResponse
 import com.trototrackapp.trototrack.data.remote.retrofit.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -16,6 +17,21 @@ class JobRepository(private val apiService: ApiService) {
             emit(ResultState.Loading)
             try {
                 val response = apiService.job(name, nik, address, phone, file)
+                if (response.isSuccessful) {
+                    emit(ResultState.Success(response.body()!!))
+                } else {
+                    emit(ResultState.Error(response.errorBody()?.string() ?: "An error occurred"))
+                }
+            } catch (e: Exception) {
+                emit(ResultState.Error(e.message ?: "An error occurred"))
+            }
+        }
+
+    fun updateJob(id: String, name: RequestBody, nik: RequestBody, address: RequestBody, phone: RequestBody, file: MultipartBody.Part): LiveData<ResultState<UpdateJobResponse>> =
+        liveData {
+            emit(ResultState.Loading)
+            try {
+                val response = apiService.updateJob(id, name, nik, address, phone, file)
                 if (response.isSuccessful) {
                     emit(ResultState.Success(response.body()!!))
                 } else {
