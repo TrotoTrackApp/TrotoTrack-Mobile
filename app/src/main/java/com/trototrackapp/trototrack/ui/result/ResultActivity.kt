@@ -37,7 +37,7 @@ class ResultActivity : AppCompatActivity() {
         binding.resultImage.setImageURI(imageUri)
 
         val backgroundColor = when (label) {
-            "Light Damaged" -> ContextCompat.getColor(this, R.color.light_yellow)
+            "Light Damaged" -> ContextCompat.getColor(this, R.color.yellow)
             "Heavy Damaged" -> ContextCompat.getColor(this, R.color.red)
             "Good" -> ContextCompat.getColor(this, R.color.green)
             else -> Color.TRANSPARENT

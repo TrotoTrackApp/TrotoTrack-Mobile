@@ -10,13 +10,16 @@ import com.trototrackapp.trototrack.data.remote.response.AddReportResponse
 import com.trototrackapp.trototrack.data.remote.response.DetailReportResponse
 import com.trototrackapp.trototrack.data.remote.response.GetAllReportsResponse
 import com.trototrackapp.trototrack.data.remote.response.GetArticleResponse
+import com.trototrackapp.trototrack.data.remote.response.GetJobResponse
 import com.trototrackapp.trototrack.data.remote.response.GetProfileResponse
 import com.trototrackapp.trototrack.data.remote.response.GetReportsUserResponse
+import com.trototrackapp.trototrack.data.remote.response.JobResponse
 import com.trototrackapp.trototrack.data.remote.response.LoginResponse
 import com.trototrackapp.trototrack.data.remote.response.NewPasswordResponse
 import com.trototrackapp.trototrack.data.remote.response.RegisterResponse
 import com.trototrackapp.trototrack.data.remote.response.ScanResponse
 import com.trototrackapp.trototrack.data.remote.response.SendOtpResponse
+import com.trototrackapp.trototrack.data.remote.response.UpdateJobResponse
 import com.trototrackapp.trototrack.data.remote.response.UpdateProfileResponse
 import com.trototrackapp.trototrack.data.remote.response.VerifyOtpResponse
 import com.trototrackapp.trototrack.data.remote.response.VoteReportResponse
@@ -102,4 +105,28 @@ interface ApiService {
     suspend fun newPassword(
         @Body request: NewPasswordRequest
     ): Response<NewPasswordResponse>
+
+    @Multipart
+    @POST("jobs")
+    suspend fun job(
+        @Part("name") name: RequestBody,
+        @Part("nik") nik: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part file: MultipartBody.Part,
+    ): Response<JobResponse>
+
+    @Multipart
+    @PUT("jobs/{id}")
+    suspend fun updateJob(
+        @Path("id") id: String,
+        @Part("name") name: RequestBody,
+        @Part("nik") nik: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part file: MultipartBody.Part
+    ): Response<UpdateJobResponse>
+
+    @GET("jobs/profile")
+    suspend fun getJob(): Response<GetJobResponse>
 }

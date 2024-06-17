@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.trototrackapp.trototrack.data.ResultState
@@ -107,7 +108,11 @@ class AddReportActivity : AppCompatActivity() {
                                 it
                             }
                         } ?: "An error occurred"
-                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                        val dialog = AlertDialog.Builder(this)
+                            .setMessage(errorMessage)
+                            .setPositiveButton("OK", null)
+                            .create()
+                        dialog.show()
                     }
                 }
             }

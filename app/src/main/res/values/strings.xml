@@ -90,8 +90,35 @@
     <string name="password_image">Password Image</string>
     <string name="otp_image">Otp Image</string>
     <string name="pilih_lokasi_laporan">Pilih Lokasi Laporan</string>
-    <string name="empty">...</string>
+    <string name="empty">…</string>
     <string name="reasontext">reasonText</string>
     <string name="reportreason">reportReason</string>
+<<<<<<< HEAD
     <string name="locationbutton">locationButton</string>
+=======
+    <string name="jobNavigation">Job</string>
+    <string name="trotojob">TrotoJob</string>
+    <string name="file_button">file_button</string>
+    <string name="job_image">job_image</string>
+    <string name="jobPageText">Do you have the skills and passion to repair damaged sidewalks? Our application provides the opportunity for you to join a professional team in improving city infrastructure.</string>
+    <string name="apply">Apply</string>
+    <string name="checkApplication">Check Application</string>
+    <string name="jobPageText2">Enter Your Personal Data</string>
+    <string name="nikText">NIK</string>
+    <string name="phoneText">Phone Number</string>
+    <string name="cvText">CV</string>
+    <string name="nameText2">Name :</string>
+    <string name="nikText2">NIK :</string>
+    <string name="addressText2">Address :</string>
+    <string name="phoneText2">Phone :</string>
+    <string name="fileText2">File :</string>
+    <string name="download">Download</string>
+    <string name="jobStatus">jobStatus</string>
+    <string name="statusText">Status :</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="all_report">All Report</string>
+    <string name="my_report">My Report</string>
+    <string name="report">Report</string>
+    <string name="send">Send</string>
+>>>>>>> 71d126fb163a28e7b95b1b69759aba23d4fc18a8
 </resources>
