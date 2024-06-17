@@ -90,7 +90,7 @@
     <string name="password_image">Password Image</string>
     <string name="otp_image">Otp Image</string>
     <string name="pilih_lokasi_laporan">Pilih Lokasi Laporan</string>
-    <string name="empty">...</string>
+    <string name="empty">…</string>
     <string name="reasontext">reasonText</string>
     <string name="reportreason">reportReason</string>
     <string name="jobNavigation">Job</string>
@@ -111,4 +111,10 @@
     <string name="fileText2">File :</string>
     <string name="download">Download</string>
     <string name="jobStatus">jobStatus</string>
+    <string name="statusText">Status :</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="all_report">All Report</string>
+    <string name="my_report">My Report</string>
+    <string name="report">Report</string>
+    <string name="send">Send</string>
 </resources>

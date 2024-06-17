@@ -19,6 +19,7 @@ import com.trototrackapp.trototrack.data.remote.response.NewPasswordResponse
 import com.trototrackapp.trototrack.data.remote.response.RegisterResponse
 import com.trototrackapp.trototrack.data.remote.response.ScanResponse
 import com.trototrackapp.trototrack.data.remote.response.SendOtpResponse
+import com.trototrackapp.trototrack.data.remote.response.UpdateJobResponse
 import com.trototrackapp.trototrack.data.remote.response.UpdateProfileResponse
 import com.trototrackapp.trototrack.data.remote.response.VerifyOtpResponse
 import com.trototrackapp.trototrack.data.remote.response.VoteReportResponse
@@ -114,6 +115,17 @@ interface ApiService {
         @Part("phone") phone: RequestBody,
         @Part file: MultipartBody.Part,
     ): Response<JobResponse>
+
+    @Multipart
+    @PUT("jobs/{id}")
+    suspend fun updateJob(
+        @Path("id") id: String,
+        @Part("name") name: RequestBody,
+        @Part("nik") nik: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part file: MultipartBody.Part
+    ): Response<UpdateJobResponse>
 
     @GET("jobs/profile")
     suspend fun getJob(): Response<GetJobResponse>

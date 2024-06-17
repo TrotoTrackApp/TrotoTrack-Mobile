@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.trototrackapp.trototrack.data.ResultState
@@ -40,21 +39,6 @@ class JobFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupObserver()
-
-        binding.applyButton.setOnClickListener {
-            if (isRegistered) {
-                AlertDialog.Builder(requireContext())
-                    .setMessage("You have registered")
-                    .setPositiveButton("OK") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .create()
-                    .show()
-            } else {
-                val intent = Intent(activity, JobActivity::class.java)
-                startActivity(intent)
-            }
-        }
     }
 
     private fun setupObserver() {
@@ -64,19 +48,46 @@ class JobFragment : Fragment() {
 
                 }
                 is ResultState.Success -> {
-                    binding.checkButton.setOnClickListener {
-                        val intent = Intent(activity, JobResultActivity::class.java).apply {
-                            putExtra("name", result.data.data?.name)
-                            putExtra("nik", result.data.data?.nik)
-                            putExtra("address", result.data.data?.address)
-                            putExtra("phone", result.data.data?.phone)
-                            putExtra("file", result.data.data?.file)
-                            putExtra("status", result.data.data?.status)
+                    val jobData = result.data.data
+                    isRegistered = jobData != null
+
+                    if (jobData == null) {
+                        binding.applyButton.isEnabled = true
+                        binding.checkButton.isEnabled = false
+                        binding.applyButton.setOnClickListener {
+                            val intent = Intent(activity, JobActivity::class.java)
+                            startActivity(intent)
                         }
-                        startActivity(intent)
+                    } else {
+                        when (jobData.status) {
+                            "Pending", "Approved" -> {
+                                binding.applyButton.isEnabled = false
+                                binding.checkButton.isEnabled = true
+                            }
+                            "Rejected" -> {
+                                binding.applyButton.isEnabled = true
+                                binding.checkButton.isEnabled = true
+                                binding.applyButton.setOnClickListener {
+                                    val intent = Intent(activity, JobActivity::class.java).apply {
+                                        putExtra("id", jobData.id)
+                                    }
+                                    startActivity(intent)
+                                }
+                            }
+                        }
+
+                        binding.checkButton.setOnClickListener {
+                            val intent = Intent(activity, JobResultActivity::class.java).apply {
+                                putExtra("name", jobData.name)
+                                putExtra("nik", jobData.nik)
+                                putExtra("address", jobData.address)
+                                putExtra("phone", jobData.phone)
+                                putExtra("file", jobData.file)
+                                putExtra("status", jobData.status)
+                            }
+                            startActivity(intent)
+                        }
                     }
-                    isRegistered = result.data.data != null
-                    binding.applyButton.isEnabled = !isRegistered
                 }
                 is ResultState.Error -> {
                     val errorMessage = result.message.let {
