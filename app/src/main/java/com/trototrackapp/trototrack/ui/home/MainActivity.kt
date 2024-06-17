@@ -33,6 +33,11 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(ReportFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
+
+                R.id.nav_job -> {
+                    loadFragment(JobFragment())
+                    return@setOnNavigationItemSelectedListener true
+                }
             }
             false
         }
