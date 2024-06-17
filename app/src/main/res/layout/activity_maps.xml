@@ -16,32 +16,48 @@
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintBottom_toBottomOf="parent"/>
 
+    <ImageButton
+        android:id="@+id/getMyLocationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/white"
+        android:padding="10dp"
+        android:src="@drawable/ic_target"
+        android:elevation="8dp"
+        map:layout_constraintBottom_toTopOf="@+id/cardView"
+        map:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/locationbutton" />
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        map:cardCornerRadius="20dp"
         android:layout_marginBottom="-20dp"
+        map:cardCornerRadius="20dp"
         map:layout_constraintBottom_toBottomOf="parent"
-        map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintEnd_toEndOf="parent">
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="40dp"
-            android:layout_marginHorizontal="20dp">
+            android:layout_marginBottom="40dp">
 
             <TextView
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pilih_lokasi_laporan"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                map:layout_constraintTop_toTopOf="parent"
                 map:layout_constraintEnd_toEndOf="parent"
-                map:layout_constraintStart_toStartOf="parent"/>
+                map:layout_constraintStart_toStartOf="parent"
+                map:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/locationAddress"
@@ -53,7 +69,7 @@
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
                 android:text="@string/empty"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 map:layout_constraintEnd_toEndOf="parent"
                 map:layout_constraintStart_toStartOf="parent"
                 map:layout_constraintTop_toBottomOf="@id/location" />
@@ -62,14 +78,14 @@
                 android:id="@+id/selectLocationButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
                 android:backgroundTint="@color/yellow"
                 android:text="@string/submit"
                 android:textSize="16sp"
-                map:layout_constraintStart_toStartOf="parent"
                 map:layout_constraintEnd_toEndOf="parent"
-                map:layout_constraintTop_toBottomOf="@id/locationAddress"/>
+                map:layout_constraintStart_toStartOf="parent"
+                map:layout_constraintTop_toBottomOf="@id/locationAddress" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

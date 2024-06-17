@@ -25,7 +25,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/appLogo" />
+        android:contentDescription="@string/appLogo"
+        android:layoutAnimation="@anim/pop_in" />
 
     <TextView
         android:id="@+id/AppName"
@@ -34,32 +35,25 @@
         android:text="@string/app_name"
         android:textSize="32sp"
         android:textStyle="bold"
+        android:letterSpacing="0.1"
         app:layout_constraintTop_toBottomOf="@id/AppLogo"
         app:layout_constraintStart_toStartOf="@id/AppLogo"
-        app:layout_constraintEnd_toEndOf="@id/AppLogo"/>
+        app:layout_constraintEnd_toEndOf="@id/AppLogo"
+        android:layoutAnimation="@anim/pop_in"/>
 
     <TextView
         android:id="@+id/Text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="75dp"
+        android:layout_marginEnd="80dp"
         android:text="@string/welcomeText1"
-        android:textSize="18sp"
+        android:textSize="14sp"
+        android:fontFamily="@font/playwrite_fr_moderne"
+        android:textStyle="bold"
+        android:layoutAnimation="@anim/slide_right"
         app:layout_constraintBottom_toBottomOf="@+id/View1"
         app:layout_constraintEnd_toStartOf="@+id/View1"
         app:layout_constraintTop_toTopOf="@+id/View1"
-        app:layout_constraintVertical_bias="0.466" />
-
-    <TextView
-        android:id="@+id/Text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:text="@string/welcomeText2"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/View2"
-        app:layout_constraintStart_toEndOf="@+id/View2"
-        app:layout_constraintTop_toTopOf="@+id/View2"
         app:layout_constraintVertical_bias="0.466" />
 
     <View
@@ -70,8 +64,24 @@
         android:layout_marginEnd="75dp"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="#F49004"
+        android:layoutAnimation="@anim/slide_right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/AppName" />
+
+    <TextView
+        android:id="@+id/Text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:text="@string/welcomeText2"
+        android:textSize="14sp"
+        android:fontFamily="@font/playwrite_fr_moderne"
+        android:textStyle="bold"
+        android:layoutAnimation="@anim/slide_left"
+        app:layout_constraintBottom_toBottomOf="@+id/View2"
+        app:layout_constraintStart_toEndOf="@+id/View2"
+        app:layout_constraintTop_toTopOf="@+id/View2"
+        app:layout_constraintVertical_bias="0.466" />
 
     <View
         android:id="@+id/View2"
@@ -81,8 +91,10 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="#F49004"
+        android:layoutAnimation="@anim/slide_left"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/View1" />
+
 
     <Button
         android:id="@+id/LoginButton"
