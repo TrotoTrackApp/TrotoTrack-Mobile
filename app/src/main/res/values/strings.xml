@@ -84,7 +84,7 @@
     <string name="enterEmailText">Enter your email</string>
     <string name="resendOtp">Resend OTP</string>
     <string name="verify">Verify</string>
-    <string name="verifyOtpText">Enter the OTP code you received from email</string>
+    <string name="verifyOtpText">Enter the OTP code</string>
     <string name="confirm">Confirm</string>
     <string name="confirmationText">Thank you for using our application. Click the button below to check the results in more detail</string>
     <string name="password_image">Password Image</string>
@@ -95,10 +95,10 @@
     <string name="reportreason">reportReason</string>
     <string name="locationbutton">locationButton</string>
     <string name="jobNavigation">Job</string>
-    <string name="trotojob">TrotoJob</string>
+    <string name="trotojob">TrotoJobs</string>
     <string name="file_button">file_button</string>
     <string name="job_image">job_image</string>
-    <string name="jobPageText">Do you have the skills and passion to repair damaged sidewalks? Our application provides the opportunity for you to join a professional team in improving city infrastructure.</string>
+    <string name="jobPageText">"Are you skilled in construction and passionate about making a difference in your community? Join our team and repair damaged sidewalks, enhancing the safety to create a better environment for our city's pedestrians. Apply now and be a part of our mission to improve urban living!"</string>
     <string name="apply">Apply</string>
     <string name="checkApplication">Check Application</string>
     <string name="jobPageText2">Enter Your Personal Data</string>
@@ -118,4 +118,5 @@
     <string name="my_report">My Report</string>
     <string name="report">Report</string>
     <string name="send">Send</string>
+    <string name="update_image">update_image</string>
 </resources>
