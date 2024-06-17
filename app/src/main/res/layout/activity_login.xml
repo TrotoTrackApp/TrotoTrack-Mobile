@@ -146,7 +146,7 @@
             android:focusable="true"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="Forget Password?"
+            android:text="@string/forget_password"
             android:textColor="@color/yellow"
             android:textSize="16sp"
             android:textStyle="bold"
