@@ -3,10 +3,13 @@ package com.trototrackapp.trototrack.ui.add
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -16,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -31,6 +35,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var centerMarker: Marker
     private lateinit var locationAddressTextView: TextView
+
+    private val markerWidth = 150
+    private val markerHeight = 150
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,21 +57,33 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         buttonDone.setOnClickListener {
             sendLocationData()
         }
+
+        val getMyLocationButton = findViewById<ImageButton>(R.id.getMyLocationButton)
+        getMyLocationButton.setOnClickListener {
+            getMyLocation()
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        mMap.uiSettings.isZoomControlsEnabled = true
-        mMap.uiSettings.isIndoorLevelPickerEnabled = true
-        mMap.uiSettings.isCompassEnabled = true
-        mMap.uiSettings.isMapToolbarEnabled = true
-
         getMyLocation()
 
         mMap.setOnMapClickListener { latLng ->
             if (!::centerMarker.isInitialized) {
-                centerMarker = mMap.addMarker(MarkerOptions().position(latLng).title("Selected Location"))!!
+                val markerIcon = Bitmap.createScaledBitmap(
+                    BitmapFactory.decodeResource(resources, R.drawable.location),
+                    markerWidth,
+                    markerHeight,
+                    false
+                )
+
+                val markerOptions = MarkerOptions()
+                    .position(latLng)
+                    .title("Selected Location")
+                    .icon(BitmapDescriptorFactory.fromBitmap(markerIcon))
+
+                centerMarker = mMap.addMarker(markerOptions)!!
             } else {
                 centerMarker.position = latLng
             }
@@ -78,11 +97,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            mMap.isMyLocationEnabled = true
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
                     val currentLatLng = LatLng(location.latitude, location.longitude)
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 20f))
                 }
             }
         } else {
@@ -114,7 +132,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             locationAddressTextView.text = "Unable to get address"
         }
     }
-
 
     private fun sendLocationData() {
         val locationName = locationAddressTextView.text.toString()
