@@ -90,15 +90,12 @@ class JobFragment : Fragment() {
                     }
                 }
                 is ResultState.Error -> {
-                    val errorMessage = result.message.let {
-                        try {
-                            val json = JSONObject(it)
-                            json.getString("message")
-                        } catch (e: JSONException) {
-                            it
-                        }
-                    } ?: "An error occurred"
-                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                    binding.applyButton.isEnabled = true
+                    binding.checkButton.isEnabled = false
+                    binding.applyButton.setOnClickListener {
+                        val intent = Intent(activity, JobActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
             }
         })

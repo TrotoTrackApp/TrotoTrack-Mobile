@@ -81,7 +81,7 @@ class HomeFragment : Fragment() {
             if (i == position)
                 dots[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.yellow))
             else
-                dots[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.light_yellow))
+                dots[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
         }
     }
 
