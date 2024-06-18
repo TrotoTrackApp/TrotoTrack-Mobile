@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
 
         list.add(SliderData(R.drawable.home1))
         list.add(SliderData(R.drawable.home2))
-        list.add(SliderData(R.drawable.app_logo))
+        list.add(SliderData(R.drawable.home3))
 
         slideAdapter = SliderAdapter(list)
         binding.viewPager.adapter = slideAdapter
