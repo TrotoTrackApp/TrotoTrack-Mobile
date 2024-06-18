@@ -12,11 +12,10 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="425dp"
             android:background="@drawable/rounded_corner3"
             android:backgroundTint="@color/yellow"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="331dp"
+            android:layout_marginBottom="-10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -37,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:text="@string/trotojob"
             android:letterSpacing="0.1"
             android:textSize="24sp"

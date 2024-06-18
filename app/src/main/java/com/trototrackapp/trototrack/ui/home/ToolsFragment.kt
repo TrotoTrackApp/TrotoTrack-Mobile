@@ -154,7 +154,7 @@ class ToolsFragment : Fragment() {
     private fun showPreCropDialog(uri: Uri) {
         AlertDialog.Builder(requireContext())
             .setTitle("Highlight Guidance")
-            .setMessage("Please highlight the picture on the damaged sidewalk")
+            .setMessage("Please highlight the section of sidewalk in your photo!")
             .setPositiveButton("OK") { _, _ ->
                 CropImage.activity(uri)
                     .setGuidelines(CropImageView.Guidelines.ON)
