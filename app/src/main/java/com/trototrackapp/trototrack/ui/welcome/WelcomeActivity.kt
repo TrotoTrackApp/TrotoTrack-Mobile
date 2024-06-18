@@ -17,20 +17,6 @@ class WelcomeActivity : AppCompatActivity() {
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val animText1 = AnimationUtils.loadAnimation(this, R.anim.slide_right)
-        binding.Text1.startAnimation(animText1)
-        binding.View1.startAnimation(animText1)
-
-        val animText2 = AnimationUtils.loadAnimation(this, R.anim.slide_left)
-        binding.Text2.startAnimation(animText2)
-        binding.View2.startAnimation(animText2)
-
-        val animAppLogo = AnimationUtils.loadAnimation(this, R.anim.pop_in)
-        binding.AppLogo.startAnimation(animAppLogo)
-
-        val animAppName = AnimationUtils.loadAnimation(this, R.anim.pop_in)
-        binding.AppName.startAnimation(animAppName)
-
         binding.LoginButton.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }

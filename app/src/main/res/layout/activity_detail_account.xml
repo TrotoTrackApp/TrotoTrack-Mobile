@@ -15,14 +15,14 @@
             android:layout_width="0dp"
             android:layout_height="500dp"
             android:background="@drawable/rounded_corner2"
-            android:backgroundTint="@color/light_yellow"
+            android:backgroundTint="@color/yellow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/avatar"

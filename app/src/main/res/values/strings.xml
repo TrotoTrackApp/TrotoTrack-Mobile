@@ -4,10 +4,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
 
-    <string name="welcomeText1">Care for Sidewalks, \nCare for Safety</string>
+    <string name="welcomeText1">Paving the Way\nfor Safer Walks</string>
     <string name="welcomeText2">Trusted Sidewalk \nSecurity Detection</string>
     <string name="loginText">Login</string>
-    <string name="signinText">Sign in</string>
+    <string name="signinText">Sign Up</string>
     <string name="appLogo">App Logo</string>
 
     <string name="loginPageText1">Login to your account</string>
@@ -32,13 +32,12 @@
     <string name="account_button">Account Button</string>
     <string name="toolsText">Tools</string>
     <string name="tools_logo">Tools Logo</string>
-    <string name="toolsText1">Use this feature to ensure the sidewalks in your community remain safe and comfortable</string>
+    <string name="toolsText1">Scan the sidewalk condition before walking and reporting</string>
     <string name="tools_image">Tools Image</string>
     <string name="trotoscan">TrotoScan!</string>
     <string name="image_holder">Image Holder</string>
     <string name="cameraText">Camera</string>
     <string name="analyzeText">Analyze</string>
-    <string name="toolsText2">Use the scan feature to find out the quality of the sidewalk before walking.</string>
     <string name="report_image">Report Image</string>
     <string name="reportStatus">Status</string>
     <string name="reportStatusDamage">Status damage</string>
@@ -119,4 +118,6 @@
     <string name="report">Report</string>
     <string name="send">Send</string>
     <string name="update_image">update_image</string>
+    <string name="address">Address</string>
+    <string name="trototrackerImage">Trototracker</string>
 </resources>
