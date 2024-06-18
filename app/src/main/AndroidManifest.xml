@@ -69,7 +69,7 @@
         <activity
             android:name=".ui.detail.DetailAccountActivity"
             android:exported="false"
-            android:label="Detail Account"
+            android:label="Account Details"
             android:theme="@style/WithActionBar" />
         <activity
             android:name=".ui.add.AddReportActivity"

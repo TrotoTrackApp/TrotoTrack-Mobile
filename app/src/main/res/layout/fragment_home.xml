@@ -93,9 +93,9 @@
             android:backgroundTint="@color/orange"
             android:fontFamily="@font/playwrite_fr_moderne"
             android:textStyle="bold"
+            android:textSize="11sp"
             android:text="@string/homeText2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.227"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/backgroundView"
             app:drawableStartCompat="@drawable/ic_phone" />
