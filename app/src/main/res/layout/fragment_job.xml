@@ -11,37 +11,48 @@
         android:layout_height="wrap_content">
 
         <View
+            android:id="@+id/view7"
             android:layout_width="match_parent"
             android:layout_height="425dp"
+            android:layout_marginBottom="-10dp"
             android:background="@drawable/rounded_corner3"
             android:backgroundTint="@color/yellow"
-            android:layout_marginBottom="-10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/jobImage"
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/job_image"
             android:src="@drawable/sidewalk_repair"
-            android:contentDescription="@string/job_image" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/construction"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/jobImage" />
 
         <TextView
             android:id="@+id/jobTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
+            android:layout_marginStart="18dp"
             android:layout_marginTop="24dp"
-            android:text="@string/trotojob"
             android:letterSpacing="0.1"
+            android:text="@string/trotojob"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@id/jobImage" />
 
         <TextView
