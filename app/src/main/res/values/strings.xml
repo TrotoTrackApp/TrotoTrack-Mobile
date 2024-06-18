@@ -4,8 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
 
-    <string name="welcomeText1">Paving the Way\nfor Safer Walks</string>
-    <string name="welcomeText2">Trusted Sidewalk \nSecurity Detection</string>
+    <string name="welcomeText1">Protect Your Path\n Protect Yourself.</string>
+    <string name="welcomeText2">Trusted Sidewalk\nSecurity Detection</string>
     <string name="loginText">Login</string>
     <string name="signinText">Sign Up</string>
     <string name="appLogo">App Logo</string>
