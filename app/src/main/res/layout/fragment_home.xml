@@ -91,7 +91,6 @@
             android:drawablePadding="10dp"
             android:background="@drawable/rounded_corner"
             android:backgroundTint="@color/orange"
-            android:fontFamily="@font/ptsans_bold"
             android:textStyle="bold|italic"
             android:textSize="14sp"
             android:text="@string/homeText2"
