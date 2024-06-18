@@ -9,9 +9,10 @@
     <View
         android:id="@+id/backgroundView"
         android:layout_width="0dp"
-        android:layout_height="550dp"
+        android:layout_height="500dp"
         android:background="@drawable/rounded_corner2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,7 +76,7 @@
         android:id="@+id/View1"
         android:layout_width="10dp"
         android:layout_height="60dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="75dp"
         android:layoutAnimation="@anim/slide_right"
         android:background="@drawable/rounded_corner"
@@ -99,30 +100,31 @@
         android:id="@+id/LoginButton"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="50dp"
         android:backgroundTint="@color/yellow"
         android:text="@string/loginText"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/SignInButton"
-        app:layout_constraintEnd_toEndOf="@+id/SignInButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/SignInButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.559"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundView" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/SignInButton"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginVertical="20dp"
         android:text="@string/signinText"
         android:textColor="@color/yellow"
         android:textSize="14sp"
         app:backgroundTint="@android:color/transparent"
         app:cornerRadius="30dp"
-        app:strokeColor="@color/yellow"
-        app:strokeWidth="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/LoginButton"
         app:layout_constraintHorizontal_bias="0.559"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="@+id/LoginButton"
+        app:layout_constraintTop_toBottomOf="@+id/LoginButton"
+        app:strokeColor="@color/yellow"
+        app:strokeWidth="3dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
