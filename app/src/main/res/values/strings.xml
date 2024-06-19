@@ -4,8 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
 
-    <string name="welcomeText1">Protect Your Path\n Protect Yourself.</string>
-    <string name="welcomeText2">Trusted Sidewalk\nSecurity Detection</string>
+    <string name="welcomeText1">Protect Your Path,\n Protect Yourself.</string>
+    <string name="welcomeText2">Your Sidewalk\n Security Detection</string>
     <string name="loginText">Login</string>
     <string name="signinText">Sign Up</string>
     <string name="appLogo">App Logo</string>
@@ -109,7 +109,7 @@
     <string name="addressText2">Address :</string>
     <string name="phoneText2">Phone :</string>
     <string name="fileText2">File :</string>
-    <string name="download">Download</string>
+    <string name="download">CV Download Here</string>
     <string name="jobStatus">jobStatus</string>
     <string name="statusText">Status :</string>
     <string name="forget_password">Forget Password?</string>

@@ -10,6 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,13 +46,13 @@
                 android:id="@+id/view5"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginStart="24dp"
                 android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="24dp"
                 android:background="@drawable/rounded_corner"
                 android:backgroundTint="@color/yellow"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/status"
                 app:layout_constraintStart_toEndOf="@id/trotoJob"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/name"
@@ -173,64 +174,39 @@
                 android:layout_marginVertical="12dp"
                 android:background="@drawable/rounded_corner"
                 android:backgroundTint="@color/gray"
-                app:layout_constraintTop_toBottomOf="@+id/phoneUser"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/phoneUser" />
 
-            <TextView
-                android:id="@+id/file"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="@string/fileText2"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/view4"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <TextView
+            <Button
                 android:id="@+id/downloadButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
+                android:layout_marginTop="32dp"
+                android:paddingVertical="0dp"
+                android:paddingHorizontal="10dp"
                 android:text="@string/download"
                 android:textSize="18sp"
-                android:clickable="true"
-                android:focusable="true"
-                android:textColor="@color/yellow"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/file"
-                app:layout_constraintStart_toEndOf="@+id/file"
-                app:layout_constraintTop_toTopOf="@+id/file"
-                app:layout_constraintVertical_bias="0.541" />
-
-            <TextView
-                android:id="@+id/statusText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="@string/statusText"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/file"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view4" />
 
             <TextView
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="32dp"
-                android:background="@drawable/rounded_corner"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
-                android:textColor="@color/white"
+                android:background="@drawable/rounded_corner3"
+                android:backgroundTint="@color/yellow"
+                android:gravity="center"
+                android:padding="10dp"
                 android:text="@string/jobStatus"
+                android:textColor="@color/white"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/statusText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
