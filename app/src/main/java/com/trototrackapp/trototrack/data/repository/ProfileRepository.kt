@@ -10,11 +10,11 @@ import com.trototrackapp.trototrack.data.remote.retrofit.ApiService
 
 class ProfileRepository(private val apiService: ApiService) {
 
-    fun updateProfile(name: String, username: String, email: String): LiveData<ResultState<UpdateProfileResponse>> =
+    fun updateProfile(name: String, username: String): LiveData<ResultState<UpdateProfileResponse>> =
         liveData {
             emit(ResultState.Loading)
             try {
-                val request = UpdateProfileRequest(name, username, email)
+                val request = UpdateProfileRequest(name, username)
                 val response = apiService.updateProfile(request)
                 if (response.isSuccessful) {
                     emit(ResultState.Success(response.body()!!))
