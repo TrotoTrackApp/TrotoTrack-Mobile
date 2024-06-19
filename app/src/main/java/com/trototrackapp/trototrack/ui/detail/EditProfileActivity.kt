@@ -31,10 +31,9 @@ class EditProfileActivity : AppCompatActivity() {
         binding.submitButton.setOnClickListener {
             val name = binding.nameEditText.text.toString()
             val username = binding.usernameEditText.text.toString()
-            val email = binding.emailEditText.text.toString()
 
             binding.progressIndicator.visibility = View.VISIBLE
-            profileViewModel.updateProfile(name, username, email).observe(this) { result ->
+            profileViewModel.updateProfile(name, username).observe(this) { result ->
                 when (result) {
                     is ResultState.Loading -> {
                         binding.progressIndicator.visibility = View.VISIBLE
