@@ -112,7 +112,10 @@ class AllReportFragment : Fragment() {
         })
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        setupObserver()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

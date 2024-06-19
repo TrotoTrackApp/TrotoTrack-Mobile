@@ -56,6 +56,15 @@ class DetailReportActivity : AppCompatActivity() {
                                     is ResultState.Success -> {
                                         binding.progressIndicator.visibility = View.GONE
                                         Toast.makeText(this@DetailReportActivity, "Vote success", Toast.LENGTH_SHORT).show()
+
+                                        reportViewModel.getReportDetail(reportId).observe(this@DetailReportActivity) { reportResult ->
+                                            if (reportResult is ResultState.Success) {
+                                                val updatedReportDetail = reportResult.data.data
+                                                if (updatedReportDetail != null) {
+                                                    binding.reportVote.text = updatedReportDetail.like.toString()
+                                                }
+                                            }
+                                        }
                                     }
 
                                     is ResultState.Error -> {
