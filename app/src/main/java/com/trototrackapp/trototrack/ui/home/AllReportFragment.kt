@@ -56,13 +56,24 @@ class AllReportFragment : Fragment() {
                     when (result) {
                         is ResultState.Loading -> {
                             binding.progressIndicator.visibility = View.VISIBLE
+                            binding.emptyView.visibility = View.GONE
+                            binding.recycleViewReports.visibility = View.GONE
                         }
                         is ResultState.Success -> {
                             binding.progressIndicator.visibility = View.GONE
-                            allReportsAdapter.submitList(result.data.data)
+                            if (result.data.data.isNullOrEmpty()) {
+                                binding.emptyView.visibility = View.VISIBLE
+                                binding.recycleViewReports.visibility = View.GONE
+                            } else {
+                                binding.emptyView.visibility = View.GONE
+                                binding.recycleViewReports.visibility = View.VISIBLE
+                                allReportsAdapter.submitList(result.data.data)
+                            }
                         }
                         is ResultState.Error -> {
                             binding.progressIndicator.visibility = View.GONE
+                            binding.emptyView.visibility = View.VISIBLE
+                            binding.recycleViewReports.visibility = View.GONE
                             val errorMessage = result.message.let {
                                 try {
                                     val json = JSONObject(it)
@@ -79,10 +90,8 @@ class AllReportFragment : Fragment() {
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-
                 return true
             }
-
         })
     }
 
@@ -91,13 +100,24 @@ class AllReportFragment : Fragment() {
             when (result) {
                 is ResultState.Loading -> {
                     binding.progressIndicator.visibility = View.VISIBLE
+                    binding.emptyView.visibility = View.GONE
+                    binding.recycleViewReports.visibility = View.GONE
                 }
                 is ResultState.Success -> {
                     binding.progressIndicator.visibility = View.GONE
-                    allReportsAdapter.submitList(result.data.data)
+                    if (result.data.data.isNullOrEmpty()) {
+                        binding.emptyView.visibility = View.VISIBLE
+                        binding.recycleViewReports.visibility = View.GONE
+                    } else {
+                        binding.emptyView.visibility = View.GONE
+                        binding.recycleViewReports.visibility = View.VISIBLE
+                        allReportsAdapter.submitList(result.data.data)
+                    }
                 }
                 is ResultState.Error -> {
                     binding.progressIndicator.visibility = View.GONE
+                    binding.emptyView.visibility = View.VISIBLE
+                    binding.recycleViewReports.visibility = View.GONE
                     val errorMessage = result.message.let {
                         try {
                             val json = JSONObject(it)
