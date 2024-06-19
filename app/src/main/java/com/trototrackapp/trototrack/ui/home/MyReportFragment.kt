@@ -72,4 +72,9 @@ class MyReportFragment : Fragment() {
             }
         })
     }
+
+    override fun onResume() {
+        super.onResume()
+        setupObserver()
+    }
 }
