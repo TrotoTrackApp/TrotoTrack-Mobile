@@ -48,7 +48,7 @@ Follow these steps to set up and run the project locally:
 
    ```bash
    git clone https://github.com/TrotoTrackApp/TrotoTrack-Mobile.git
-   cd MyAwesomeApp
+   cd TrotoTrack-Mobile
 
 2. **Open the project in Android Studio**
     - Launch Android Studio.
